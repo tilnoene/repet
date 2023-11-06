@@ -1,10 +1,10 @@
-import { ContainerPage } from './styles';
+import Page from '../../components/Page';
 
 const NotFound = () => {
   return (
-    <ContainerPage>
+    <Page>
       <div>Not Found</div>
-    </ContainerPage>
+    </Page>
   );
 };
 

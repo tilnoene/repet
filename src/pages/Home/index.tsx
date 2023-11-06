@@ -1,10 +1,93 @@
+import Page from '../../components/Page';
+
 import { ContainerPage } from './styles';
 
 const Home = () => {
   return (
-    <ContainerPage>
-      <div>Home</div>
-    </ContainerPage>
+    <Page>
+      <div>ola</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>oi gente</div>
+      <div>ola</div>
+    </Page>
   );
 };
 

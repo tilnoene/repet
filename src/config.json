@@ -1,0 +1,14 @@
+{
+  "colors": {
+    "primaryBlue": "#008DFF",
+    "secondaryBlue": "#006BE9",
+    "primaryText": "#272E28",
+    "secondaryText": "#666666",
+    "gray": "#D8DEE3",
+    "background": "#F5F7FA",
+    "red": "#EF233C",
+    "green": "#48B755",
+    "yellow": "#FFD60A",
+    "white": "#FFFFFF"
+  }
+}

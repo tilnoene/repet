@@ -1,5 +1,3 @@
-## Libraries
-
-- styled-components
-- react-router-dom
-- 
+- intalar o nodejs
+- instalar o yarn
+- yarn install
