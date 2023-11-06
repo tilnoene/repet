@@ -1,10 +1,8 @@
 import Page from '../../components/Page';
 
-import { ContainerPage } from './styles';
-
-const Home = () => {
+const Reminders = () => {
   return (
-    <Page>
+    <Page menuOption={1}>
       <div>ola</div>
       <div>oi gente</div>
       <div>oi gente</div>
@@ -91,4 +89,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Reminders;

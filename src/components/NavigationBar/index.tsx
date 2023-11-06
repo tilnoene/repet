@@ -9,7 +9,7 @@ import profile_icon from '../../assets/icons/profile.svg';
 
 import { Container } from './styles';
 
-const NavigationBar = ({ option = 1 }: { option?: number }) => {
+const NavigationBar = ({ option = 0 }: { option?: number }) => {
   return (
     <Container>
       <Link to="/">
