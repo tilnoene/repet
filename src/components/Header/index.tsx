@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <Container>
       <p>oi</p>
-      <PrimaryText>rePET</PrimaryText>
+      <PrimaryText isWhite>rePET</PrimaryText>
       <p>oi</p>
     </Container>
   );

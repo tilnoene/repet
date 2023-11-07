@@ -1,90 +1,33 @@
+import { useState, useEffect } from 'react';
+
 import Page from '../../components/Page';
+import CardReminder from '../../components/CardReminder';
+
+import { ContainerCards } from './styles';
+
+import api from '../../services/api';
+import PrimaryText from '../../components/PrimaryText';
 
 const Reminders = () => {
+  const [reminders, setReminders] = useState<Reminder[]>([]);
+
+  useEffect(() => {
+    api.get('/reminder').then((response: any) => setReminders(response.data));
+  }, []);
+
   return (
     <Page menuOption={1}>
-      <div>ola</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>oi gente</div>
-      <div>ola</div>
+      <div>
+        <PrimaryText>Meus Lembretes</PrimaryText>
+      </div>
+
+      <br />
+
+      <ContainerCards>
+        {reminders.map(reminder => (
+          <CardReminder reminder={reminder} key={reminder.id} />
+        ))}
+      </ContainerCards>
     </Page>
   );
 };

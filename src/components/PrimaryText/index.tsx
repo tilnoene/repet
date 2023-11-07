@@ -1,7 +1,15 @@
 import { Text } from './styles';
 
-const PrimaryText = ({ children }: any) => {
-  return <Text>{children}</Text>
-}
+const PrimaryText = ({
+  isWhite = false,
+  fontSize = "20px",
+  children,
+}: {
+  isWhite?: boolean;
+  fontSize?: string;
+  children: any;
+}) => {
+  return <Text isWhite={isWhite} fontSize={fontSize}>{children}</Text>;
+};
 
 export default PrimaryText;
