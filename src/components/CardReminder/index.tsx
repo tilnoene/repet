@@ -18,7 +18,7 @@ const CardReminder = ({ reminder, ...props }: { reminder: any }) => {
 
         <div>
           {reminder.attributes.map((attribute: string, index: number) => (
-            <SecondaryText key={index}>{attribute}</SecondaryText>
+            <SecondaryText key={index}>• {attribute}</SecondaryText>
           ))}
         </div>
 
