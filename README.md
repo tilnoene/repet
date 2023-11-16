@@ -43,9 +43,9 @@ E [CapacitorJS](https://capacitorjs.com/), para a versão mobile.
 
 Instale o [NodeJS](https://nodejs.org/en/download).
 
-Instale o `yarn` e o `json-server`
+Instale o `yarn`
 ```sh
-npm install --global yarn json-server
+npm install --global yarn
 ```
 
 Instale as dependências do projeto

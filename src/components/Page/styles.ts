@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import config from '../../config.json';
 
 export const ContainerPage = styled.div`
-  height: 100vh;
+  max-height: 100vh;
   background-color: ${ config.colors.background };
 `;
 

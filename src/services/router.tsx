@@ -5,6 +5,7 @@ import Reminders from '../pages/Reminders';
 import Pets from '../pages/Pets';
 import Records from '../pages/Records';
 import Profile from '../pages/Profile';
+import Settings from '../pages/Settings';
 
 const Router = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const Router = () => (
       <Route path="/pets" element={<Pets />} />
       <Route path="/records" element={<Records />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/settings" element={<Settings />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

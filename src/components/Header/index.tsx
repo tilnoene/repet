@@ -1,12 +1,23 @@
-import { Container } from './styles';
+import { Link } from "react-router-dom";
+
 import PrimaryText from '../PrimaryText';
+import Icon from '../Icon';
+
+import { Container } from './styles';
+
+import settingsIcon from '../../assets/icons/settings.svg';
+// import dotsIcon from '../../assets/icons/dots.svg';
 
 const Header = () => {
   return (
     <Container>
-      <p>oi</p>
+      {/* <Icon src={dotsIcon} /> */}
+
       <PrimaryText isWhite>rePET</PrimaryText>
-      <p>oi</p>
+
+      <Link to="/settings">
+        <Icon src={settingsIcon} />
+      </Link>
     </Container>
   );
 }
