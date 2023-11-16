@@ -2,7 +2,7 @@ import Page from '../../components/Page';
 
 const Settings = () => {
   return (
-    <Page menuOption={4}>
+    <Page>
       <div>Configurações</div>
     </Page>
   );
