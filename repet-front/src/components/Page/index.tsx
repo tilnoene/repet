@@ -8,16 +8,18 @@ const Page = ({
   children,
   menuOption = 0,
   loading = true,
+  padding = true,
 }: {
   children: any;
   menuOption?: number;
   loading?: boolean;
+  padding?: boolean;
 }) => {
   return (
     <ContainerPage>
       <Header />
 
-      <Content centered={loading}>
+      <Content centered={loading} padding={padding && !loading}>
         {loading ? <Loading /> : <>{children}</>}
       </Content>
 

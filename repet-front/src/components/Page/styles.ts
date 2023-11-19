@@ -9,13 +9,14 @@ export const ContainerPage = styled.div`
 
 type ContentProps = {
   centered: boolean;
+  padding: boolean;
 }
 
 export const Content = styled.div<ContentProps>`
   height: calc(100vh - 60px - 60px);
   margin-top: 60px;
   overflow: scroll;
-  padding: 18px;
+  padding: ${ props => props.padding ? '18px' : '0' };
   overflow-x: hidden;
   display: ${ props => props.centered ? 'flex' : 'flow' };
   justify-content: center;
