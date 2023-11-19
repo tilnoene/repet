@@ -36,6 +36,9 @@ class Vaccine(models.Model):
     id = models.IntegerField(primary_key=True)
     record_id = models.ForeignKey(Records)
     pet_id = models.ForeignKey()
+    veterinarian = models.CharField(max_length=50)
+    place = models.CharField()
+    vaccine_card = models.ImageField()
 
 class Reminders(models.Model):
     id = models.IntegerField(primary_key=True)
