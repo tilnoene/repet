@@ -6,6 +6,7 @@ import Pets from '../pages/Pets';
 import Records from '../pages/Records';
 import Profile from '../pages/Profile';
 import Settings from '../pages/Settings';
+import PetProfile from '../pages/PetProfile';
 
 const Router = () => (
   <BrowserRouter>
@@ -15,6 +16,7 @@ const Router = () => (
       <Route path="/records" element={<Records />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/pet/:id" element={<PetProfile />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

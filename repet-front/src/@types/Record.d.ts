@@ -1,11 +1,11 @@
 import { Dayjs } from 'dayjs';
 
-type Reminder = {
+interface Record {
   id: number;
   title: string;
   description: string;
-  date?: Dayjs;
+  date: Dayjs;
   pet: {
     name: string;
   };
-};
+}

@@ -7,6 +7,7 @@ import { ContainerCards } from './styles';
 
 import api from '../../services/api';
 import PrimaryText from '../../components/PrimaryText';
+import { Reminder } from '../../@types/Reminder';
 
 const Reminders = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
