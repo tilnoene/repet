@@ -7,17 +7,28 @@ import { ContainerCards } from './styles';
 
 import api from '../../services/api';
 import PrimaryText from '../../components/PrimaryText';
+
 import { Reminder } from '../../@types/Reminder';
 
 const Reminders = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const getReminders = () => {
+    setLoading(true);
+
+    api.get('/reminder').then((response: any) => {
+      setReminders(response.data);
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
-    api.get('/reminder').then((response: any) => setReminders(response.data));
+    getReminders();
   }, []);
 
   return (
-    <Page menuOption={1}>
+    <Page menuOption={1} loading={loading}>
       <div>
         <PrimaryText>Meus Lembretes</PrimaryText>
       </div>

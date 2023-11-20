@@ -21,5 +21,4 @@ export const Content = styled.div<ContentProps>`
   display: ${ props => props.centered ? 'flex' : 'flow' };
   justify-content: center;
   align-items: center;
-  overflow-y: hidden;
   `;

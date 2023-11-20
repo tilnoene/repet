@@ -2,7 +2,7 @@ import Page from '../../components/Page';
 
 const NotFound = () => {
   return (
-    <Page>
+    <Page loading={false}>
       <div>Not Found</div>
     </Page>
   );

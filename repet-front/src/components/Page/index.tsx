@@ -7,7 +7,7 @@ import { ContainerPage, Content } from './styles';
 const Page = ({
   children,
   menuOption = 0,
-  loading = true,
+  loading = false,
   padding = true,
 }: {
   children: any;
