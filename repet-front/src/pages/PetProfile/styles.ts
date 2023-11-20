@@ -28,4 +28,43 @@ export const ProfileCard = styled.div`
   border-radius: 24px 24px 0 0;
   margin-top: -24px;
   box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+`;
+
+export const CardHeader = styled.div`
+
+`;
+
+export const CardHeaderTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const CardHeaderIcons = styled.div`
+
+`
+
+export const CardContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 22px;
+
+`
+
+export const CardColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const CardTopic = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 `;
