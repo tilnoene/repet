@@ -5,14 +5,26 @@ import api from '../../services/api';
 
 const Pets = () => {
   const [pets, setPets] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const getPets = () => {
+    setLoading(true);
+
+    api.get('/pet').then(response => {
+      setPets(response.data);
+      setLoading(false);
+    });
+  };
 
   useEffect(() => {
-    api.get('/pet').then(response => setPets(response.data));
+    getPets();
   }, []);
 
   return (
-    <Page menuOption={2}>
-      {pets.map((pet: any) => <div>{pet.name}</div>)}
+    <Page menuOption={2} loading={loading}>
+      {pets.map((pet: any) => (
+        <div key={pet.id}>{pet.name}</div>
+      ))}
     </Page>
   );
 };
