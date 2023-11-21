@@ -12,11 +12,11 @@ class Users(models.Model):
 
 class Pets(models.Model):
     id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(Users)
-    name = models.CharField()
-    gender = models.CharField()
+    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    gender = models.CharField(max_length=50)
     birthdate = models.DateField()
-    breed = models.CharField()
+    breed = models.CharField(max_length=100)
     weight = models.IntegerField()
     created_at = models.DateField()
 
@@ -25,8 +25,8 @@ class Pets(models.Model):
 
 class Records(models.Model):
     id = models.IntegerField(primary_key=True)
-    pet_id = models.ForeignKey(Pets)
-    title = models.CharField()
+    pet_id = models.ForeignKey(Pets, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
     description = models.TextField()
     date = models.DateField()
     time = models.TimeField()
@@ -34,16 +34,16 @@ class Records(models.Model):
 
 class Vaccine(models.Model):
     id = models.IntegerField(primary_key=True)
-    record_id = models.ForeignKey(Records)
-    pet_id = models.ForeignKey()
+    record_id = models.ForeignKey(Records, on_delete=models.CASCADE)
+    pet_id = models.ForeignKey(Pets, on_delete=models.CASCADE)
     veterinarian = models.CharField(max_length=50)
-    place = models.CharField()
+    place = models.CharField(max_length=100)
     vaccine_card = models.ImageField()
 
 class Reminders(models.Model):
     id = models.IntegerField(primary_key=True)
-    pet_id = models.ForeignKey(Pets)
-    title = models.CharField()
+    pet_id = models.ForeignKey(Pets, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateField()
     time = models.TimeField()
