@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 type ContainerIconProps = {
   isBlue?: boolean;
+  size: string;
 }
 
 export const ContainerIcon = styled.img<ContainerIconProps>`
@@ -10,5 +11,5 @@ export const ContainerIcon = styled.img<ContainerIconProps>`
     :
     "filter: invert(97%) sepia(3%) saturate(845%) hue-rotate(177deg) brightness(90%) contrast(97%)"
   };
-  width: 36px;
+  width: ${ props => props.size };
 `;

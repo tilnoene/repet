@@ -35,7 +35,9 @@ export const ProfileCard = styled.div`
 `;
 
 export const CardHeader = styled.div`
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const CardHeaderTitle = styled.div`
@@ -45,7 +47,8 @@ export const CardHeaderTitle = styled.div`
 `;
 
 export const CardHeaderIcons = styled.div`
-
+  display: flex;
+  gap: 12px;
 `
 
 export const CardContent = styled.div`

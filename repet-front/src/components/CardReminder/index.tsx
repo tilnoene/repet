@@ -4,7 +4,7 @@ import SecondaryText from '../SecondaryText';
 
 import { BackroundColor, Content, Footer, Header } from './styles';
 
-const CardReminder = ({ reminder, ...props }: { reminder: any }) => {
+const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: tipar
   return (
     <Card {...props}>
       <BackroundColor color={reminder.color} />

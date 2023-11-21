@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 
 import Page from '../../components/Page';
+import CardPet from '../../components/CardPet';
+import PrimaryText from '../../components/PrimaryText';
+
 import api from '../../services/api';
+import { ContainerCards } from './styles';
 
 const Pets = () => {
   const [pets, setPets] = useState<any>([]);
@@ -22,9 +26,17 @@ const Pets = () => {
 
   return (
     <Page menuOption={2} loading={loading}>
-      {pets.map((pet: any) => (
-        <div key={pet.id}>{pet.name}</div>
-      ))}
+      <div>
+        <PrimaryText>Meus Pets</PrimaryText>
+      </div>
+
+      <br />
+
+      <ContainerCards>
+        {pets.map((pet: any) => (
+          <CardPet pet={pet} key={pet.id} />
+        ))}
+      </ContainerCards>
     </Page>
   );
 };

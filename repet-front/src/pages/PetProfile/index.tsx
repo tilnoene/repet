@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Page from '../../components/Page';
+import PrimaryText from '../../components/PrimaryText';
+import SecondaryText from '../../components/SecondaryText';
+import Icon from '../../components/Icon';
 
 import { ContainerPage, ProfileCard, Image, CardHeader, CardHeaderTitle, CardHeaderIcons, CardContent, CardColumn, CardTopic } from './styles';
 
 import api from '../../services/api';
 
+import penIcon from '../../assets/icons/pencil.svg';
+import shareIcon from '../../assets/icons/share.svg';
+
 import angora from '../../assets/images/angora.png';
-import PrimaryText from '../../components/PrimaryText';
-import SecondaryText from '../../components/SecondaryText';
 import dayjs from 'dayjs';
 
 const PetProfile = () => {
@@ -47,7 +51,8 @@ const PetProfile = () => {
             </CardHeaderTitle>
 
             <CardHeaderIcons>
-              {/* TODO: icones */}
+              <Icon src={penIcon} isBlue size={"32px"} />
+              <Icon src={shareIcon} isBlue size={"32px"} />
             </CardHeaderIcons>
           </CardHeader>
 
