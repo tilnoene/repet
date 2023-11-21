@@ -10,7 +10,7 @@ const Pets = () => {
   const getPets = () => {
     setLoading(true);
 
-    api.get('/pet').then(response => {
+    api.get('/pets').then(response => {
       setPets(response.data);
       setLoading(false);
     });

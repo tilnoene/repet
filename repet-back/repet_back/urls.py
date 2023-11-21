@@ -21,6 +21,7 @@ from polls import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserView, 'users')
+router.register(r'pets', views.PetView, 'users')
 
 urlpatterns = [
     path("", include("polls.urls")),

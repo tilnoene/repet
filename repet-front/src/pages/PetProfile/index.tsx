@@ -22,7 +22,7 @@ const PetProfile = () => {
     setLoading(true);
 
     api
-      .get(`/pet/${id}`)
+      .get(`/pets/${id}`)
       .then((response: any) => {
         setPet(response.data);
         setLoading(false);
