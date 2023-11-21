@@ -6,7 +6,7 @@
     "start": "react-scripts start",
     "start:dev": "concurrently --kill-others \"yarn api\" \"yarn start\"",
     "dev": "yarn start:dev",
-    "api": "json-server --watch db.development.json --port 4000 --routes routes.development.json",
+    "api": "json-server --watch db.development.json --port 4000 --routes routes.development.json --delay 300",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
