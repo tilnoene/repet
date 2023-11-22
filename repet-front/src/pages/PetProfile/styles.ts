@@ -23,7 +23,8 @@ export const Image = styled.div<ImageProps>`
 
 export const ProfileCard = styled.div`
   background: ${ config.colors.background };
-  height: calc(100% - 240px + 24px);
+  height: fit-content;
+  min-height: calc(100% - 240px + 24px);
   z-index: 2;
   border-radius: 24px 24px 0 0;
   margin-top: -24px;
@@ -50,24 +51,27 @@ export const CardHeaderIcons = styled.div`
   display: flex;
   gap: 12px;
 `
-
-export const CardContent = styled.div`
-  width: 100%;
-  height: 100%;
+export const PetInfo = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 22px;
-
-`
+`;
 
 export const CardColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 `;
 
 export const CardTopic = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1px;
+`;
+
+export const ContainerCards = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;

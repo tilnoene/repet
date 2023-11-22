@@ -8,7 +8,7 @@ import { ContainerCard } from './styles';
 const CardPet = ({ pet, ...props }: { pet: any }) => {
   // TODO: tipar pet
   return (
-    <Link to={`/pet/${pet.id}`}>
+    <Link to={`/pets/${pet.id}`}>
       <Card {...props}>
         <ContainerCard>
           <PrimaryText fontSize="16px">{pet.name}</PrimaryText>

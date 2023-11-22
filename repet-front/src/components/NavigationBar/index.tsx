@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import Icon from '../Icon';
 
@@ -13,19 +13,19 @@ const NavigationBar = ({ option = 0 }: { option?: number }) => {
   return (
     <Container>
       <Link to="/">
-        <Icon src={calendar_icon} isBlue={option === 1} />
+        <Icon src={calendar_icon} color={option === 1 ? 'blue' : 'gray'} />
       </Link>
 
       <Link to="/pets">
-        <Icon src={paw_icon} isBlue={option === 2} />
+        <Icon src={paw_icon} color={option === 2 ? 'blue' : 'gray'} />
       </Link>
 
       <Link to="/records">
-        <Icon src={document_icon} isBlue={option === 3} />
+        <Icon src={document_icon} color={option === 3 ? 'blue' : 'gray'} />
       </Link>
 
       <Link to="/profile">
-        <Icon src={profile_icon} isBlue={option === 4} />
+        <Icon src={profile_icon} color={option === 4 ? 'blue' : 'gray'} />
       </Link>
     </Container>
   );

@@ -1,5 +1,5 @@
 {
-  "pet": [
+  "pets": [
     {
       "id": 1,
       "name": "Mingau",
@@ -19,7 +19,7 @@
       "birthdate": "19/10/2021"
     }
   ],
-  "reminder": [
+  "reminders": [
     {
       "id": 1,
       "title": "Vacinação",
@@ -103,6 +103,15 @@
         "MedVet"
       ],
       "color": "#FFD60A"
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "title": "Banho",
+      "pet_name": "Mingau",
+      "date": "19/10/2023",
+      "time": "11:00"
     }
   ]
 }

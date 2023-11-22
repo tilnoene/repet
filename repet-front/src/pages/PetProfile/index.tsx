@@ -6,7 +6,18 @@ import PrimaryText from '../../components/PrimaryText';
 import SecondaryText from '../../components/SecondaryText';
 import Icon from '../../components/Icon';
 
-import { ContainerPage, ProfileCard, Image, CardHeader, CardHeaderTitle, CardHeaderIcons, CardContent, CardColumn, CardTopic } from './styles';
+import {
+  ContainerPage,
+  ProfileCard,
+  Image,
+  CardHeader,
+  CardHeaderTitle,
+  CardHeaderIcons,
+  CardColumn,
+  CardTopic,
+  PetInfo,
+  ContainerCards,
+} from './styles';
 
 import api from '../../services/api';
 
@@ -21,73 +32,113 @@ const PetProfile = () => {
 
   const [pet, setPet] = useState<any>(); // TODO: tipar pet
   const [loading, setLoading] = useState<boolean>(true);
+  const [vaccines, setVaccines] = useState<any>([]); // TODO: tipar
+  const [records, setRecords] = useState<any>([]); // TODO: tipar
 
-  const handleGetPet = () => {
+  const getPet = () => {
     setLoading(true);
 
     api
-      .get(`/pet/${id}`)
+      .get(`/pets/${id}`)
       .then((response: any) => {
         setPet(response.data);
         setLoading(false);
       })
-      .catch((error: any) => console.error(error));
+      .catch((error: any) => console.error(error)); // TODO: toastify
+  };
+
+  const getPetVaccines = () => {
+    api
+      .get(`/pets/${id}?=vaccines`) // TODO: como?
+      .then((response: any) => {
+        setVaccines(response.data);
+      })
+      .catch((error: any) => console.error(error)); // TODO: toastify
+  };
+
+  const getPetRecords = () => {
+    api
+      .get(`/reminders`) // TODO: como?
+      .then((response: any) => {
+        setRecords(response.data);
+      })
+      .catch((error: any) => console.error(error)); // TODO: toastify
   };
 
   useEffect(() => {
-    handleGetPet();
+    getPet();
+    getPetVaccines();
+    getPetRecords();
   }, []);
 
   return (
     <Page menuOption={2} loading={loading} padding={false}>
-      {pet && <ContainerPage>
-        <Image src={angora} />
+      {pet && (
+        <ContainerPage>
+          <Image src={angora} />
 
-        <ProfileCard>
-          <CardHeader>
-            <CardHeaderTitle>
-              <PrimaryText>{pet.name}</PrimaryText>
-              <SecondaryText>{pet.type}</SecondaryText>
-            </CardHeaderTitle>
+          <ProfileCard>
+            <CardHeader>
+              <CardHeaderTitle>
+                <PrimaryText>{pet.name}</PrimaryText>
+                <SecondaryText>{pet.type}</SecondaryText>
+              </CardHeaderTitle>
 
-            <CardHeaderIcons>
-              <Icon src={penIcon} isBlue size={"32px"} />
-              <Icon src={shareIcon} isBlue size={"32px"} />
-            </CardHeaderIcons>
-          </CardHeader>
+              <CardHeaderIcons>
+                <Icon src={penIcon} color='blue' size={'32px'} />
+                <Icon src={shareIcon} color='blue' size={'32px'} />
+              </CardHeaderIcons>
+            </CardHeader>
 
-          <CardContent>
-            <CardColumn>
-              <CardTopic>
-                <SecondaryText>Raça</SecondaryText>
-                <PrimaryText>{pet.breed}</PrimaryText>
-              </CardTopic>
+            <PetInfo>
+              <CardColumn>
+                <CardTopic>
+                  <SecondaryText>Raça</SecondaryText>
+                  <PrimaryText fontSize="18px">{pet.breed}</PrimaryText>
+                </CardTopic>
 
-              <CardTopic>
-                <SecondaryText>Data de Nascimento</SecondaryText>
-                <PrimaryText>{pet.birthdate}</PrimaryText>
-              </CardTopic>
+                <CardTopic>
+                  <SecondaryText>Data de Nascimento</SecondaryText>
+                  <PrimaryText fontSize="18px">{pet.birthdate}</PrimaryText>
+                </CardTopic>
 
-              <CardTopic>
-                <SecondaryText>Peso</SecondaryText>
-                <PrimaryText>{pet.weight} kg</PrimaryText>
-              </CardTopic>
-            </CardColumn>
+                <CardTopic>
+                  <SecondaryText>Peso</SecondaryText>
+                  <PrimaryText fontSize="18px">{pet.weight} kg</PrimaryText>
+                </CardTopic>
+              </CardColumn>
 
-            <CardColumn>
-              <CardTopic>
-                <SecondaryText>Sexo</SecondaryText>
-                <PrimaryText>{pet.gender}</PrimaryText>
-              </CardTopic>
+              <CardColumn>
+                <CardTopic>
+                  <SecondaryText>Sexo</SecondaryText>
+                  <PrimaryText fontSize="18px">{pet.gender}</PrimaryText>
+                </CardTopic>
 
-              <CardTopic>
-                <SecondaryText>Idade</SecondaryText>
-                <PrimaryText>{dayjs().diff(dayjs(new Date(2018, 8, 18)), 'year')} anos</PrimaryText>
-              </CardTopic>
-            </CardColumn>
-          </CardContent>
-        </ProfileCard>
-      </ContainerPage>}
+                <CardTopic>
+                  <SecondaryText>Idade</SecondaryText>
+                  <PrimaryText fontSize="18px">
+                    {dayjs().diff(dayjs(new Date(2018, 8, 18)), 'year')} anos
+                  </PrimaryText>
+                </CardTopic>
+              </CardColumn>
+            </PetInfo>
+
+            <ContainerCards>
+              <PrimaryText>Vacinas</PrimaryText>
+
+              {/* TODO: card de vacina */}
+            </ContainerCards>
+
+            <ContainerCards>
+              <PrimaryText>Registros</PrimaryText>
+
+              {records.map((record: any) => (
+                <div key={record.id}>{record.title}</div>
+              ))}
+            </ContainerCards>
+          </ProfileCard>
+        </ContainerPage>
+      )}
     </Page>
   );
 };
