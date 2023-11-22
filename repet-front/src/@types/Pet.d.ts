@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-type Animal = {
+type Pet = {
   id: number;
   name: string;
   gender: string;
