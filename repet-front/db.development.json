@@ -26,10 +26,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus, risus eget auctor aliquam, nibh nisi bibendum neque, nec lacinia turpis est vitae ante.",
       "color": "#EF233C"
     },
     {
@@ -38,10 +35,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#48B755"
     },
     {
@@ -50,10 +44,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#FFD60A"
     },
     {
@@ -62,10 +53,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#48B755"
     },
     {
@@ -74,10 +62,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#FFD60A"
     },
     {
@@ -86,10 +71,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#FFD60A"
     },
     {
@@ -98,10 +80,7 @@
       "pet_name": "Mingau",
       "date": "19/10/2023",
       "time": "11:00",
-      "attributes": [
-        "Ester Rocha",
-        "MedVet"
-      ],
+      "description": "Ester Rocha - MedVet",
       "color": "#FFD60A"
     }
   ],

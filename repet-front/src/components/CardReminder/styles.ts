@@ -28,5 +28,6 @@ export const Footer = styled.div`
   align-items: start;
   display: flex;
   justify-content: end;
+  margin-top: 8px;
 `;
 

@@ -16,11 +16,9 @@ const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: t
           <PrimaryText fontSize="16px">{reminder.pet_name}</PrimaryText>
         </Header>
 
-        <div>
-          {reminder.attributes.map((attribute: string, index: number) => (
-            <SecondaryText key={index}>• {attribute}</SecondaryText>
-          ))}
-        </div>
+        <SecondaryText>
+          {reminder.description}
+        </SecondaryText>
 
         <Footer>
           <SecondaryText>

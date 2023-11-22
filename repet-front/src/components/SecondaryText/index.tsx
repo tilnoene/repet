@@ -1,7 +1,7 @@
 import { Text } from './styles';
 
-const SecondaryText = ({ children }: any) => {
-  return <Text>{children}</Text>
+const SecondaryText = ({ children, ...props }: any) => {
+  return <Text {...props}>{children}</Text>
 }
 
 export default SecondaryText;
