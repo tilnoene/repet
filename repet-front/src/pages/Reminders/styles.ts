@@ -5,6 +5,13 @@ export const ContainerPage = styled.div`
   min-height: 100vh;
 `;
 
+export const ContainerTitle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const ContainerCards = styled.div`
   width: 100%;
   display: flex;
