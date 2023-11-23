@@ -18,7 +18,7 @@ class Pets(models.Model):
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name='ID do usuário')
     name = models.CharField(max_length=200, verbose_name='Nome')
 
-    genders = [('M', 'Masculino'), ('F', 'Feminino')]
+    genders = [('M', 'Macho'), ('F', 'Fêmea')]
     gender = models.CharField(max_length=1, choices=genders, verbose_name='Gênero')
 
     birthdate = models.DateField(verbose_name='Aniversário')

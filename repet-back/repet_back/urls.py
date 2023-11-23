@@ -17,14 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from polls import views
+from repet import views
 
 router = routers.DefaultRouter()
+router.register(r'pets', views.PetView, 'pets')
+
+"""
 router.register(r'users', views.UserView, 'users')
-router.register(r'pets', views.PetView, 'users')
+"""
 
 urlpatterns = [
-    path("", include("polls.urls")),
-    path('api/', include(router.urls)),
+    path("", include("repet.urls")),
+    path("", include(router.urls)),
     path("admin/", admin.site.urls),
 ]
