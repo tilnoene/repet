@@ -41,6 +41,55 @@ E [CapacitorJS](https://capacitorjs.com/), para a versão mobile.
 
 <h3>⚙️ Como executar</h3>
 
+<h4> Backend </h4>
+
+Instale as dependências do projeto:
+
+
+<details>
+  <summary>Linux</summary>
+
+  Crie um ambiente virtual:
+  ```sh
+  python3 -m venv env
+  ```
+
+  Ative o ambiente virtual
+  ```sh 
+  source env/bin/activate
+  ```
+
+</details>
+
+<details>
+  <summary>Windows</summary>
+
+  Instale o virtualenv:
+
+  ```sh
+  pip install virtualenv
+  ```
+
+  Crie um ambiente virtual:
+  ```sh
+  virtualenv env
+  ```
+
+  Ative o ambiente virtual
+  ```sh 
+  source env/bin/activate
+  ```
+
+</details>
+
+Execute o Backend:
+
+```sh 
+python3 repet-back/manage.py runserver
+```
+
+<h4> Frontend </h4>
+
 Instale o [NodeJS](https://nodejs.org/en/download).
 
 Instale o `yarn`

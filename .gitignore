@@ -1,7 +1,15 @@
 yarn.lock
 
-# enviroment variables
+# Environments 
 *.env
+env/
+.env 
+.venv 
+venv/ 
+ENV/ 
+env.bak/ 
+venv.bak/ 
+
 
 # dependencies
 /repet-front/node_modules
@@ -28,3 +36,11 @@ yarn-error.log*
 # capacitor
 /repet-front/android
 /repet-front/ios
+
+# backend
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
