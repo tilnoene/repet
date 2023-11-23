@@ -42,5 +42,6 @@ yarn-error.log*
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
+/repet-back/db.sqlite3
 media
+/repet-back/polls/_pycache_/views.cpython-312.pyc

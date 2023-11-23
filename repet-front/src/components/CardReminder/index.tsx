@@ -4,7 +4,7 @@ import SecondaryText from '../SecondaryText';
 
 import { BackroundColor, Content, Footer, Header } from './styles';
 
-const CardReminder = ({ reminder, ...props }: { reminder: any }) => {
+const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: tipar
   return (
     <Card {...props}>
       <BackroundColor color={reminder.color} />
@@ -16,11 +16,9 @@ const CardReminder = ({ reminder, ...props }: { reminder: any }) => {
           <PrimaryText fontSize="16px">{reminder.pet_name}</PrimaryText>
         </Header>
 
-        <div>
-          {reminder.attributes.map((attribute: string, index: number) => (
-            <SecondaryText key={index}>• {attribute}</SecondaryText>
-          ))}
-        </div>
+        <SecondaryText>
+          {reminder.description}
+        </SecondaryText>
 
         <Footer>
           <SecondaryText>
