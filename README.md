@@ -82,6 +82,12 @@ Instale as dependências do projeto:
 
 </details>
 
+Instale os requirements:
+
+```sh
+pip install -r requirements.txt
+```
+
 Execute o Backend:
 
 ```sh 
