@@ -44,3 +44,4 @@ yarn-error.log*
 __pycache__
 /repet-back/db.sqlite3
 media
+/repet-back/polls/_pycache_/views.cpython-312.pyc
