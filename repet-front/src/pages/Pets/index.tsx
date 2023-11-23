@@ -34,7 +34,7 @@ const Pets = () => {
       <ContainerTitle>
         <PrimaryText>Meus Pets</PrimaryText>
 
-        <Link to="/create_pet">
+        <Link to="/create-pet">
           <Icon src={plusIcon} color='blue' size="20px" />
         </Link>
       </ContainerTitle>
