@@ -77,7 +77,8 @@ Instale as dependências do projeto:
 
   Ative o ambiente virtual
   ```sh 
-  source env/bin/activate
+  env\Scripts\activate.bat
+
   ```
 
 </details>
