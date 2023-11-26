@@ -17,7 +17,7 @@ const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: t
           <PrimaryText>{reminder.title}</PrimaryText>
 
           <PetName>
-            <Icon src={pawIcon} color="black" size="18px"/>
+            <Icon src={pawIcon} color="black" size="18px" />
             <PrimaryText fontSize="16px">{reminder.pet_name}</PrimaryText>
           </PetName>
         </Header>

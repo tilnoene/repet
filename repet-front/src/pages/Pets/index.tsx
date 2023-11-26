@@ -35,7 +35,7 @@ const Pets = () => {
         <PrimaryText>Meus Pets</PrimaryText>
 
         <Link to="/create-pet">
-          <Icon src={plusIcon} color='blue' size="20px" />
+          <Icon src={plusIcon} color='blue' size="20px" clickable />
         </Link>
       </ContainerTitle>
 

@@ -34,7 +34,7 @@ const Records = () => {
         <PrimaryText>Meus Registros</PrimaryText>
 
         <Link to="/create-record">
-          <Icon src={plusIcon} color='blue' size="20px" />
+          <Icon src={plusIcon} color='blue' size="20px" clickable />
         </Link>
       </ContainerTitle>
 
