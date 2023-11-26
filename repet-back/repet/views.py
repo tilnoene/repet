@@ -59,7 +59,6 @@ class UserView(APIView):
 class PetView(APIView):
 
     def post(self, resquest):
-        print(resquest.data)
         serializer = PetSerializer(data=resquest.data)
 
         if serializer.is_valid():
@@ -99,6 +98,13 @@ class PetView(APIView):
 
         return Response("Pet deletado com sucesso.")
         
+class MyPetView(APIView):
+    
+    def get(self, request, pk):
+        pets = Pets.objects.filter(user_id=pk)
+        serializer = PetSerializer(pets, many=True)
+
+        return Response(serializer.data)
 
 def index(request):
     return HttpResponse("Teste.")
