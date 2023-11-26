@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from .serializers import UserSerializer, PetSerializer
-from django.http.response import JsonResponse
 from .models import Users, Pets
 
 # Create your views here.
@@ -18,9 +17,9 @@ class UserView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse("Usuário cadastrado com sucesso.")
+            return Response("Usuário cadastrado com sucesso.")
         else:
-            return JsonResponse("Erro ao cadastrar o usuário.")
+            return Response("Erro ao cadastrar o usuário.")
         
     def query_user(self, pk):
         try:
@@ -30,7 +29,7 @@ class UserView(APIView):
             raise Http404
 
     # read
-    def get(self, request, pk=None):
+    def get(self, pk=None):
         if pk:
             data = self.query_user(pk)
             serializer = UserSerializer(data)
@@ -41,25 +40,65 @@ class UserView(APIView):
     
     # update
     def put(self, request, pk):
-        user_update = Users.objects.get(id=pk)
+        user_update = self.query_user(pk)
         serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse("Usuário atualizado com sucesso.")
+            return Response("Usuário atualizado com sucesso.")
         else:
-            return JsonResponse("Erro ao atualizar o usuário.")
+            return Response("Erro ao atualizar o usuário.")
     
     # delete
     def delete(self, request, pk):
-        user_delete = Users.objects.get(id=pk)
+        user_delete = self.query_user(pk)
         user_delete.delete()
 
-        return JsonResponse("Usuário deletado com sucesso.")
+        return Response("Usuário deletado com sucesso.")
 
-class PetView(viewsets.ModelViewSet):
-    serializer_class = PetSerializer
-    queryset = Pets.objects.all()
+class PetView(APIView):
+
+    def post(self, resquest):
+        print(resquest.data)
+        serializer = PetSerializer(data=resquest.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Pet cadastrado com sucesso.")
+        else:
+            return Response("Erro ao cadatrar Pet.")
+    
+    def query_pet(self, pk):
+        try:
+            return Pets.objects.get(id=pk)
+        except Pets.DoesNotExist:
+            raise Http404
+
+    def get(self, resquest, pk=None):
+        if pk:
+            data = self.query_pet(pk)
+            serializer = PetSerializer(data)
+        else:
+            data = Pets.objects.all()
+            serializer = PetSerializer(data, many=True)
+        return Response(serializer.data)
+    
+    def put(self, resquest, pk):
+        pet_update = self.query_pet(pk)
+        serializer = PetSerializer(instance=pet_update, data=resquest.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Pet atualizado com sucesso.")
+        else:
+            return Response("Erro ao atualizar o Pet.")
+            
+    def delete(self, resquest, pk):
+        pet_delete = self.query_pet(pk)
+        pet_delete.delete()
+
+        return Response("Pet deletado com sucesso.")
+        
 
 def index(request):
     return HttpResponse("Teste.")
