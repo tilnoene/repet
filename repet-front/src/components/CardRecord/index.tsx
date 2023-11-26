@@ -1,8 +1,11 @@
 import Card from '../Card';
 import PrimaryText from '../PrimaryText';
 import SecondaryText from '../SecondaryText';
+import Icon from '../Icon';
 
-import { Content, Footer, Header } from './styles';
+import { Content, Footer, Header, PetName } from './styles';
+
+import pawIcon from '../../assets/icons/paw.svg';
 
 const CardRecord = ({ record, ...props }: { record: any }) => { // TODO: tipar
   return (
@@ -11,8 +14,15 @@ const CardRecord = ({ record, ...props }: { record: any }) => { // TODO: tipar
         <Header>
           <PrimaryText>{record.title}</PrimaryText>
 
-          <PrimaryText fontSize="16px">{record.pet_name}</PrimaryText>
+          <PetName>
+            <Icon src={pawIcon} color="black" size="18px"/>
+            <PrimaryText fontSize="16px">{record.pet_name}</PrimaryText>
+          </PetName>
         </Header>
+
+        <SecondaryText>
+          {record.description}
+        </SecondaryText>
 
         <Footer>
           <SecondaryText>

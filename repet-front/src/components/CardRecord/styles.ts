@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-type BackroundColorProps = {
-  color: string;
-}
-
 export const Content = styled.div`
   padding: 12px 14px;
   display: flex;
@@ -21,5 +17,10 @@ export const Footer = styled.div`
   align-items: start;
   display: flex;
   justify-content: end;
+  margin-top: 8px;
 `;
 
+export const PetName = styled.div`
+  display: flex;
+  gap: 4px;
+`;
