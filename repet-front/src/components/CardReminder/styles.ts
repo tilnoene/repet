@@ -31,3 +31,7 @@ export const Footer = styled.div`
   margin-top: 8px;
 `;
 
+export const PetName = styled.div`
+  display: flex;
+  gap: 4px;
+`;
