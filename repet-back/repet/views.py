@@ -4,8 +4,8 @@ from django.http.response import Http404
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from .serializers import UserSerializer, PetSerializer
-from .models import Users, Pets
+from .serializers import UserSerializer, PetSerializer, VaccineSerializer
+from .models import Users, Pets, Vaccine
 
 # Create your views here.
 
@@ -58,8 +58,8 @@ class UserView(APIView):
 
 class PetView(APIView):
 
-    def post(self, resquest):
-        serializer = PetSerializer(data=resquest.data)
+    def post(self, request):
+        serializer = PetSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -73,7 +73,7 @@ class PetView(APIView):
         except Pets.DoesNotExist:
             raise Http404
 
-    def get(self, resquest, pk=None):
+    def get(self, request, pk=None):
         if pk:
             data = self.query_pet(pk)
             serializer = PetSerializer(data)
@@ -82,9 +82,9 @@ class PetView(APIView):
             serializer = PetSerializer(data, many=True)
         return Response(serializer.data)
     
-    def put(self, resquest, pk):
+    def put(self, request, pk):
         pet_update = self.query_pet(pk)
-        serializer = PetSerializer(instance=pet_update, data=resquest.data, partial=True)
+        serializer = PetSerializer(instance=pet_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
@@ -92,7 +92,7 @@ class PetView(APIView):
         else:
             return Response("Erro ao atualizar o Pet.")
             
-    def delete(self, resquest, pk):
+    def delete(self, request, pk):
         pet_delete = self.query_pet(pk)
         pet_delete.delete()
 
@@ -105,6 +105,41 @@ class MyPetView(APIView):
         serializer = PetSerializer(pets, many=True)
 
         return Response(serializer.data)
+
+class VaccineView(APIView):
+
+    def post(self, request):
+        serializer = VaccineSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Vacina cadastrada com sucesso.")
+        else:
+            return Response("Erro ao cadatrar vacina.")
+
+    def query_vaccine(self, pk):
+        try:
+            return Vaccine.objects.get(id=pk)
+        except Vaccine.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk=None):
+        if pk:
+            data = self.query_vaccine(pk)
+            serializer = VaccineSerializer(data)
+
+            response = Response(serializer.data)
+            pet_id = response['pet_id']
+            pet = Pets.objects.get(id=pet_id)
+            pet_serializer = PetSerializer(pet)
+            del response['pet_id']
+            response['pet'] = Response(pet_serializer.data)
+
+            return response
+        else:
+            pass
+        
+            
 
 def index(request):
     return HttpResponse("Teste.")
