@@ -22,6 +22,8 @@ const Icon = ({
   } else if (color === 'white') {
     filter =
       'invert(100%) sepia(100%) saturate(0%) hue-rotate(39deg) brightness(109%) contrast(101%)';
+  } else if (color === 'black') {
+    filter = 'none';
   }
 
   if (disabled) {
