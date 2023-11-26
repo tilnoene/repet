@@ -33,7 +33,7 @@ const Records = () => {
       <ContainerTitle>
         <PrimaryText>Meus Registros</PrimaryText>
 
-        <Link to="/create_record">
+        <Link to="/create-record">
           <Icon src={plusIcon} color='blue' size="20px" />
         </Link>
       </ContainerTitle>
