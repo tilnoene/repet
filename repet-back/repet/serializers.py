@@ -9,4 +9,4 @@ class UserSerializer(serializers.ModelSerializer):
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pets
-        fields = ('id', 'user_id', 'name', 'gender', 'birthdate', 'breed', 'weight', 'created_at')
+        fields = ('id', 'user_id', 'name', 'gender', 'birthdate', 'type', 'breed', 'weight', 'created_at')
