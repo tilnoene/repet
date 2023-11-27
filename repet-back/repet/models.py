@@ -21,6 +21,15 @@ class Pets(models.Model):
     genders = [('M', 'Macho'), ('F', 'Fêmea')]
     gender = models.CharField(max_length=1, choices=genders, verbose_name='Gênero')
 
+    typers = [('Cachorro','Cachorro'),
+              ('Gato', 'Gato'),
+              ('Roedor', 'Roedor'),
+              ('Ave', 'Ave'),
+              ('Reptil', 'Réptil'),
+              ('Peixe', 'Peixe'),
+              ('Outros', 'Outros')]
+    type = models.CharField(max_length=8, choices=typers, verbose_name='Tipo', default="")
+
     birthdate = models.DateField(verbose_name='Aniversário')
     breed = models.CharField(max_length=100, verbose_name='Raça')
     weight = models.IntegerField(verbose_name='Peso')
