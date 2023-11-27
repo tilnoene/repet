@@ -2,13 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http.response import Http404
 from rest_framework.response import Response
-from django.http import JsonResponse
-from rest_framework import viewsets
+from rest_framework import status
 from rest_framework.views import APIView
-from .serializers import UserSerializer, PetSerializer, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET
-from .models import Users, Pets, Vaccine, Records
-import json
-from django.forms.models import model_to_dict
+from .serializers import UserSerializer, PetSerializer, PetSerializerGET, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET, RemindersSerializer, RemindersSerializerGET
+from .models import Users, Pets, Vaccine, Records, Reminders
 
 # Create your views here.
 
@@ -192,6 +189,49 @@ class VaccineView(APIView):
         vaccine_delete.delete()
 
         return Response("Vacina deletada com sucesso.")
+    
+
+class RemindersView(APIView):
+
+    def post(self, request):
+        serializer = RemindersSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Lembrete cadastrado com sucesso.")
+        else:
+            return Response("Erro ao cadatrar lemebrete.")
+
+    def query_reminders(self, pk):
+        try:
+            return Reminders.objects.get(id=pk)
+        except Reminders.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk=None):
+        if pk:
+            data = self.query_reminders(pk)
+            serializer = RemindersSerializerGET(data)
+        else:
+            data = Reminders.objects.all()
+            serializer = RemindersSerializerGET(data, many=True)
+        return Response(serializer.data)
+
+    def put(self, resquest, pk):
+        reminders_update = self.query_reminders(pk)
+        serializer = RemindersSerializer(instance=reminders_update, data=resquest.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Lembrete atualizado com sucesso.")
+        else:
+            return Response("Erro ao atualizar o lembrete.")
+            
+    def delete(self, resquest, pk):
+        reminders_delete = self.query_reminders(pk)
+        reminders_delete.delete()
+
+        return Response("Lembrete deletado com sucesso.")
 
 def index(request):
     return HttpResponse("Teste.")
