@@ -37,7 +37,7 @@ const Reminders = () => {
         <PrimaryText>Meus Lembretes</PrimaryText>
 
         <Link to="/create-reminder">
-          <Icon src={plusIcon} color="blue" size="20px" />
+          <Icon src={plusIcon} color="blue" size="20px" clickable />
         </Link>
       </ContainerTitle>
 
