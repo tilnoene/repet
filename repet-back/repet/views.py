@@ -105,9 +105,9 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Record cadastrada com sucesso.")
+            return Response("Registro cadastrada com sucesso.")
         else:
-            return Response("Erro ao cadatrar a Record.")
+            return Response("Erro ao cadatrar o Registro.")
     
     def query_record(self, pk):
         try:
@@ -130,15 +130,15 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Record atualizada com sucesso.")
+            return Response("Registro atualizado com sucesso.")
         else:
-            return Response("Erro ao atualizar a Record.")
+            return Response("Erro ao atualizar o Registro.")
             
     def delete(self, resquest, pk):
         record_delete = self.query_record(pk)
         record_delete.delete()
 
-        return Response("Record deletada com sucesso.")
+        return Response("Registro deletado com sucesso.")
 
 class MyPetView(APIView):
     
