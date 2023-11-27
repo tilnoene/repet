@@ -7,7 +7,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PetSerializerGET(serializers.ModelSerializer):
-    user_id = UserSerializer()
+    user = UserSerializer()
+
     class Meta:
         model = Pets
         fields = '__all__'
@@ -23,7 +24,7 @@ class RecordSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RecordSerializerGET(serializers.ModelSerializer):
-    pet_id = PetSerializerGET()
+    pet = PetSerializerGET()
     class Meta:
         model = Records
         fields = '__all__'
@@ -34,8 +35,8 @@ class VaccineSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VaccineSerializerGET(serializers.ModelSerializer):
-    pet_id = PetSerializerGET()
-    record_id = RecordSerializer()
+    pet = PetSerializerGET()
+    record = RecordSerializer()
     class Meta:
         model = Vaccine
         fields = '__all__'
@@ -47,7 +48,7 @@ class RemindersSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RemindersSerializerGET(serializers.ModelSerializer):
-    pet_id = PetSerializerGET()
+    pet = PetSerializerGET()
     class Meta:
         model = Reminders
         fields = '__all__'

@@ -7,16 +7,16 @@ class UsersAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'username', 'created_at')
 
 class PetsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', 'name', 'gender', 'birthdate', 'breed', 'weight', 'created_at')
+    list_display = ('id', 'user', 'name', 'gender', 'birthdate', 'breed', 'weight', 'created_at')
 
 class RecordsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pet_id', 'title', 'description', 'date', 'time', 'created_at')
+    list_display = ('id', 'pet', 'title', 'description', 'date', 'time', 'created_at')
 
 class VaccineAdmin(admin.ModelAdmin):
-    list_display = ('id', 'record_id', 'pet_id', 'name_vaccine', 'veterinarian', 'place', 'vaccine_card')
+    list_display = ('id', 'record', 'pet', 'veterinarian', 'place', 'vaccine_card')
 
 class RemindersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'pet_id', 'title', 'description', 'date', 'time', 'created_at')
+    list_display = ('id', 'pet', 'title', 'description', 'date', 'time', 'created_at')
 
 admin.site.register(Users, UsersAdmin)
 admin.site.register(Pets, PetsAdmin)

@@ -105,9 +105,9 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Record cadastrada com sucesso.", status=status.HTTP_201_CREATED)
+            return Response("Registro cadastrada com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadastrar a Record.", status=status.HTTP_400_BAD_REQUEST)
+            return Response("Erro ao cadatrar o Registro.", status=status.HTTP_400_BAD_REQUEST)
     
     def query_record(self, pk):
         try:
@@ -130,15 +130,15 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Record atualizada com sucesso.")
+            return Response("Registro atualizado com sucesso.")
         else:
-            return Response("Erro ao atualizar a Record.", status=status.HTTP_400_BAD_REQUEST)
+            return Response("Erro ao atualizar o Registro.", status=status.HTTP_400_BAD_REQUEST)
             
     def delete(self, resquest, pk):
         record_delete = self.query_record(pk)
         record_delete.delete()
 
-        return Response("Record deletada com sucesso.")
+        return Response("Registro deletado com sucesso.")
 
 class MyPetView(APIView):
     
