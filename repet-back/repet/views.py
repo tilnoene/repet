@@ -16,9 +16,9 @@ class UserView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Usuário cadastrado com sucesso.")
+            return Response("Usuário cadastrado com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadastrar o usuário.")
+            return Response("Erro ao cadastrar o usuário.", status=status.HTTP_400_BAD_REQUEST)
         
     def query_user(self, pk):
         try:
@@ -46,7 +46,7 @@ class UserView(APIView):
             serializer.save()
             return Response("Usuário atualizado com sucesso.")
         else:
-            return Response("Erro ao atualizar o usuário.")
+            return Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
     
     # delete
     def delete(self, request, pk):
@@ -61,9 +61,9 @@ class PetView(APIView):
         serializer = PetSerializer(data=resquest.data)
         if serializer.is_valid():
             serializer.save()
-            return Response("Pet cadastrado com sucesso.")
+            return Response("Pet cadastrado com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadatrar Pet.")
+            return Response("Erro ao cadastrar Pet.", status=status.HTTP_400_BAD_REQUEST)
     
     def query_pet(self, pk):
         try:
@@ -91,7 +91,7 @@ class PetView(APIView):
             serializer.save()
             return Response("Pet atualizado com sucesso.")
         else:
-            return Response("Erro ao atualizar o Pet.")
+            return Response("Erro ao atualizar o Pet.", status=status.HTTP_400_BAD_REQUEST)
             
     def delete(self, request, pk):
         pet_delete = self.query_pet(pk)
@@ -105,9 +105,9 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Record cadastrada com sucesso.")
+            return Response("Record cadastrada com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadatrar a Record.")
+            return Response("Erro ao cadastrar a Record.", status=status.HTTP_400_BAD_REQUEST)
     
     def query_record(self, pk):
         try:
@@ -132,7 +132,7 @@ class RecordView(APIView):
             serializer.save()
             return Response("Record atualizada com sucesso.")
         else:
-            return Response("Erro ao atualizar a Record.")
+            return Response("Erro ao atualizar a Record.", status=status.HTTP_400_BAD_REQUEST)
             
     def delete(self, resquest, pk):
         record_delete = self.query_record(pk)
@@ -155,9 +155,9 @@ class VaccineView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Vacina cadastrada com sucesso.")
+            return Response("Vacina cadastrada com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadatrar vacina.")
+            return Response("Erro ao cadastrar vacina.", status=status.HTTP_400_BAD_REQUEST)
 
     def query_vaccine(self, pk):
         try:
@@ -198,9 +198,9 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Lembrete cadastrado com sucesso.")
+            return Response("Lembrete cadastrado com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            return Response("Erro ao cadatrar lemebrete.")
+            return Response("Erro ao cadastrar lemebrete.", status=status.HTTP_400_BAD_REQUEST)
 
     def query_reminders(self, pk):
         try:
@@ -225,7 +225,7 @@ class RemindersView(APIView):
             serializer.save()
             return Response("Lembrete atualizado com sucesso.")
         else:
-            return Response("Erro ao atualizar o lembrete.")
+            return Response("Erro ao atualizar o lembrete.", status=status.HTTP_400_BAD_REQUEST)
             
     def delete(self, resquest, pk):
         reminders_delete = self.query_reminders(pk)
