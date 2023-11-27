@@ -57,7 +57,7 @@ class Vaccine(models.Model):
     name_vaccine = models.CharField(max_length=100, verbose_name='Vacina', default=None)
     veterinarian = models.CharField(max_length=100, verbose_name='Veterinário(a)')
     place = models.CharField(max_length=100, verbose_name='Local')
-    vaccine_card = models.ImageField()
+    vaccine_card = models.BinaryField(verbose_name='Cartão de Vacina')
 
     def __str__(self):
         return f"{self.id}-{self.pet_id}:{self.record_id}"
