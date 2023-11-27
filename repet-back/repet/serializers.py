@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users, Pets, Records
+from .models import Users, Pets, Vaccine, Records
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,4 +26,16 @@ class RecordSerializerGET(serializers.ModelSerializer):
     pet_id = PetSerializerGET()
     class Meta:
         model = Records
+        fields = '__all__'
+
+class VaccineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vaccine
+        fields = '__all__'
+
+class VaccineSerializerGET(serializers.ModelSerializer):
+    pet_id = PetSerializerGET()
+    record_id = RecordSerializer()
+    class Meta:
+        model = Vaccine
         fields = '__all__'

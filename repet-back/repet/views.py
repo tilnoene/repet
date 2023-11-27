@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from .serializers import UserSerializer, PetSerializer, PetSerializerGET, RecordSerializer, RecordSerializerGET
-from .models import Users, Pets, Records
+from .serializers import UserSerializer, PetSerializer, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET
+from .models import Users, Pets, Vaccine, Records
 import json
 from django.forms.models import model_to_dict
 
@@ -62,7 +62,6 @@ class PetView(APIView):
 
     def post(self, resquest):
         serializer = PetSerializer(data=resquest.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response("Pet cadastrado com sucesso.")
@@ -75,7 +74,7 @@ class PetView(APIView):
         except Pets.DoesNotExist:
             raise Http404
 
-    def get(self, resquest, pk=None):
+    def get(self, request, pk=None):
         if pk:
             data = self.query_pet(pk)
             serializer = PetSerializerGET(data)
@@ -87,9 +86,9 @@ class PetView(APIView):
 
         return response
     
-    def put(self, resquest, pk):
+    def put(self, request, pk):
         pet_update = self.query_pet(pk)
-        serializer = PetSerializer(instance=pet_update, data=resquest.data, partial=True)
+        serializer = PetSerializer(instance=pet_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
@@ -97,7 +96,7 @@ class PetView(APIView):
         else:
             return Response("Erro ao atualizar o Pet.")
             
-    def delete(self, resquest, pk):
+    def delete(self, request, pk):
         pet_delete = self.query_pet(pk)
         pet_delete.delete()
 
@@ -151,6 +150,48 @@ class MyPetView(APIView):
         serializer = PetSerializer(pets, many=True)
 
         return Response(serializer.data)
+
+class VaccineView(APIView):
+
+    def post(self, request):
+        serializer = VaccineSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Vacina cadastrada com sucesso.")
+        else:
+            return Response("Erro ao cadatrar vacina.")
+
+    def query_vaccine(self, pk):
+        try:
+            return Vaccine.objects.get(id=pk)
+        except Vaccine.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk=None):
+        if pk:
+            data = self.query_vaccine(pk)
+            serializer = VaccineSerializerGET(data)
+        else:
+            data = Vaccine.objects.all()
+            serializer = VaccineSerializerGET(data, many=True)
+        return Response(serializer.data)
+
+    def put(self, resquest, pk):
+        vaccine_update = self.query_vaccine(pk)
+        serializer = RecordSerializer(instance=vaccine_update, data=resquest.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Vacina atualizada com sucesso.")
+        else:
+            return Response("Erro ao atualizar a vacina.")
+            
+    def delete(self, resquest, pk):
+        vaccine_delete = self.query_vaccine(pk)
+        vaccine_delete.delete()
+
+        return Response("Vacina deletada com sucesso.")
 
 def index(request):
     return HttpResponse("Teste.")
