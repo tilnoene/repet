@@ -1,17 +1,34 @@
 from rest_framework import serializers
-from .models import Users, Pets, Vaccine
+from .models import Users, Pets, Vaccine, Records
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ('id', 'name', 'email', 'username', 'created_at')
+        fields = '__all__'
+
+class PetSerializerGET(serializers.ModelSerializer):
+    user_id = UserSerializer()
+    class Meta:
+        model = Pets
+        fields = '__all__'
 
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pets
-        fields = ('id', 'user_id', 'name', 'gender', 'birthdate', 'breed', 'weight', 'created_at')
+        fields = '__all__'
+
+class RecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Records
+        fields = '__all__'
+
+class RecordSerializerGET(serializers.ModelSerializer):
+    pet_id = PetSerializerGET()
+    class Meta:
+        model = Records
+        fields = '__all__'
 
 class VaccineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vaccine
-        fields = ('id', 'record_id', 'pet_id', 'name_vaccine', 'veterinarian', 'place', 'vaccine_card')
+        fields = '__all__'

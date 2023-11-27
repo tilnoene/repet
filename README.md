@@ -82,10 +82,23 @@ Instale as dependências do projeto:
 
 </details>
 
+
 Instale os requirements:
 
 ```sh
 pip install -r requirements.txt
+```
+
+Crie um arquivo chamado `.env` na pasta repet-back
+
+E preencha os respectivos campos com as informações do banco de dados:
+
+```sh
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
 ```
 
 Execute o Backend:

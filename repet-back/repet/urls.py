@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .views import UserView, PetView, MyPetView, VaccineView
+from .views import UserView, PetView, MyPetView, VaccineView, RecordView
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -12,4 +12,6 @@ urlpatterns = [
     path('mypets/<int:pk>/', MyPetView.as_view()),
     path('vaccines/', VaccineView.as_view()),
     path('vaccines/<int:pk>/', VaccineView.as_view()),
+    path('records/', RecordView.as_view()),
+    path('records/<int:pk>', RecordView.as_view()),
 ]

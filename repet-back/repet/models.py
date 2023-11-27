@@ -21,6 +21,15 @@ class Pets(models.Model):
     genders = [('M', 'Macho'), ('F', 'Fêmea')]
     gender = models.CharField(max_length=1, choices=genders, verbose_name='Gênero')
 
+    typers = [('Cachorro','Cachorro'),
+              ('Gato', 'Gato'),
+              ('Roedor', 'Roedor'),
+              ('Ave', 'Ave'),
+              ('Reptil', 'Réptil'),
+              ('Peixe', 'Peixe'),
+              ('Outros', 'Outros')]
+    type = models.CharField(max_length=8, choices=typers, verbose_name='Tipo', default="")
+
     birthdate = models.DateField(verbose_name='Aniversário')
     breed = models.CharField(max_length=100, verbose_name='Raça')
     weight = models.IntegerField(verbose_name='Peso')
@@ -48,7 +57,7 @@ class Vaccine(models.Model):
     name_vaccine = models.CharField(max_length=100, verbose_name='Vacina', default=None)
     veterinarian = models.CharField(max_length=100, verbose_name='Veterinário(a)')
     place = models.CharField(max_length=100, verbose_name='Local')
-    vaccine_card = models.ImageField()
+    vaccine_card = models.BinaryField(verbose_name='Cartão de Vacina')
 
     def __str__(self):
         return f"{self.id}-{self.pet_id}:{self.record_id}"
