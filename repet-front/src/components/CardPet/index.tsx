@@ -7,7 +7,7 @@ import Icon from '../Icon';
 
 import { ContainerCard, ContainerIcons, Image } from './styles';
 
-import deleteIcon from '../../assets/icons/pencil.svg'; // TODO:
+import deleteIcon from '../../assets/icons/trash.svg';
 import editIcon from '../../assets/icons/pencil.svg';
 
 import angora from '../../assets/images/angora.png';
@@ -28,8 +28,8 @@ const CardPet = ({ pet, ...props }: { pet: any }) => {
           </div>
 
           <ContainerIcons>
-            <Icon src={deleteIcon} color="white" size="24px" clickable />
             <Icon src={editIcon} color="white" size="24px" clickable />
+            <Icon src={deleteIcon} color="white" size="24px" clickable />
           </ContainerIcons>
         </ContainerCard>
       </Card>
