@@ -32,3 +32,10 @@ class VaccineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vaccine
         fields = '__all__'
+
+class VaccineSerializerGET(serializers.ModelSerializer):
+    pet_id = PetSerializerGET()
+    record_id = RecordSerializer()
+    class Meta:
+        model = Vaccine
+        fields = '__all__'
