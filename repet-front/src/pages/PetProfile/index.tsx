@@ -39,7 +39,7 @@ const PetProfile = () => {
     setLoading(true);
 
     api
-      .get(`/pets/${id}`)
+      .get(`/pets/${id}/`)
       .then((response: any) => {
         setPet(response.data);
         setLoading(false);
@@ -49,7 +49,7 @@ const PetProfile = () => {
 
   const getPetVaccines = () => {
     api
-      .get(`/pets/${id}?=vaccines`) // TODO: como?
+      .get(`/pets/${id}?=vaccines/`) // TODO: como?
       .then((response: any) => {
         setVaccines(response.data);
       })
@@ -58,7 +58,7 @@ const PetProfile = () => {
 
   const getPetRecords = () => {
     api
-      .get(`/reminders`) // TODO: como?
+      .get(`/reminders/`) // TODO: como?
       .then((response: any) => {
         setRecords(response.data);
       })
