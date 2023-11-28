@@ -21,7 +21,7 @@ const Reminders = () => {
   const getReminders = () => {
     setLoading(true);
 
-    api.get('/reminders').then((response: any) => {
+    api.get('/reminders/').then((response: any) => {
       setReminders(response.data);
       setLoading(false);
     });
