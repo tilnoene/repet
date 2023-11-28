@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import UserSerializer, PetSerializer, PetSerializerGET, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET, RemindersSerializer, RemindersSerializerGET
-from .models import Users, Pets, Vaccine, Records, Reminders
+from .models import User, Pet, Vaccine, Record, Reminder
 
 # Create your views here.
 
@@ -23,8 +23,8 @@ class UserView(APIView):
     def query_user(self, pk):
         try:
             # busca no banco usuario com a chave primaria
-            return Users.objects.get(id=pk)
-        except Users.DoesNotExist:
+            return User.objects.get(id=pk)
+        except User.DoesNotExist:
             raise Http404
 
     # read
@@ -33,7 +33,7 @@ class UserView(APIView):
             data = self.query_user(pk)
             serializer = UserSerializer(data)
         else:
-            data = Users.objects.all()
+            data = User.objects.all()
             serializer = UserSerializer(data, many=True)
         return Response(serializer.data)
     
@@ -67,8 +67,8 @@ class PetView(APIView):
     
     def query_pet(self, pk):
         try:
-            return Pets.objects.get(id=pk)
-        except Pets.DoesNotExist:
+            return Pet.objects.get(id=pk)
+        except Pet.DoesNotExist:
             raise Http404
 
     def get(self, request, pk=None):
@@ -76,7 +76,7 @@ class PetView(APIView):
             data = self.query_pet(pk)
             serializer = PetSerializerGET(data)
         else:
-            data = Pets.objects.all()
+            data = Pet.objects.all()
             serializer = PetSerializerGET(data, many=True)
 
         response = Response(serializer.data)
@@ -111,8 +111,8 @@ class RecordView(APIView):
     
     def query_record(self, pk):
         try:
-            return Records.objects.get(id=pk)
-        except Records.DoesNotExist:
+            return Record.objects.get(id=pk)
+        except Record.DoesNotExist:
             raise Http404
 
     def get(self, resquest, pk=None):
@@ -120,7 +120,7 @@ class RecordView(APIView):
             data = self.query_record(pk)
             serializer = RecordSerializerGET(data)
         else:
-            data = Records.objects.all()
+            data = Record.objects.all()
             serializer = RecordSerializerGET(data, many=True)
         return Response(serializer.data)
     
@@ -143,7 +143,7 @@ class RecordView(APIView):
 class MyPetView(APIView):
     
     def get(self, request, pk):
-        pets = Pets.objects.filter(user_id=pk)
+        pets = Pet.objects.filter(user_id=pk)
         serializer = PetSerializer(pets, many=True)
 
         return Response(serializer.data)
@@ -184,12 +184,13 @@ class VaccineView(APIView):
         else:
             return Response("Erro ao atualizar a vacina.")
             
-    def delete(self, resquest, pk):
-        vaccine_delete = self.query_vaccine(pk)
-        vaccine_delete.delete()
-
-        return Response("Vacina deletada com sucesso.")
-    
+    def delete(self, resquest, pk=None):
+        if pk:
+            vaccine_delete = self.query_vaccine(pk)
+            vaccine_delete.delete()
+            return Response("Vacina deletada com sucesso.")
+        else: 
+            return Response("Erro ao deletar vacinas.", status=status.HTTP_400_BAD_REQUEST)
 
 class RemindersView(APIView):
 
@@ -204,8 +205,8 @@ class RemindersView(APIView):
 
     def query_reminders(self, pk):
         try:
-            return Reminders.objects.get(id=pk)
-        except Reminders.DoesNotExist:
+            return Reminder.objects.get(id=pk)
+        except Reminder.DoesNotExist:
             return Http404
 
     def get(self, request, pk=None):
@@ -213,7 +214,7 @@ class RemindersView(APIView):
             data = self.query_reminders(pk)
             serializer = RemindersSerializerGET(data)
         else:
-            data = Reminders.objects.all()
+            data = Reminder.objects.all()
             serializer = RemindersSerializerGET(data, many=True)
         return Response(serializer.data)
 

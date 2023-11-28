@@ -1,32 +1,32 @@
 from rest_framework import serializers
-from .models import Users, Pets, Vaccine, Records, Reminders
+from .models import User, Pet, Vaccine, Record, Reminder
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = User
         fields = '__all__'
 
 class PetSerializerGET(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
-        model = Pets
+        model = Pet
         fields = '__all__'
 
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Pets
+        model = Pet
         fields = '__all__'
 
 class RecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Records
+        model = Record
         fields = '__all__'
 
 class RecordSerializerGET(serializers.ModelSerializer):
     pet = PetSerializerGET()
     class Meta:
-        model = Records
+        model = Record
         fields = '__all__'
 
 class VaccineSerializer(serializers.ModelSerializer):
@@ -44,11 +44,11 @@ class VaccineSerializerGET(serializers.ModelSerializer):
 
 class RemindersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Reminders
+        model = Reminder
         fields = '__all__'
 
 class RemindersSerializerGET(serializers.ModelSerializer):
     pet = PetSerializerGET()
     class Meta:
-        model = Reminders
+        model = Reminder
         fields = '__all__'
