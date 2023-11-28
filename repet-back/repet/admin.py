@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Users, Pets, Records, Vaccine, Reminders
+from .models import User, Pet, Record, Vaccine, Reminder
 
 # Register your models here.
 
@@ -18,8 +18,8 @@ class VaccineAdmin(admin.ModelAdmin):
 class RemindersAdmin(admin.ModelAdmin):
     list_display = ('id', 'pet', 'title', 'description', 'date', 'time', 'created_at')
 
-admin.site.register(Users, UsersAdmin)
-admin.site.register(Pets, PetsAdmin)
-admin.site.register(Records, RecordsAdmin)
+admin.site.register(User, UsersAdmin)
+admin.site.register(Pet, PetsAdmin)
+admin.site.register(Record, RecordsAdmin)
 admin.site.register(Vaccine, VaccineAdmin)
-admin.site.register(Reminders, RemindersAdmin)
+admin.site.register(Reminder, RemindersAdmin)

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Users(models.Model):
+class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, verbose_name='Nome')
     email = models.EmailField()
@@ -11,12 +11,12 @@ class Users(models.Model):
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
 
     def __str__(self):
-        return f"{self.username}:{self.email}"
+        return f"{self.id}:{self.username}"
 
 
-class Pets(models.Model):
+class Pet(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name='ID do usuário')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='ID do usuário')
     name = models.CharField(max_length=200, verbose_name='Nome')
 
     image = models.BinaryField(verbose_name='Imagem do PET', blank=True)
@@ -39,11 +39,11 @@ class Pets(models.Model):
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
 
     def __str__(self):
-        return f"{self.name}:{self.user_id}"
+        return f"{self.user_id}:{self.name}"
 
-class Records(models.Model):
+class Record(models.Model):
     id = models.AutoField(primary_key=True)
-    pet = models.ForeignKey(Pets, on_delete=models.CASCADE, verbose_name='ID do PET')
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, verbose_name='ID do PET')
     title = models.CharField(max_length=50, verbose_name='Título')
     description = models.TextField(verbose_name='Descrição', blank=True)
     date = models.DateField(verbose_name='Data', blank=True)
@@ -55,8 +55,8 @@ class Records(models.Model):
 
 class Vaccine(models.Model):
     id = models.AutoField(primary_key=True)
-    record = models.ForeignKey(Records, on_delete=models.CASCADE, verbose_name='ID da Record')
-    pet = models.ForeignKey(Pets, on_delete=models.CASCADE, verbose_name='ID do PET')
+    record = models.ForeignKey(Record, on_delete=models.CASCADE, verbose_name='ID da Record')
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, verbose_name='ID do PET')
     veterinarian = models.CharField(max_length=100, verbose_name='Veterinário(a)', blank=True)
     place = models.CharField(max_length=100, verbose_name='Local', blank=True)
     vaccine_card = models.BinaryField(verbose_name='Cartão de Vacina', blank=True)
@@ -64,9 +64,9 @@ class Vaccine(models.Model):
     def __str__(self):
         return f"{self.id}-{self.pet_id}:{self.record_id}"
 
-class Reminders(models.Model):
+class Reminder(models.Model):
     id = models.AutoField(primary_key=True)
-    pet = models.ForeignKey(Pets, on_delete=models.CASCADE, verbose_name='ID do PET')
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, verbose_name='ID do PET')
     title = models.CharField(max_length=100, verbose_name='Título')
     description = models.TextField(verbose_name='Descrição', blank=True)
     color = models.TextField(verbose_name='Cor', blank=True)
