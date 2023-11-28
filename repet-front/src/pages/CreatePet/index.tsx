@@ -41,7 +41,7 @@ const CreatePet = () => {
 
     setLoadingCreate(true);
 
-    api.post('/pets', {
+    api.post('/pets/', {
       name: name,
       type: type,
       breed: breed,
