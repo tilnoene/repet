@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "repet-back/wsgi.py",
+      "src": "repet_back/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
@@ -21,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "repet-back/wsgi.py"
+      "dest": "repet_back/wsgi.py"
     }
   ]
 }
