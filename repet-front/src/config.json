@@ -7,8 +7,10 @@
     "gray": "#D8DEE3",
     "background": "#F5F7FA",
     "red": "#EF233C",
+    "secondaryRed": "#D71F36",
     "green": "#48B755",
     "yellow": "#FFD60A",
-    "white": "#FFFFFF"
+    "white": "#FFFFFF",
+    "black": "#3B3B3B"
   }
 }

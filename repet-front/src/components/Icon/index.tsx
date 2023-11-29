@@ -7,6 +7,8 @@ const Icon = ({
   size = '36px',
   color = 'gray',
   clickable = false,
+  onClick = undefined,
+  ...props
 }: {
   src: any;
   isBlue?: boolean;
@@ -14,6 +16,7 @@ const Icon = ({
   size?: string;
   color?: string;
   clickable?: boolean;
+  onClick?: any;
 }) => {
   let filter =
     'invert(97%) sepia(2%) saturate(1355%) hue-rotate(175deg) brightness(94%) contrast(88%)';
@@ -34,7 +37,7 @@ const Icon = ({
   }
 
   return (
-    <ContainerIcon src={src} filter={filter} size={size} disabled={disabled} clickable={clickable} />
+    <ContainerIcon src={src} filter={filter} size={size} disabled={disabled} clickable={clickable} onClick={onClick} {...props} />
   );
 };
 
