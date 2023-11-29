@@ -44,7 +44,7 @@ class UserView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Usuário atualizado com sucesso.")
+            return Response("Usuário atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
     
@@ -89,7 +89,7 @@ class PetView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Pet atualizado com sucesso.")
+            return Response("Pet atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar o Pet.", status=status.HTTP_400_BAD_REQUEST)
             
@@ -130,7 +130,7 @@ class RecordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Registro atualizado com sucesso.")
+            return Response("Registro atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar o Registro.", status=status.HTTP_400_BAD_REQUEST)
             
@@ -180,7 +180,7 @@ class VaccineView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Vacina atualizada com sucesso.")
+            return Response("Vacina atualizada com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar a vacina.")
             
@@ -224,7 +224,7 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response("Lembrete atualizado com sucesso.")
+            return Response("Lembrete atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar o lembrete.", status=status.HTTP_400_BAD_REQUEST)
             
