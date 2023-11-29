@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 import config from '../../config.json';
 
-export const ContainerButton = styled.button`
+type ContainerButtonProps = {
+  color: string;
+}
+
+export const ContainerButton = styled.button<ContainerButtonProps>`
   appearance: none;
   outline: none;
-  background: ${config.colors.primaryBlue};
+  background: ${ props => props.color === 'blue' ? config.colors.primaryBlue : config.colors.red};
   box-sizing: border-box;
   border-style: none;
   border-radius: 10px;
@@ -19,7 +23,7 @@ export const ContainerButton = styled.button`
   width: 100%;
 
   &:hover {
-    background: ${config.colors.secondaryBlue};
+    background: ${ props => props.color === 'blue' ? config.colors.secondaryBlue : config.colors.secondaryRed};
     opacity: 1;
     transform: translateY(0);
     transition-duration: 0.35s;

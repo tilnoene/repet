@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import Page from '../../components/Page';
@@ -25,6 +25,14 @@ const Pets = () => {
     });
   };
 
+  // const removePetFromList = ({ id }: { id: number }) => {
+  //   setPets((pets: Pet[]) => pets.filter((pet: Pet) => pet.id !== id));
+  // };
+
+  const removePetFromList = (id: number) => {
+    setPets(pets.filter((pet: Pet) => pet.id !== id));
+  };
+
   useEffect(() => {
     getPets();
   }, []);
@@ -35,15 +43,19 @@ const Pets = () => {
         <PrimaryText>Meus Pets</PrimaryText>
 
         <Link to="/create-pet">
-          <Icon src={plusIcon} color='blue' size="20px" clickable />
+          <Icon src={plusIcon} color="blue" size="20px" clickable />
         </Link>
       </ContainerTitle>
 
       <br />
 
       <ContainerCards>
-        {pets.map((pet: any) => (
-          <CardPet pet={pet} key={pet.id} />
+        {pets.map((pet: Pet) => (
+          <CardPet
+            pet={pet}
+            key={pet.id}
+            removePetFromList={removePetFromList}
+          />
         ))}
       </ContainerCards>
     </Page>
