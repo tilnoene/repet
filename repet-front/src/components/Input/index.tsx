@@ -1,4 +1,5 @@
 import PrimaryText from '../PrimaryText';
+
 import { ContainerInput, InputStyle } from './styles';
 
 const Input = ({
@@ -17,7 +18,10 @@ const Input = ({
   return (
     <ContainerInput>
       <label htmlFor="input">
-        <PrimaryText fontSize="16px">{label}{required && ' *'}</PrimaryText>
+        <PrimaryText fontSize="16px">
+          {label}
+          {required && ' *'}
+        </PrimaryText>
       </label>
 
       <InputStyle

@@ -3,7 +3,7 @@ interface PetRecord {
   title: string;
   description: string;
   date: string; // YYYY-MM-DD
-  time?: string; // HH:MM:SS
+  time?: string; // HH:mm:ss
   pet: {
     name: string;
   };

@@ -68,12 +68,12 @@ const CreatePet = () => {
         user: 1,
       })
       .then(() => {
-        toast.success('Pet cadastrado com sucesso.');
+        toast.success('Pet adicionado com sucesso.');
         navigate('/pets');
         setLoadingCreate(false);
       })
       .catch((error: any) => {
-        toast.error('Erro ao cadastrar pet.');
+        toast.error('Erro ao adicionar pet.');
         console.error(error);
         setLoadingCreate(false);
       });

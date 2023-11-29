@@ -4,7 +4,7 @@ type Reminder = {
   description: string;
   color?: string;
   date: string; // YYYY-MM-DD
-  time?: string; // HH:MM:SS
+  time?: string; // HH:mm:ss
   pet: {
     name: string;
   };
