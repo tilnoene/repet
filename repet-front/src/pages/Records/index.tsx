@@ -18,7 +18,7 @@ const Records = () => {
   const getRecords = () => {
     setLoading(true);
 
-    api.get('/records').then((response: any) => {
+    api.get('/records/').then((response: any) => {
       setRecords(response.data);
       setLoading(false);
     });
