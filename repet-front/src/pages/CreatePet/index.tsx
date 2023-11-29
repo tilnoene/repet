@@ -4,12 +4,13 @@ import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { ContainerPage } from './styles';
 import Select from '../../components/Select';
 
+import { ContainerPage } from './styles';
+
 import api from '../../services/api';
-import { petGenderOptions, petTypeOptions } from '../../services/utils';
 import { toast } from 'react-toastify';
+import { petGenderOptions, petTypeOptions } from '../../services/utils';
 
 const CreatePet = () => {
   const [name, setName] = useState<string>('');
@@ -22,18 +23,20 @@ const CreatePet = () => {
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
   const handleCreatePet = () => {
+    console.log();
+
     if (name === '') {
-      toast.error('O nome é obrigatório!');
+      toast.error('O nome é obrigatório.');
       return;
     }
 
     if (type === '') {
-      toast.error('O tipo é obrigatório!');
+      toast.error('O tipo é obrigatório.');
       return;
     }
 
     if (gender === '') {
-      toast.error('O gênero é obrigatório!');
+      toast.error('O gênero é obrigatório.');
       return;
     }
 
@@ -52,7 +55,7 @@ const CreatePet = () => {
     });
 
     setLoadingCreate(false);
-  }
+  };
 
   return (
     <Page menuOption={2} loading={false}>
@@ -62,31 +65,41 @@ const CreatePet = () => {
       <ContainerPage>
         <Input label="Nome" value={name} setValue={setName} />
 
-        <Select
-          label='Tipo'
-          setValue={setType}
-          options={petTypeOptions}
-        />
+        <Select label="Tipo" setValue={setType} options={petTypeOptions} />
 
         <Input label="Raça" value={breed} setValue={setBreed} />
 
         <Select
-          label='Gênero' // TODO: conferir nomenclatura
+          label="Gênero" // TODO: conferir nomenclatura
           setValue={setGender}
           options={petGenderOptions}
         />
 
         {/* TODO: colocar opcional */}
         {/* TODO: regex */}
-        <Input label="Data de Nascimento" value={birthdate} setValue={setBirthdate} placeholder='DD/MM/AAAA' />
+        <Input
+          label="Data de Nascimento"
+          value={birthdate}
+          setValue={setBirthdate}
+          placeholder="DD/MM/AAAA"
+        />
 
         {/* TODO: colocar opcional */}
         {/* TODO: only number, colocando kg na frente */}
-        <Input label="Peso" value={weight} setValue={setWeight} placeholder='3 kg' />
+        <Input
+          label="Peso"
+          value={weight}
+          setValue={setWeight}
+          placeholder="3 kg"
+        />
 
         <br />
 
-        <Button name="CADASTRAR PET" onClick={() => handleCreatePet()} loading={loadingCreate} />
+        <Button
+          name="CADASTRAR PET"
+          onClick={() => handleCreatePet()}
+          loading={loadingCreate}
+        />
       </ContainerPage>
     </Page>
   );

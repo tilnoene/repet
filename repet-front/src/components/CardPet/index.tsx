@@ -62,9 +62,11 @@ const CardPet = ({
         </Link>
 
         <div>
-          <PrimaryText isWhite fontSize="18px">
-            {pet.name}
-          </PrimaryText>
+          <Link to={`/pets/${pet.id}`}>
+            <PrimaryText isWhite fontSize="18px">
+              {pet.name}
+            </PrimaryText>
+          </Link>
           <SecondaryText isWhite>{pet.type}</SecondaryText>
         </div>
 
