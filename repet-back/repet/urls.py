@@ -21,4 +21,7 @@ urlpatterns = [
 
     path('reminders/', RemindersView.as_view()),
     path('reminders/<int:pk>/', RemindersView.as_view()),
+
+    path('myreminders/<int:pk>/1/', RemindersView.as_view()),
+    path('myreminders/<int:pk>/0/', RemindersView.as_view()),
 ]

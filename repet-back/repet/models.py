@@ -73,6 +73,7 @@ class Reminder(models.Model):
     date = models.DateField(verbose_name='Data', blank=True)
     time = models.TimeField(verbose_name='Horário', blank=True)
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
+    done = models.BooleanField(verbose_name='Concluído', default=False, blank=True)
 
     def __str__(self):
         return f"{self.id}-{self.pet_id}:{self.title}"
