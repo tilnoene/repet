@@ -7,10 +7,14 @@ import { BackroundColor, Content, Footer, Header, PetName } from './styles';
 
 import pawIcon from '../../assets/icons/paw.svg';
 
+import config from '../../config.json';
+
 const CardReminder = ({ reminder, ...props }: { reminder: Reminder }) => {
   return (
     <Card {...props}>
-      <BackroundColor color={reminder.color} />
+      <BackroundColor
+        color={reminder?.color ? reminder.color : config.colors.primaryBlue}
+      />
 
       <Content>
         <Header>
@@ -22,9 +26,7 @@ const CardReminder = ({ reminder, ...props }: { reminder: Reminder }) => {
           </PetName>
         </Header>
 
-        <SecondaryText>
-          {reminder.description}
-        </SecondaryText>
+        <SecondaryText>{reminder.description}</SecondaryText>
 
         <Footer>
           <SecondaryText>

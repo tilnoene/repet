@@ -5,6 +5,8 @@
     "primaryText": "#272E28",
     "secondaryText": "#666666",
     "gray": "#D8DEE3",
+    "gray300": "#979B9E",
+    "gray500": "#787C7E",
     "background": "#F5F7FA",
     "red": "#EF233C",
     "secondaryRed": "#D71F36",

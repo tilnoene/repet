@@ -1,4 +1,8 @@
-import { ContainerButton, ContainerButtonLoading } from './styles';
+import {
+  ContainerButton,
+  ContainerButtonLoading,
+  ContainerButtonOutlined,
+} from './styles';
 
 import config from '../../config.json';
 
@@ -9,11 +13,13 @@ const Button = ({
   onClick = null,
   loading = false,
   color = 'blue',
+  variant = 'normal',
 }: {
   name?: string;
   onClick?: any;
   loading?: boolean;
   color?: string;
+  variant?: string;
 }) => {
   return loading ? (
     <ContainerButtonLoading>
@@ -24,6 +30,8 @@ const Button = ({
         margin={4}
       />
     </ContainerButtonLoading>
+  ) : variant === 'outlined' ? (
+    <ContainerButtonOutlined onClick={onClick}>{name}</ContainerButtonOutlined>
   ) : (
     <ContainerButton onClick={onClick} color={color}>
       {name}

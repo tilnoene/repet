@@ -81,13 +81,18 @@ const CreatePet = () => {
 
   return (
     <Page menuOption={2} loading={false}>
-      <PrimaryText>Cadastrar Pet</PrimaryText>
+      <PrimaryText>Adicionar Pet</PrimaryText>
       <br />
 
       <ContainerPage>
         <Input label="Nome" value={name} setValue={setName} required />
 
-        <Select label="Tipo" setValue={setType} options={petTypeOptions} required />
+        <Select
+          label="Tipo"
+          setValue={setType}
+          options={petTypeOptions}
+          required
+        />
 
         <Input label="Raça" value={breed} setValue={setBreed} />
 
@@ -120,9 +125,16 @@ const CreatePet = () => {
         <br />
 
         <Button
-          name="CADASTRAR PET"
+          name="ADICIONAR"
           onClick={() => handleCreatePet()}
           loading={loadingCreate}
+        />
+
+        <Button
+          name="VOLTAR"
+          onClick={() => navigate(-1)}
+          loading={loadingCreate}
+          variant="outlined"
         />
       </ContainerPage>
     </Page>
