@@ -57,8 +57,8 @@ class UserView(APIView):
 
 class PetView(APIView):
 
-    def post(self, resquest):
-        serializer = PetSerializer(data=resquest.data)
+    def post(self, request):
+        serializer = PetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response("Pet cadastrado com sucesso.", status=status.HTTP_201_CREATED)
@@ -100,8 +100,8 @@ class PetView(APIView):
         return Response("Pet deletado com sucesso.")  
 
 class RecordView(APIView):
-    def post(self, resquest):
-        serializer = RecordSerializer(data=resquest.data)
+    def post(self, request):
+        serializer = RecordSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -115,18 +115,20 @@ class RecordView(APIView):
         except Record.DoesNotExist:
             raise Http404
 
-    def get(self, resquest, pk=None):
+    def get(self, request, pk=None):
         if pk:
             data = self.query_record(pk)
             serializer = RecordSerializerGET(data)
         else:
             data = Record.objects.all()
+            if request.GET.get("pet_id"):
+                data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RecordSerializerGET(data, many=True)
         return Response(serializer.data)
     
-    def put(self, resquest, pk):
+    def put(self, request, pk):
         record_update = self.query_record(pk)
-        serializer = RecordSerializer(instance=record_update, data=resquest.data, partial=True)
+        serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
@@ -134,7 +136,7 @@ class RecordView(APIView):
         else:
             return Response("Erro ao atualizar o Registro.", status=status.HTTP_400_BAD_REQUEST)
             
-    def delete(self, resquest, pk):
+    def delete(self, request, pk):
         record_delete = self.query_record(pk)
         record_delete.delete()
 
@@ -171,12 +173,14 @@ class VaccineView(APIView):
             serializer = VaccineSerializerGET(data)
         else:
             data = Vaccine.objects.all()
+            if request.GET.get("pet_id"):
+                data = data.filter(pet=request.GET.get("pet_id"))
             serializer = VaccineSerializerGET(data, many=True)
         return Response(serializer.data)
 
-    def put(self, resquest, pk):
+    def put(self, request, pk):
         vaccine_update = self.query_vaccine(pk)
-        serializer = RecordSerializer(instance=vaccine_update, data=resquest.data, partial=True)
+        serializer = RecordSerializer(instance=vaccine_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
@@ -184,7 +188,7 @@ class VaccineView(APIView):
         else:
             return Response("Erro ao atualizar a vacina.")
             
-    def delete(self, resquest, pk=None):
+    def delete(self, request, pk=None):
         if pk:
             vaccine_delete = self.query_vaccine(pk)
             vaccine_delete.delete()
@@ -215,12 +219,14 @@ class RemindersView(APIView):
             serializer = RemindersSerializerGET(data)
         else:
             data = Reminder.objects.all()
+            if request.GET.get("pet_id"):
+                data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RemindersSerializerGET(data, many=True)
         return Response(serializer.data)
 
-    def put(self, resquest, pk):
+    def put(self, request, pk):
         reminders_update = self.query_reminders(pk)
-        serializer = RemindersSerializer(instance=reminders_update, data=resquest.data, partial=True)
+        serializer = RemindersSerializer(instance=reminders_update, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
@@ -228,7 +234,7 @@ class RemindersView(APIView):
         else:
             return Response("Erro ao atualizar o lembrete.", status=status.HTTP_400_BAD_REQUEST)
             
-    def delete(self, resquest, pk):
+    def delete(self, request, pk):
         reminders_delete = self.query_reminders(pk)
         reminders_delete.delete()
 
