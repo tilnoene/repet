@@ -80,7 +80,7 @@ const CreatePet = () => {
   };
 
   return (
-    <Page menuOption={2} loading={false}>
+    <Page loading={false}>
       <PrimaryText>Adicionar Pet</PrimaryText>
       <br />
 

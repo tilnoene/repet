@@ -17,7 +17,7 @@ const Input = ({
 }) => {
   return (
     <ContainerInput>
-      <label htmlFor="input">
+      <label htmlFor={`input-${label}`}>
         <PrimaryText fontSize="16px">
           {label}
           {required && ' *'}
@@ -25,7 +25,7 @@ const Input = ({
       </label>
 
       <InputStyle
-        id="input"
+        id={`input-${label}`}
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder={placeholder}

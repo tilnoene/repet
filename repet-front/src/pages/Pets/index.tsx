@@ -25,10 +25,6 @@ const Pets = () => {
     });
   };
 
-  // const removePetFromList = ({ id }: { id: number }) => {
-  //   setPets((pets: Pet[]) => pets.filter((pet: Pet) => pet.id !== id));
-  // };
-
   const removePetFromList = (id: number) => {
     setPets(pets.filter((pet: Pet) => pet.id !== id));
   };

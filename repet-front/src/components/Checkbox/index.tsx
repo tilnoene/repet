@@ -14,13 +14,13 @@ const Checkbox = ({
   return (
     <ContainerCheckbox>
       <CheckboxStyle
-        id="checkbox"
+        id={`checkbox-${label}`}
         type="checkbox"
         checked={value}
         onChange={() => setValue(!value)}
       />
 
-      <label htmlFor="checkbox">
+      <label htmlFor={`checkbox-${label}`}>
         <PrimaryText fontSize="16px">{label}</PrimaryText>
       </label>
     </ContainerCheckbox>

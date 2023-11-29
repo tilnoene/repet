@@ -34,9 +34,5 @@ export const formatWeight = (weight: string) => {
 };
 
 export const formatTime = (time: string) => {
-  return time
-    .replace(/\D/g, '')
-    .replace(/(\d{2})(\d)/, '$1/$2')
-    .replace(/(\d{2})(\d)/, '$1/$2')
-    .replace(/(\/\d{4})\d/, '$1');
+  return time; // TODO: implementar
 };

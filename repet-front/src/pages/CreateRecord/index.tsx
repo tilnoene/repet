@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
 
 import { ContainerPage } from './styles';
 
@@ -13,22 +14,29 @@ import { formatDate, formatTime } from '../../services/utils';
 
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
-import Checkbox from '../../components/Checkbox';
+import Select from '../../components/Select';
 
 const CreateRecord = () => {
   const navigate = useNavigate();
-  const { isVaccineUrl } = useParams();
+  const searchParams = new URLSearchParams(document.location.search);
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
 
-  const [isVaccine, setIsVaccine] = useState<boolean>(isVaccineUrl === 'true');
+  const [isVaccine, setIsVaccine] = useState<boolean>(
+    searchParams.get('is_vaccine') === 'true',
+  );
   const [veterinary, setVeterinary] = useState<string>('');
   const [place, setPlace] = useState<string>('');
 
+  const [petName, setPetName] = useState<string>('');
+
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
+
+  const [pets, setPets] = useState<Pet[]>([]);
+  const [loadingPets, setLoadingPets] = useState<boolean>(true);
 
   const handleCreateRecord = () => {
     if (title === '') {
@@ -37,7 +45,7 @@ const CreateRecord = () => {
     }
 
     const formattedDate = dayjs(date, 'DD/MM/YYYY');
-    const formattedTime = dayjs(time, 'HH:mm:ss');
+    const formattedTime = dayjs(time, 'HH:mm');
 
     if (!formattedDate.isValid()) {
       toast.error('A data informada é inválida.');
@@ -49,6 +57,11 @@ const CreateRecord = () => {
       return;
     }
 
+    if (petName === '') {
+      toast.error('Selecione um pet para adicionar o registro.');
+      return;
+    }
+
     setLoadingCreate(true);
 
     api
@@ -57,6 +70,7 @@ const CreateRecord = () => {
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
         time: formattedTime.format('HH:mm:ss'),
+        pet: pets.find(pet => pet.name === petName)?.id,
         user: 1,
       })
       .then(() => {
@@ -78,7 +92,7 @@ const CreateRecord = () => {
     }
 
     const formattedDate = dayjs(date, 'DD/MM/YYYY');
-    const formattedTime = dayjs(time, 'HH:mm:ss');
+    const formattedTime = dayjs(time, 'HH:mm');
 
     if (!formattedDate.isValid()) {
       toast.error('A data informada é inválida.');
@@ -100,6 +114,11 @@ const CreateRecord = () => {
       return;
     }
 
+    if (petName === '') {
+      toast.error('Selecione um pet para adicionar o registro.');
+      return;
+    }
+
     setLoadingCreate(true);
 
     api
@@ -108,9 +127,10 @@ const CreateRecord = () => {
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
         time: formattedTime.format('HH:mm:ss'),
-        user: 1,
+        pet: pets.find(pet => pet.name === petName)?.id,
         veterinary: veterinary,
         place: place,
+        user: 1,
       })
       .then(() => {
         toast.success('Vacina adicionada com sucesso.');
@@ -124,18 +144,54 @@ const CreateRecord = () => {
       });
   };
 
+  const getPets = () => {
+    setLoadingPets(true);
+
+    api
+      .get('/pets/')
+      .then(response => {
+        setPets(response.data);
+        setLoadingPets(false);
+
+        const selectedPet = response.data.find(
+          (pet: Pet) => String(pet.id) === searchParams.get('pet_id'),
+        );
+
+        if (selectedPet) {
+          setPetName(selectedPet.name);
+        }
+      })
+      .catch((error: any) => {
+        toast.error('Erro ao carregar os pets.');
+        console.error(error);
+        setLoadingPets(false);
+      });
+  };
+
+  useEffect(() => {
+    getPets();
+  }, []);
+
   return (
-    <Page menuOption={2} loading={false}>
-      <PrimaryText>Adicionar Registro</PrimaryText>
+    <Page loading={loadingPets}>
+      <PrimaryText>Adicionar {isVaccine ? 'Vacina' : 'Registro'}</PrimaryText>
       <br />
 
       <ContainerPage>
-        <Input label="Nome" value={title} setValue={setTitle} required />
+        <Input label="Título" value={title} setValue={setTitle} required />
 
         <Input
           label="Descrição"
           value={description}
           setValue={setDescription}
+        />
+
+        <Select
+          label="Pet"
+          options={pets.map(pet => pet.name)}
+          required
+          defaultValue={petName}
+          setValue={setPetName}
         />
 
         <Input
@@ -189,7 +245,6 @@ const CreateRecord = () => {
         <Button
           name="VOLTAR"
           onClick={() => navigate(-1)}
-          loading={loadingCreate}
           variant="outlined"
         />
       </ContainerPage>
