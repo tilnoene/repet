@@ -1,5 +1,9 @@
 import { ContainerButton, ContainerButtonLoading } from './styles';
 
+import config from '../../config.json';
+
+import { BeatLoader } from 'react-spinners';
+
 const Button = ({
   name = '',
   onClick = null,
@@ -12,7 +16,14 @@ const Button = ({
   color?: string;
 }) => {
   return loading ? (
-    <ContainerButtonLoading>{name}</ContainerButtonLoading> // TODO: loading icon
+    <ContainerButtonLoading>
+      <BeatLoader
+        color={config.colors.secondaryText}
+        speedMultiplier={0.8}
+        size={12}
+        margin={4}
+      />
+    </ContainerButtonLoading>
   ) : (
     <ContainerButton onClick={onClick} color={color}>
       {name}

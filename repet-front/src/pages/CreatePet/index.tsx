@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
@@ -9,10 +10,19 @@ import Select from '../../components/Select';
 import { ContainerPage } from './styles';
 
 import api from '../../services/api';
+import {
+  formatDate,
+  formatWeight,
+  petGenderOptions,
+  petTypeOptions,
+} from '../../services/utils';
+
 import { toast } from 'react-toastify';
-import { petGenderOptions, petTypeOptions } from '../../services/utils';
+import dayjs from 'dayjs';
 
 const CreatePet = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<any>('');
   const [breed, setBreed] = useState<string>('');
@@ -23,8 +33,6 @@ const CreatePet = () => {
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
   const handleCreatePet = () => {
-    console.log();
-
     if (name === '') {
       toast.error('O nome é obrigatório.');
       return;
@@ -40,21 +48,35 @@ const CreatePet = () => {
       return;
     }
 
-    // TODO: validar data pra ver se é antes de hoje
+    const date = dayjs(birthdate, 'DD/MM/YYYY');
+
+    if (!date.isValid()) {
+      toast.error('A data de nascimento informada é inválida.');
+      return;
+    }
 
     setLoadingCreate(true);
 
-    api.post('/pets/', {
-      name: name,
-      type: type,
-      breed: breed,
-      gender: gender,
-      birthdate: birthdate, // TODO: tratar para data em ingles com dayjs
-      weight: weight,
-      user: 1,
-    });
-
-    setLoadingCreate(false);
+    api
+      .post('/pets/', {
+        name: name,
+        type: type,
+        breed: breed,
+        gender: gender,
+        birthdate: date.format('YYYY-MM-DD'),
+        weight: weight,
+        user: 1,
+      })
+      .then(() => {
+        toast.success('Pet cadastrado com sucesso.');
+        navigate('/pets');
+        setLoadingCreate(false);
+      })
+      .catch((error: any) => {
+        toast.error('Erro ao cadastrar pet.');
+        console.error(error);
+        setLoadingCreate(false);
+      });
   };
 
   return (
@@ -70,26 +92,26 @@ const CreatePet = () => {
         <Input label="Raça" value={breed} setValue={setBreed} />
 
         <Select
-          label="Gênero" // TODO: conferir nomenclatura
+          label="Gênero"
           setValue={setGender}
           options={petGenderOptions}
         />
 
-        {/* TODO: colocar opcional */}
-        {/* TODO: regex */}
         <Input
           label="Data de Nascimento"
           value={birthdate}
-          setValue={setBirthdate}
+          setValue={(value: string) => {
+            setBirthdate(formatDate(value));
+          }}
           placeholder="DD/MM/AAAA"
         />
 
-        {/* TODO: colocar opcional */}
-        {/* TODO: only number, colocando kg na frente */}
         <Input
           label="Peso"
           value={weight}
-          setValue={setWeight}
+          setValue={(value: string) => {
+            setWeight(formatWeight(value));
+          }}
           placeholder="3 kg"
         />
 
