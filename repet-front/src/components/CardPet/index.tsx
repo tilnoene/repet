@@ -12,8 +12,7 @@ import editIcon from '../../assets/icons/pencil.svg';
 
 import angora from '../../assets/images/angora.png';
 
-const CardPet = ({ pet, ...props }: { pet: any }) => {
-  // TODO: tipar pet
+const CardPet = ({ pet, ...props }: { pet: Pet }) => {
   return (
     <Link to={`/pets/${pet.id}`}>
       <Card {...props}>

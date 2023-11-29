@@ -1,10 +1,9 @@
-import { Dayjs } from 'dayjs';
-
-interface Record {
+interface PetRecord {
   id: number;
   title: string;
   description: string;
-  date: Dayjs;
+  date: string; // YYYY-MM-DD
+  time?: string; // HH:MM:SS
   pet: {
     name: string;
   };

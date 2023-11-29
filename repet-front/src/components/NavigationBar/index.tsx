@@ -13,19 +13,19 @@ const NavigationBar = ({ option = 0 }: { option?: number }) => {
   return (
     <Container>
       <Link to="/">
-        <Icon src={calendar_icon} color={option === 1 ? 'blue' : 'gray'} />
+        <Icon src={calendar_icon} color={option === 1 ? 'blue' : 'gray'} clickable />
       </Link>
 
       <Link to="/pets">
-        <Icon src={paw_icon} color={option === 2 ? 'blue' : 'gray'} />
+        <Icon src={paw_icon} color={option === 2 ? 'blue' : 'gray'} clickable />
       </Link>
 
       <Link to="/records">
-        <Icon src={document_icon} color={option === 3 ? 'blue' : 'gray'} />
+        <Icon src={document_icon} color={option === 3 ? 'blue' : 'gray'} clickable />
       </Link>
 
       <Link to="/profile">
-        <Icon src={profile_icon} color={option === 4 ? 'blue' : 'gray'} />
+        <Icon src={profile_icon} color={option === 4 ? 'blue' : 'gray'} clickable />
       </Link>
     </Container>
   );
