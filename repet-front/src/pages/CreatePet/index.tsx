@@ -48,6 +48,7 @@ const CreatePet = () => {
       gender: gender,
       birthdate: birthdate, // TODO: tratar para data em ingles com dayjs
       weight: weight,
+      user: 1,
     });
 
     setLoadingCreate(false);

@@ -7,7 +7,7 @@ import { Content, Footer, Header, PetName } from './styles';
 
 import pawIcon from '../../assets/icons/paw.svg';
 
-const CardRecord = ({ record, ...props }: { record: any }) => { // TODO: tipar
+const CardRecord = ({ record, ...props }: { record: PetRecord }) => {
   return (
     <Card {...props}>
       <Content>
@@ -16,7 +16,7 @@ const CardRecord = ({ record, ...props }: { record: any }) => { // TODO: tipar
 
           <PetName>
             <Icon src={pawIcon} color="black" size="18px"/>
-            <PrimaryText fontSize="16px">{record.pet_name}</PrimaryText>
+            <PrimaryText fontSize="16px">{record.pet.name}</PrimaryText>
           </PetName>
         </Header>
 

@@ -11,8 +11,7 @@ import { ContainerCards, ContainerTitle } from './styles';
 import plusIcon from '../../assets/icons/plus.svg';
 
 import api from '../../services/api';
-
-import { Reminder } from '../../@types/Reminder';
+import { toast } from 'react-toastify';
 
 const Reminders = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
@@ -21,10 +20,16 @@ const Reminders = () => {
   const getReminders = () => {
     setLoading(true);
 
-    api.get('/reminders/').then((response: any) => {
-      setReminders(response.data);
-      setLoading(false);
-    });
+    api
+      .get('/reminders/')
+      .then((response: any) => {
+        setReminders(response.data);
+        setLoading(false);
+      })
+      .catch((error: any) => {
+        toast.error('Erro ao carregar os lembretes');
+        console.error(error);
+      });
   };
 
   useEffect(() => {

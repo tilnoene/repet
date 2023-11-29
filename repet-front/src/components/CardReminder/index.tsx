@@ -7,7 +7,7 @@ import { BackroundColor, Content, Footer, Header, PetName } from './styles';
 
 import pawIcon from '../../assets/icons/paw.svg';
 
-const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: tipar
+const CardReminder = ({ reminder, ...props }: { reminder: Reminder }) => {
   return (
     <Card {...props}>
       <BackroundColor color={reminder.color} />
@@ -18,7 +18,7 @@ const CardReminder = ({ reminder, ...props }: { reminder: any }) => { // TODO: t
 
           <PetName>
             <Icon src={pawIcon} color="black" size="18px" />
-            <PrimaryText fontSize="16px">{reminder.pet_name}</PrimaryText>
+            <PrimaryText fontSize="16px">{reminder.pet.name}</PrimaryText>
           </PetName>
         </Header>
 

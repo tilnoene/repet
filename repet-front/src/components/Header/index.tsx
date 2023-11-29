@@ -16,7 +16,7 @@ const Header = () => {
       <PrimaryText isWhite>rePET</PrimaryText>
 
       <Link to="/settings">
-        <Icon src={settingsIcon} color="white" />
+        <Icon src={settingsIcon} color="white" clickable />
       </Link>
     </Container>
   );
