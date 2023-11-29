@@ -6,16 +6,18 @@ const Select = ({
   placeholder = '',
   setValue,
   options = [],
+  required = false,
 }: {
   label?: string;
   placeholder?: string;
-  setValue: any; // TODO: tipar
+  setValue: any;
   options?: any[];
+  required?: boolean;
 }) => {
   return (
     <ContainerSelect>
       <label htmlFor="select">
-        <PrimaryText fontSize="16px">{label}</PrimaryText>
+        <PrimaryText fontSize="16px">{label}{required && ' *'}</PrimaryText>
       </label>
 
       <SelectStyle

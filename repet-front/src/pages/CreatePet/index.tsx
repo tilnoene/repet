@@ -85,9 +85,9 @@ const CreatePet = () => {
       <br />
 
       <ContainerPage>
-        <Input label="Nome" value={name} setValue={setName} />
+        <Input label="Nome" value={name} setValue={setName} required />
 
-        <Select label="Tipo" setValue={setType} options={petTypeOptions} />
+        <Select label="Tipo" setValue={setType} options={petTypeOptions} required />
 
         <Input label="Raça" value={breed} setValue={setBreed} />
 
@@ -95,6 +95,7 @@ const CreatePet = () => {
           label="Gênero"
           setValue={setGender}
           options={petGenderOptions}
+          required
         />
 
         <Input
@@ -104,6 +105,7 @@ const CreatePet = () => {
             setBirthdate(formatDate(value));
           }}
           placeholder="DD/MM/AAAA"
+          required
         />
 
         <Input

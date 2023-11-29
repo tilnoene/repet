@@ -6,16 +6,18 @@ const Input = ({
   placeholder = '',
   value,
   setValue,
+  required = false,
 }: {
   label?: string;
   placeholder?: string;
   value: string;
-  setValue: any; // TODO: tipar
+  setValue: any;
+  required?: boolean;
 }) => {
   return (
     <ContainerInput>
       <label htmlFor="input">
-        <PrimaryText fontSize="16px">{label}</PrimaryText>
+        <PrimaryText fontSize="16px">{label}{required && ' *'}</PrimaryText>
       </label>
 
       <InputStyle
