@@ -8,9 +8,9 @@
     "dev": "yarn start:dev",
     "api": "json-server --watch db.development.json --port 4000 --routes routes.development.json --delay 300",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:android": "yarn build && npx cap sync && npx cap open android"
+    "build:resources": "npx @capacitor/assets generate --iconBackgroundColor \"#FFFFFF\" --iconBackgroundColorDark \"#FFFFFF\" --splashBackgroundColor \"#FFFFFF\" --splashBackgroundColorDark \"#FFFFFF\"",
+    "build:android": "yarn build && yarn build:resources && npx cap sync && npx cap open android",
+    "apk": "yarn build:android"
   },
   "dependencies": {
     "@capacitor/android": "^5.5.1",
@@ -37,6 +37,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.1",
     "@types/styled-components": "^5.1.26",
     "concurrently": "^7.4.0",
     "json-server": "^0.17.4",
