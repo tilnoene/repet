@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
@@ -16,9 +16,13 @@ import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import Select from '../../components/Select';
 
-const CreateRecord = () => {
+const EditRecord = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(document.location.search);
+
+  const { id } = useParams();
+
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -31,14 +35,14 @@ const CreateRecord = () => {
   const [veterinarian, setVeterinarian] = useState<string>('');
   const [place, setPlace] = useState<string>('');
 
-  const [petName, setPetName] = useState<string>('');
+  const [petName, setPetName] = useState<string | undefined>('');
 
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
   const [pets, setPets] = useState<Pet[]>([]);
   const [loadingPets, setLoadingPets] = useState<boolean>(true);
 
-  const handleCreateRecord = () => {
+  const handleEditRecord = () => {
     if (title === '') {
       toast.error('O título é obrigatório.');
       return;
@@ -58,7 +62,7 @@ const CreateRecord = () => {
     }
 
     if (petName === '') {
-      toast.error('Selecione um pet para adicionar o registro.');
+      toast.error('Selecione um pet para editar o registro.');
       return;
     }
 
@@ -74,12 +78,12 @@ const CreateRecord = () => {
         user: 1,
       })
       .then(() => {
-        toast.success('Registro adicionado com sucesso.');
+        toast.success('Registro editado com sucesso.');
         navigate('/records');
         setLoadingCreate(false);
       })
       .catch((error: any) => {
-        toast.error('Erro ao adicionar registro.');
+        toast.error('Erro ao editar registro.');
         console.error(error);
         setLoadingCreate(false);
       });
@@ -115,7 +119,7 @@ const CreateRecord = () => {
     }
 
     if (petName === '') {
-      toast.error('Selecione um pet para adicionar o registro.');
+      toast.error('Selecione um pet para editar o registro.');
       return;
     }
 
@@ -133,12 +137,12 @@ const CreateRecord = () => {
         user: 1,
       })
       .then(() => {
-        toast.success('Vacina adicionada com sucesso.');
+        toast.success('Vacina editada com sucesso.');
         navigate('/records');
         setLoadingCreate(false);
       })
       .catch((error: any) => {
-        toast.error('Erro ao adicionar vacina.');
+        toast.error('Erro ao editar vacina.');
         console.error(error);
         setLoadingCreate(false);
       });
@@ -168,13 +172,51 @@ const CreateRecord = () => {
       });
   };
 
+  const getRecord = () => {
+    setLoading(true);
+
+    api
+      .get(`/${isVaccine ? 'vaccines' : 'records'}/${id}/`)
+      .then(response => {
+        if (isVaccine) {
+          const vaccine = response.data;
+
+          setTitle(vaccine.record.title);
+          setDescription(vaccine.record.description);
+          setDate(
+            dayjs(vaccine.record.date, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+          );
+          setTime(dayjs(vaccine.record.time, 'HH:mm:ss').format('HH:mm'));
+          setPetName(vaccine.pet.name);
+
+          setVeterinarian(vaccine.veterinarian);
+          setPlace(vaccine.place);
+        } else {
+          const record = response.data;
+
+          setTitle(record.title);
+          setDescription(record.description);
+          setDate(dayjs(record.date, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+          setTime(dayjs(record.time, 'HH:mm:ss').format('HH:mm'));
+          setPetName(record.pet.name);
+        }
+
+        setLoading(false);
+      })
+      .catch(error => {
+        toast.error('Erro ao carregar o registro.');
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     getPets();
+    getRecord();
   }, []);
 
   return (
-    <Page loading={loadingPets}>
-      <PrimaryText>Adicionar {isVaccine ? 'Vacina' : 'Registro'}</PrimaryText>
+    <Page loading={loading && loadingPets}>
+      <PrimaryText>Editar {isVaccine ? 'Vacina' : 'Registro'}</PrimaryText>
       <br />
 
       <ContainerPage>
@@ -235,9 +277,9 @@ const CreateRecord = () => {
         <br />
 
         <Button
-          name="ADICIONAR"
+          name="ATUALIZAR"
           onClick={() =>
-            isVaccine ? handleCreateVaccine() : handleCreateRecord()
+            isVaccine ? handleCreateVaccine() : handleEditRecord()
           }
           loading={loadingCreate}
         />
@@ -248,4 +290,4 @@ const CreateRecord = () => {
   );
 };
 
-export default CreateRecord;
+export default EditRecord;

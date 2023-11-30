@@ -11,6 +11,8 @@ import PetProfile from '../pages/PetProfile';
 import CreatePet from '../pages/CreatePet';
 import CreateRecord from '../pages/CreateRecord';
 
+import EditRecord from '../pages/EditRecord';
+
 const Router = () => (
   <BrowserRouter>
     <Routes>
@@ -24,6 +26,8 @@ const Router = () => (
 
       <Route path="/create-pet" element={<CreatePet />} />
       <Route path="/create-record" element={<CreateRecord />} />
+
+      <Route path="/edit-record/:id" element={<EditRecord />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

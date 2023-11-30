@@ -1,5 +1,5 @@
 interface Vaccine extends PetRecord {
-  veterinary: string;
+  veterinarian: string;
   place: string;
   image?: string;
 }
