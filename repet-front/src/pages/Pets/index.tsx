@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Page from '../../components/Page';
@@ -24,10 +24,6 @@ const Pets = () => {
       setLoading(false);
     });
   };
-
-  // const removePetFromList = ({ id }: { id: number }) => {
-  //   setPets((pets: Pet[]) => pets.filter((pet: Pet) => pet.id !== id));
-  // };
 
   const removePetFromList = (id: number) => {
     setPets(pets.filter((pet: Pet) => pet.id !== id));

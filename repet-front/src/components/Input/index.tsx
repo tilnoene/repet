@@ -1,4 +1,5 @@
 import PrimaryText from '../PrimaryText';
+
 import { ContainerInput, InputStyle } from './styles';
 
 const Input = ({
@@ -6,20 +7,25 @@ const Input = ({
   placeholder = '',
   value,
   setValue,
+  required = false,
 }: {
   label?: string;
   placeholder?: string;
   value: string;
-  setValue: any; // TODO: tipar
+  setValue: any;
+  required?: boolean;
 }) => {
   return (
     <ContainerInput>
-      <label htmlFor="input">
-        <PrimaryText fontSize="16px">{label}</PrimaryText>
+      <label htmlFor={`input-${label}`}>
+        <PrimaryText fontSize="16px">
+          {label}
+          {required && ' *'}
+        </PrimaryText>
       </label>
 
       <InputStyle
-        id="input"
+        id={`input-${label}`}
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder={placeholder}

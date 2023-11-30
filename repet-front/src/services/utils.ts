@@ -20,3 +20,19 @@ export const toastOptions: ToastOptions = {
   draggable: true,
   progress: undefined,
 };
+
+export const formatDate = (date: string) => {
+  return date
+    .replace(/\D/g, '')
+    .replace(/(\d{2})(\d)/, '$1/$2')
+    .replace(/(\d{2})(\d)/, '$1/$2')
+    .replace(/(\/\d{4})\d/, '$1');
+};
+
+export const formatWeight = (weight: string) => {
+  return weight.replace(/[^\d.-]+/g, '');
+};
+
+export const formatTime = (time: string) => {
+  return time; // TODO: implementar
+};

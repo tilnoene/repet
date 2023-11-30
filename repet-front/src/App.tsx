@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { ToastContainer } from 'react-toastify';
 
 import Router from './services/router';
 
 import 'react-toastify/dist/ReactToastify.css';
-
-dayjs.extend(customParseFormat)
-dayjs.locale('pt-br');
+import 'dayjs/locale/pt-br';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 const App = () => {
+  dayjs.locale('pt-br');
+  dayjs.extend(customParseFormat);
 
   return (
     <>

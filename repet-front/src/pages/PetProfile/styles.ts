@@ -9,11 +9,11 @@ export const ContainerPage = styled.div`
 
 type ImageProps = {
   src: any;
-}
+};
 
 export const Image = styled.div<ImageProps>`
-  background-image: url(${ props => props.src });
-  background-color: ${ config.colors.gray };
+  background-image: url(${props => props.src});
+  background-color: ${config.colors.gray};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -22,7 +22,7 @@ export const Image = styled.div<ImageProps>`
 `;
 
 export const ProfileCard = styled.div`
-  background: ${ config.colors.background };
+  background: ${config.colors.background};
   height: fit-content;
   min-height: calc(100% - 240px + 24px);
   z-index: 2;
@@ -50,7 +50,8 @@ export const CardHeaderTitle = styled.div`
 export const CardHeaderIcons = styled.div`
   display: flex;
   gap: 12px;
-`
+`;
+
 export const PetInfo = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -74,4 +75,12 @@ export const ContainerCards = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+`;
+
+export const ContainerTitle = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
