@@ -141,7 +141,7 @@ const PetProfile = () => {
                 <CardTopic>
                   <SecondaryText>Idade</SecondaryText>
                   <PrimaryText fontSize="18px">
-                    {dayjs().diff(dayjs(pet.birthdate), 'year')} anos
+                    {dayjs().diff(dayjs(pet.birthdate), 'year')} ano{dayjs().diff(dayjs(pet.birthdate), 'year') !== 1 && 's'}
                   </PrimaryText>
                 </CardTopic>
               </CardColumn>
