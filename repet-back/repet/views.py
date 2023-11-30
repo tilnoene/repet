@@ -4,16 +4,55 @@ from django.http.response import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from .serializers import UserSerializer, PetSerializer, PetSerializerGET, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET, RemindersSerializer, RemindersSerializerGET
+from .serializers import UserSerializer, PetSerializer, PetSerializerGET, VaccineSerializer, VaccineSerializerGET, RecordSerializer, RecordSerializerGET, RemindersSerializer, RemindersSerializerGET, RegisterSerializer
 from .models import User, Pet, Vaccine, Record, Reminder
+from django.contrib.auth.models import User as USER
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
-class UserView(APIView):
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': User.objects.get(user_login=user.pk).pk,
+            'email': user.email
+        })
+
+def get_my_id(user_pk):
+    return User.objects.get(user_login=user_pk)
+
+def can_acess(user_pk, pk):
+    return get_my_id(user_pk).pk == pk
+
+class RegisterView(APIView):
     # create
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = RegisterSerializer(data=request.data)
 
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Usuário cadastrado com sucesso.", status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.error_messages)
+            return Response("Erro ao cadastrar o usuário.", status=status.HTTP_400_BAD_REQUEST)
+
+class UserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    # create
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response("Usuário cadastrado com sucesso.", status=status.HTTP_201_CREATED)
@@ -30,6 +69,8 @@ class UserView(APIView):
     # read
     def get(self, request, pk=None):
         if pk:
+            if not can_acess(request.user.id, pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
             data = self.query_user(pk)
             serializer = UserSerializer(data)
         else:
@@ -39,6 +80,8 @@ class UserView(APIView):
     
     # update
     def put(self, request, pk):
+        if not can_acess(request.user.id, pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         user_update = self.query_user(pk)
         serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
 
@@ -50,12 +93,15 @@ class UserView(APIView):
     
     # delete
     def delete(self, request, pk):
+        if not can_acess(request.user.id, pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         user_delete = self.query_user(pk)
         user_delete.delete()
 
         return Response("Usuário deletado com sucesso.")
 
 class PetView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = PetSerializer(data=request.data)
@@ -72,11 +118,16 @@ class PetView(APIView):
             raise Http404
 
     def get(self, request, pk=None):
+        id = get_my_id(request.user.id)
         if pk:
             data = self.query_pet(pk)
+            if not can_acess(request.user.id, data.user.pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
+            # data = data.filter(user=id)
             serializer = PetSerializerGET(data)
         else:
             data = Pet.objects.all()
+            data = data.filter(user=id)
             serializer = PetSerializerGET(data, many=True)
 
         response = Response(serializer.data)
@@ -85,6 +136,8 @@ class PetView(APIView):
     
     def put(self, request, pk):
         pet_update = self.query_pet(pk)
+        if not can_acess(request.user.id, pet_update.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         serializer = PetSerializer(instance=pet_update, data=request.data, partial=True)
 
         if serializer.is_valid():
@@ -95,11 +148,14 @@ class PetView(APIView):
             
     def delete(self, request, pk):
         pet_delete = self.query_pet(pk)
+        if not can_acess(request.user.id, pet_delete.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         pet_delete.delete()
 
         return Response("Pet deletado com sucesso.")  
 
 class RecordView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = RecordSerializer(data=request.data)
 
@@ -116,11 +172,16 @@ class RecordView(APIView):
             raise Http404
 
     def get(self, request, pk=None):
+        id = get_my_id(request.user.id)
         if pk:
             data = self.query_record(pk)
+            if not can_acess(request.user.id, data.pet.user.pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
+            # data = data.filter(user=id)
             serializer = RecordSerializerGET(data)
         else:
             data = Record.objects.all()
+            data = data.filter(user=id)
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RecordSerializerGET(data, many=True)
@@ -128,6 +189,8 @@ class RecordView(APIView):
     
     def put(self, request, pk):
         record_update = self.query_record(pk)
+        if not can_acess(request.user.id, record_update.pet.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
         if serializer.is_valid():
@@ -138,19 +201,14 @@ class RecordView(APIView):
             
     def delete(self, request, pk):
         record_delete = self.query_record(pk)
+        if not can_acess(request.user.id, record_delete.pet.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         record_delete.delete()
 
         return Response("Registro deletado com sucesso.")
 
-class MyPetView(APIView):
-    
-    def get(self, request, pk):
-        pets = Pet.objects.filter(user_id=pk)
-        serializer = PetSerializer(pets, many=True)
-
-        return Response(serializer.data)
-
 class VaccineView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         records_serializes = RecordSerializer(data=request.data)
@@ -182,18 +240,27 @@ class VaccineView(APIView):
             return Http404
 
     def get(self, request, pk=None):
+        id = get_my_id(request.user.id)
+        list_pets = [x.id for x in Pet.objects.filter(user=id)]
         if pk:
             data = self.query_vaccine(pk)
+            if not can_acess(request.user.id, data.pet.user.pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
+            # data = data.filter(pet__in=list_pets)
             serializer = VaccineSerializerGET(data)
         else:
             data = Vaccine.objects.all()
+            data = data.filter(pet__in=list_pets)
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = VaccineSerializerGET(data, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk):
+
         vacc_query = self.query_vaccine(pk)
+        if not can_acess(request.user.id, vacc_query.pet.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         record_update = self.query_records(vacc_query.record.id)
         serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
@@ -213,12 +280,15 @@ class VaccineView(APIView):
     def delete(self, request, pk=None):
         if pk:
             vaccine_delete = self.query_vaccine(pk)
+            if not can_acess(request.user.id, vaccine_delete.pet.user.pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
             vaccine_delete.delete()
             return Response("Vacina deletada com sucesso.")
         else: 
             return Response("Erro ao deletar vacinas.", status=status.HTTP_400_BAD_REQUEST)
 
 class RemindersView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializer = RemindersSerializer(data=request.data)
@@ -236,11 +306,18 @@ class RemindersView(APIView):
             return Http404
 
     def get(self, request, pk=None):
+        id = get_my_id(request.user.id)
+
+        list_pets = [x.id for x in Pet.objects.filter(user=id)]
         if pk:
             data = self.query_reminders(pk)
+            if not can_acess(request.user.id, data.pet.user.pk):
+                return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
+            # data = data.filter(pet__in=list_pets)
             serializer = RemindersSerializerGET(data)
         else:
             data = Reminder.objects.all()
+            data = data.filter(pet__in=list_pets)
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RemindersSerializerGET(data, many=True)
@@ -248,6 +325,8 @@ class RemindersView(APIView):
 
     def put(self, request, pk):
         reminders_update = self.query_reminders(pk)
+        if not can_acess(request.user.id, reminders_update.pet.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         serializer = RemindersSerializer(instance=reminders_update, data=request.data, partial=True)
 
         if serializer.is_valid():
@@ -258,6 +337,8 @@ class RemindersView(APIView):
             
     def delete(self, request, pk):
         reminders_delete = self.query_reminders(pk)
+        if not can_acess(request.user.id, reminders_delete.pet.user.pk):
+            return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         reminders_delete.delete()
 
         return Response("Lembrete deletado com sucesso.")

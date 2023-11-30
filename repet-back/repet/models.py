@@ -1,12 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User as USER
 
 # Create your models here.
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
+    user_login = models.OneToOneField(USER, on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=200, verbose_name='Nome')
     email = models.EmailField()
-    image = models.BinaryField(verbose_name='Imagem do Usuário', blank=True)
+    image = models.BinaryField(verbose_name='Imagem do Usuário', blank=True, null=True)
     username = models.CharField(max_length=100, verbose_name='Nome de Usuário')
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
 
@@ -39,7 +41,7 @@ class Pet(models.Model):
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
 
     def __str__(self):
-        return f"{self.user_id}:{self.name}"
+        return f"{self.user}:{self.name}"
 
 class Record(models.Model):
     id = models.AutoField(primary_key=True)
