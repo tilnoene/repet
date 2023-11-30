@@ -70,3 +70,18 @@ export const getAge = (date: string) => {
 
   return `${value} ${measurementUnit}`;
 };
+
+export const parseVaccines = (vaccines: any) => {
+  return vaccines.map((vaccine: any) => {
+    return {
+      id: vaccine.record.id,
+      title: vaccine.record.title,
+      description: vaccine.record.description,
+      pet: { name: vaccine.pet.name },
+      date: vaccine.record.date,
+      time: vaccine.record.time,
+      veterinarian: vaccine.veterinarian,
+      place: vaccine.place,
+    };
+  });
+};

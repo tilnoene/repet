@@ -215,7 +215,7 @@ const EditRecord = () => {
   }, []);
 
   return (
-    <Page loading={loading && loadingPets}>
+    <Page loading={loading || loadingPets}>
       <PrimaryText>Editar {isVaccine ? 'Vacina' : 'Registro'}</PrimaryText>
       <br />
 

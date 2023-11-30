@@ -29,6 +29,9 @@ const Icon = ({
       'invert(100%) sepia(100%) saturate(0%) hue-rotate(39deg) brightness(109%) contrast(101%)';
   } else if (color === 'black') {
     filter = 'none';
+  } else if (color === 'secondaryText') {
+    filter =
+      'filter: invert(13%) sepia(21%) saturate(354%) hue-rotate(77deg) brightness(96%) contrast(88%)';
   }
 
   if (disabled) {
@@ -37,7 +40,15 @@ const Icon = ({
   }
 
   return (
-    <ContainerIcon src={src} filter={filter} size={size} disabled={disabled} clickable={clickable} onClick={onClick} {...props} />
+    <ContainerIcon
+      src={src}
+      filter={filter}
+      size={size}
+      disabled={disabled}
+      clickable={clickable}
+      onClick={onClick}
+      {...props}
+    />
   );
 };
 
