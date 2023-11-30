@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-type BackroundColorProps = {
-  color: string;
-}
-
-export const BackroundColor = styled.div<BackroundColorProps>`
-  width: 100%;
-  height: 8px;
-  background: ${ props => props.color };
-  border-radius: 6px 6px 0 0;
-`;
-
 export const Content = styled.div`
   padding: 12px 14px;
   display: flex;
@@ -35,4 +24,10 @@ export const PetName = styled.div`
   display: flex;
   gap: 4px;
   margin-left: 12px;
+`;
+
+export const ContainerIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `;

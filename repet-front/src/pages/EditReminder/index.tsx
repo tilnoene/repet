@@ -128,7 +128,7 @@ const EditReminder = () => {
   }, []);
 
   return (
-    <Page loading={loading && loadingPets}>
+    <Page loading={loading || loadingPets}>
       <PrimaryText>Editar Lembrete</PrimaryText>
       <br />
 
