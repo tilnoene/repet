@@ -153,14 +153,28 @@ class MyPetView(APIView):
 class VaccineView(APIView):
 
     def post(self, request):
-        serializer = VaccineSerializer(data=request.data)
+        records_serializes = RecordSerializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Vacina cadastrada com sucesso.", status=status.HTTP_201_CREATED)
+        if records_serializes.is_valid():
+            rec = records_serializes.save()
+            request.data["record"] = rec.id
+            serializer = VaccineSerializer(data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Vacina cadastrada com sucesso.", status=status.HTTP_201_CREATED)
+            else:
+                rec.delete()
+                return Response("Erro ao cadastrar vacina.", status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response("Erro ao cadastrar vacina.", status=status.HTTP_400_BAD_REQUEST)
 
+    def query_records(self, pk):
+        try:
+            return Record.objects.get(id=pk)
+        except Record.DoesNotExist:
+            return Http404
+        
     def query_vaccine(self, pk):
         try:
             return Vaccine.objects.get(id=pk)
@@ -179,12 +193,20 @@ class VaccineView(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        vaccine_update = self.query_vaccine(pk)
-        serializer = RecordSerializer(instance=vaccine_update, data=request.data, partial=True)
+        vacc_query = self.query_vaccine(pk)
+        record_update = self.query_records(vacc_query.record.id)
+        serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response("Vacina atualizada com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            rec = serializer.save()
+            inst_vac = self.query_vaccine(pk)
+            request.data["record"] = rec.id
+            vaccine_serializer = VaccineSerializer(instance=inst_vac, data=request.data, partial=True)
+            if vaccine_serializer.is_valid():
+                vaccine_serializer.save()
+                return Response("Vacina atualizada com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Erro ao atualizar a vacina.")
         else:
             return Response("Erro ao atualizar a vacina.")
             
