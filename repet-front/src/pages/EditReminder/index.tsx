@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 
@@ -16,8 +16,12 @@ import api from '../../services/api';
 import { formatDate, formatTime } from '../../services/utils';
 import config from '../../config.json';
 
-const CreateReminder = () => {
+const EditReminder = () => {
   const navigate = useNavigate();
+
+  const { id } = useParams();
+
+  const [loading, setLoading] = useState<boolean>(true);
 
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -27,12 +31,12 @@ const CreateReminder = () => {
 
   const [petName, setPetName] = useState<string>('');
 
-  const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
+  const [loadingEdit, setLoadingEdit] = useState<boolean>(false);
 
   const [pets, setPets] = useState<Pet[]>([]);
   const [loadingPets, setLoadingPets] = useState<boolean>(true);
 
-  const handleCreateReminder = () => {
+  const handleEditReminder = () => {
     if (title === '') {
       toast.error('O título é obrigatório.');
       return;
@@ -52,14 +56,14 @@ const CreateReminder = () => {
     }
 
     if (petName === '') {
-      toast.error('Selecione um pet para adicionar o lembrete.');
+      toast.error('Selecione um pet para editar o lembrete.');
       return;
     }
 
-    setLoadingCreate(true);
+    setLoadingEdit(true);
 
     api
-      .post('/reminders/', {
+      .put('/reminders/', {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
@@ -69,14 +73,14 @@ const CreateReminder = () => {
         user: 1,
       })
       .then(() => {
-        toast.success('Lembrete adicionado com sucesso.');
+        toast.success('Lembrete editado com sucesso.');
         navigate('/');
-        setLoadingCreate(false);
+        setLoadingEdit(false);
       })
       .catch((error: any) => {
-        toast.error('Erro ao adicionar lembrete.');
+        toast.error('Erro ao editar lembrete.');
         console.error(error);
-        setLoadingCreate(false);
+        setLoadingEdit(false);
       });
   };
 
@@ -96,13 +100,37 @@ const CreateReminder = () => {
       });
   };
 
+  const getReminder = () => {
+    setLoading(true);
+
+    api
+      .get(`/reminders/${id}/`)
+      .then(response => {
+        const reminder = response.data;
+
+        setTitle(reminder.title);
+        setDescription(reminder.description);
+        setColor(reminder.color);
+        setDate(dayjs(reminder.date, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+        setTime(dayjs(reminder.time, 'HH:mm:ss').format('HH:mm'));
+        setPetName(reminder.pet.name);
+
+        setLoading(false);
+      })
+      .catch(error => {
+        toast.error('Erro ao carregar o registro.');
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     getPets();
+    getReminder();
   }, []);
 
   return (
-    <Page loading={loadingPets}>
-      <PrimaryText>Adicionar Lembrete</PrimaryText>
+    <Page loading={loading && loadingPets}>
+      <PrimaryText>Editar Lembrete</PrimaryText>
       <br />
 
       <ContainerPage>
@@ -144,9 +172,9 @@ const CreateReminder = () => {
         />
 
         <Button
-          name="ADICIONAR"
-          onClick={() => handleCreateReminder()}
-          loading={loadingCreate}
+          name="ATUALIZAR"
+          onClick={() => handleEditReminder()}
+          loading={loadingEdit}
         />
 
         <Button name="VOLTAR" onClick={() => navigate(-1)} variant="outlined" />
@@ -155,4 +183,4 @@ const CreateReminder = () => {
   );
 };
 
-export default CreateReminder;
+export default EditReminder;

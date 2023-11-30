@@ -69,7 +69,7 @@ const EditRecord = () => {
     setLoadingCreate(true);
 
     api
-      .put('/records/', {
+      .put(`/records/${id}`, {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),

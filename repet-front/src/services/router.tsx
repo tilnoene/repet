@@ -12,6 +12,7 @@ import CreateReminder from '../pages/CreateReminder';
 import CreatePet from '../pages/CreatePet';
 import CreateRecord from '../pages/CreateRecord';
 
+import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
 
 const Router = () => (
@@ -29,6 +30,7 @@ const Router = () => (
       <Route path="/create-pet" element={<CreatePet />} />
       <Route path="/create-record" element={<CreateRecord />} />
 
+      <Route path="/edit-reminder/:id" element={<EditReminder />} />
       <Route path="/edit-record/:id" element={<EditRecord />} />
 
       <Route path="*" element={<NotFound />} />
