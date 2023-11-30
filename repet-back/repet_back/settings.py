@@ -150,6 +150,7 @@ CORS_ALLOW_METHODS = (
 )
 
 CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app','https://*.127.0.0.1', 'http://localhost:3000', 'https://*', '*']
+CSRF_COOKIE_SECURE = False
 
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',
