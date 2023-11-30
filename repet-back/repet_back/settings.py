@@ -149,7 +149,7 @@ CORS_ALLOW_METHODS = (
     "PUT",
 )
 
-CSRF_TRUSTED_ORIGINS = ['*', 'http://localhost:3000/']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app','https://*.127.0.0.1', 'http://localhost:3000', 'https://*', '*']
 
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',
