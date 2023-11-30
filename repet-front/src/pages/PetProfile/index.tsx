@@ -7,6 +7,7 @@ import PrimaryText from '../../components/PrimaryText';
 import SecondaryText from '../../components/SecondaryText';
 import Icon from '../../components/Icon';
 import LoadingPoints from '../../components/LoadingPoints';
+import CardRecord from '../../components/CardRecord';
 
 import {
   ContainerPage,
@@ -23,15 +24,14 @@ import {
 } from './styles';
 
 import plusIcon from '../../assets/icons/plus.svg';
-
 import penIcon from '../../assets/icons/pencil.svg';
 import shareIcon from '../../assets/icons/share.svg';
 
 import api from '../../services/api';
+import { getAge } from '../../services/utils';
 import { toast } from 'react-toastify';
 
-import angora from '../../assets/images/angora.png';
-import CardRecord from '../../components/CardRecord';
+import angora from '../../assets/images/angora.png'; // TODO: trocar para default pet image
 
 const PetProfile = () => {
   const { id } = useParams();
@@ -141,7 +141,7 @@ const PetProfile = () => {
                 <CardTopic>
                   <SecondaryText>Idade</SecondaryText>
                   <PrimaryText fontSize="18px">
-                    {dayjs().diff(dayjs(pet.birthdate), 'year')} anos
+                    {getAge(pet.birthdate)}
                   </PrimaryText>
                 </CardTopic>
               </CardColumn>
