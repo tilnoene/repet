@@ -69,7 +69,7 @@ const EditRecord = () => {
     setLoadingCreate(true);
 
     api
-      .post('/records/', {
+      .put('/records/', {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
@@ -126,7 +126,7 @@ const EditRecord = () => {
     setLoadingCreate(true);
 
     api
-      .post('/vaccines/', {
+      .put('/vaccines/', {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),

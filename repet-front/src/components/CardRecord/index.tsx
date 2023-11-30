@@ -25,7 +25,10 @@ const CardRecord = ({ record, ...props }: { record: PetRecord }) => {
         <SecondaryText>{record.description}</SecondaryText>
 
         <Footer>
-          <SecondaryText>{`${dayjs(record.date).format('DD/MM/YYYY')} ${record?.time && `- ${dayjs(record.time, 'HH:mm:ss').format('HH:mm')}`}`}</SecondaryText>
+          <SecondaryText>{`${dayjs(record.date).format('DD/MM/YYYY')} ${
+            record?.time &&
+            `- ${dayjs(record.time, 'HH:mm:ss').format('HH:mm')}`
+          }`}</SecondaryText>
         </Footer>
       </Content>
     </Card>
