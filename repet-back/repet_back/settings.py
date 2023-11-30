@@ -135,6 +135,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',
+#     'https://repete.vercel.app',
+#     'https://azulniano.vercel.app'
+# ]
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -143,14 +148,8 @@ CORS_ALLOW_METHODS = (
     "PUT",
 )
 
-CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app','https://*.127.0.0.1', 'http://localhost:3000', 'https://*', '*']
-CSRF_COOKIE_SECURE = False
-
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',
-#     'https://repete.vercel.app',
-#     'https://azulniano.vercel.app'
-# ]
+# CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app','https://*.127.0.0.1', 'http://localhost:3000', 'https://*', '*']
+# CSRF_COOKIE_SECURE = False
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
