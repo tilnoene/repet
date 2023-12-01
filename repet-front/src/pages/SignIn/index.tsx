@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { ContainerInput, ContainerPage } from './styles';
+import { ContainerFooterText, ContainerInput, ContainerPage } from './styles';
 
 import { useAuth } from '../../context/authContext';
 
 import { toast } from 'react-toastify';
+import SecondaryText from '../../components/SecondaryText';
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const { login } = useAuth() || {};
@@ -19,21 +21,31 @@ const SignIn = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleLogin = () => {
+  const handleSignIn = () => {
+    if (username === '') {
+      toast.error('O nome de usuário está vazio.');
+      return;
+    }
+
+    if (password === '') {
+      toast.error('A senha está vazia.');
+      return;
+    }
+
     setLoading(true);
 
-    // TODO: validar dados
-
     if (login) {
-      login(username, password).then(() => {
-        navigate('/');
-        setLoading(false);
-        toast.success('Login realizado com sucesso.');
-      }).catch((error) => {
-        toast.error('As credenciais estão incorretas.');
-        console.error(error);
-        setLoading(false);
-      });
+      login(username, password)
+        .then(() => {
+          toast.success('Login realizado com sucesso.');
+          setLoading(false);
+          navigate('/');
+        })
+        .catch(error => {
+          toast.error('As credenciais estão incorretas.');
+          console.error(error);
+          setLoading(false);
+        });
     }
   };
 
@@ -41,7 +53,7 @@ const SignIn = () => {
     <ContainerPage>
       <ContainerInput>
         <Input
-          label="Nome de usuário"
+          label="Email ou nome de usuário"
           value={username}
           setValue={setUsername}
         />
@@ -54,7 +66,17 @@ const SignIn = () => {
         />
       </ContainerInput>
 
-      <Button name="ENTRAR" onClick={() => handleLogin()} loading={loading} />
+      <Button name="ENTRAR" onClick={() => handleSignIn()} loading={loading} />
+
+      <ContainerFooterText>
+        <SecondaryText>
+          Ainda não tem uma conta? <Link to="/sign-up">Cadastre-se</Link>.
+        </SecondaryText>
+
+        <SecondaryText>
+          <Link to="/recover-password">Esqueci minha senha</Link>.
+        </SecondaryText>
+      </ContainerFooterText>
     </ContainerPage>
   );
 };

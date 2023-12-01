@@ -6,16 +6,14 @@ export const ContainerPage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   gap: 16px;
   padding: 18px;
 `;
 
 export const ContainerInput = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 `;
 
 export const ContainerFooterText = styled.div`

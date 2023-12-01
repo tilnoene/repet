@@ -23,6 +23,7 @@ import EditRecord from '../pages/EditRecord';
 
 import { AuthProvider, useAuth } from '../context/authContext';
 import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 
 export const ProtectedRoute = ({ children }: any) => {
   const { isAuthenticated } = useAuth() || {};
@@ -38,6 +39,9 @@ const Router = () => (
   <BrowserRouter>
     <AuthProvider>
       <Routes>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+
         <Route
           path="/"
           element={
@@ -94,9 +98,7 @@ const Router = () => (
             </ProtectedRoute>
           }
         />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<NotFound />} />{' '}
-        {/* TODO: criar tela */}
+
         <Route path="/pets/:id" element={<PetProfile />} />
         <Route path="/create-reminder" element={<CreateReminder />} />
         <Route path="/create-record" element={<CreateRecord />} />

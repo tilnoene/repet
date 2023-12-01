@@ -97,7 +97,12 @@ const Profile = () => {
           </ContainerCard>
         </Card>
 
-        <Button name="SAIR" color="red" onClick={() => logout && logout()} />
+        <Button name="SAIR" color="red" onClick={() => {
+          if (logout) {
+            logout();
+            toast.success('Você saiu da sua conta.');
+          }
+        }} />
       </ContainerPage>
     </Page>
   );

@@ -26,8 +26,8 @@ const Button = ({
       <BeatLoader
         color={config.colors.secondaryText}
         speedMultiplier={0.8}
-        size={12}
-        margin={4}
+        size={10}
+        margin={5}
       />
     </ContainerButtonLoading>
   ) : variant === 'outlined' ? (
