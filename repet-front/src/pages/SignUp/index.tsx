@@ -24,7 +24,9 @@ const SignUp = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSignUp = () => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (name === '') {
       toast.error('O nome está vazio.');
       return;
@@ -72,58 +74,60 @@ const SignUp = () => {
   };
 
   return (
-    <ContainerPage>
-      <PrimaryText>Criar uma conta</PrimaryText>
+    <form onSubmit={handleSignUp}>
+      <ContainerPage>
+        <PrimaryText>Criar uma conta</PrimaryText>
 
-      <ContainerInput>
-        <Input label="Nome" value={name} setValue={setName} />
+        <ContainerInput>
+          <Input label="Nome" value={name} setValue={setName} />
 
-        <Input
-          label="Email"
-          value={email}
-          setValue={setEmail}
-          type="email"
-          placeholder="exemplo@email.com"
+          <Input
+            label="Email"
+            value={email}
+            setValue={setEmail}
+            type="email"
+            placeholder="exemplo@email.com"
+          />
+
+          <Input
+            label="Nome de usuário"
+            value={username}
+            setValue={setUsername}
+          />
+
+          <Input
+            label="Senha"
+            value={password}
+            setValue={setPassword}
+            type="password"
+          />
+
+          <Input
+            label="Confirme a senha"
+            value={confirmPassword}
+            setValue={setConfirmPassword}
+            type="password"
+          />
+        </ContainerInput>
+
+        <Button
+          name="CADASTRAR"
+          type="submit"
+          // onClick={() => handleSignUp()}
+          loading={loading}
         />
 
-        <Input
-          label="Nome de usuário"
-          value={username}
-          setValue={setUsername}
-          type="email"
-        />
-
-        <Input
-          label="Senha"
-          value={password}
-          setValue={setPassword}
-          type="password"
-        />
-
-        <Input
-          label="Confirme a senha"
-          value={confirmPassword}
-          setValue={setConfirmPassword}
-          type="password"
-        />
-      </ContainerInput>
-
-      <Button
-        name="CADASTRAR"
-        onClick={() => handleSignUp()}
-        loading={loading}
-      />
-
-      <ContainerFooterText>
-        <SecondaryText>
-          Já tem uma conta?{' '}
-          <Link to="/sign-in" state={{ email: email }}>
-            Faça login
-          </Link>
-          .
-        </SecondaryText>
-      </ContainerFooterText>
-    </ContainerPage>
+        <ContainerFooterText>
+          <SecondaryText>
+            Já tem uma conta?{' '}
+            <Link to="/sign-in" state={{ email: email }}>
+              Faça login
+            </Link>
+            .
+          </SecondaryText>
+        </ContainerFooterText>
+      </ContainerPage>
+    </form>
   );
 };
 

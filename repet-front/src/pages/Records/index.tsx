@@ -6,6 +6,7 @@ import CardRecord from '../../components/CardRecord';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
 import CardVaccine from '../../components/CardVaccine';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -65,6 +66,8 @@ const Records = () => {
         {records.map(record => (
           <CardRecord record={record} key={record.id} />
         ))}
+
+        {records.length + vaccines.length === 0 && <SecondaryText>Não há registros.</SecondaryText>}
       </ContainerCards>
     </Page>
   );

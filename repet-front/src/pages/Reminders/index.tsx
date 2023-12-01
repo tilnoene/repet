@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import CardReminder from '../../components/CardReminder';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -50,9 +51,13 @@ const Reminders = () => {
       <br />
 
       <ContainerCards>
-        {reminders.map(reminder => (
-          <CardReminder reminder={reminder} key={reminder.id} />
-        ))}
+        {reminders.length > 0 ? (
+          reminders.map(reminder => (
+            <CardReminder reminder={reminder} key={reminder.id} />
+          ))
+        ) : (
+          <SecondaryText>Não há lembretes.</SecondaryText>
+        )}
       </ContainerCards>
     </Page>
   );

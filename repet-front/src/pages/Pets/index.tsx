@@ -11,6 +11,7 @@ import { ContainerCards, ContainerTitle } from './styles';
 import plusIcon from '../../assets/icons/plus.svg';
 
 import api from '../../services/api';
+import SecondaryText from '../../components/SecondaryText';
 
 const Pets = () => {
   const [pets, setPets] = useState<any>([]);
@@ -46,13 +47,13 @@ const Pets = () => {
       <br />
 
       <ContainerCards>
-        {pets.map((pet: Pet) => (
+        {pets.length > 0 ? pets.map((pet: Pet) => (
           <CardPet
             pet={pet}
             key={pet.id}
             removePetFromList={removePetFromList}
           />
-        ))}
+        )) : <SecondaryText>Não há pets.</SecondaryText>}
       </ContainerCards>
     </Page>
   );

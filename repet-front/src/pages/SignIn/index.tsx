@@ -22,7 +22,9 @@ const SignIn = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (email === '') {
       toast.error('O nome de usuário está vazio.');
       return;
@@ -51,41 +53,48 @@ const SignIn = () => {
   };
 
   return (
-    <ContainerPage>
-      <ContainerInput>
-        <Input
-          label="Email ou nome de usuário"
-          value={email}
-          setValue={setEmail}
+    <form onSubmit={handleSignIn}>
+      <ContainerPage>
+        <ContainerInput>
+          <Input
+            label="Email ou nome de usuário"
+            value={email}
+            setValue={setEmail}
+          />
+
+          <Input
+            label="Senha"
+            value={password}
+            setValue={setPassword}
+            type="password"
+          />
+        </ContainerInput>
+
+        <Button
+          type="submit"
+          name="ENTRAR"
+          // onClick={() => handleSignIn()}
+          loading={loading}
         />
 
-        <Input
-          label="Senha"
-          value={password}
-          setValue={setPassword}
-          type="password"
-        />
-      </ContainerInput>
+        <ContainerFooterText>
+          <SecondaryText>
+            Ainda não tem uma conta?{' '}
+            <Link to="/sign-up" state={{ email: email }}>
+              Cadastre-se
+            </Link>
+            .
+          </SecondaryText>
 
-      <Button name="ENTRAR" onClick={() => handleSignIn()} loading={loading} />
-
-      <ContainerFooterText>
-        <SecondaryText>
-          Ainda não tem uma conta?{' '}
-          <Link to="/sign-up" state={{ email: email }}>
-            Cadastre-se
-          </Link>
-          .
-        </SecondaryText>
-
-        <SecondaryText>
-          <Link to="/recover-password" state={{ email: email }}>
-            Esqueci minha senha
-          </Link>
-          .
-        </SecondaryText>
-      </ContainerFooterText>
-    </ContainerPage>
+          <SecondaryText>
+            <Link to="/recover-password" state={{ email: email }}>
+              Esqueci minha senha
+            </Link>
+            .
+          </SecondaryText>
+        </ContainerFooterText>
+      </ContainerPage>
+    </form>
   );
 };
 
