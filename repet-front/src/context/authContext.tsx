@@ -8,14 +8,14 @@ import api from '../services/api';
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: any) => {
-  const [token, setToken] = useLocalStorage('token', 'ab');
+  const [token, setToken] = useLocalStorage('token', null);
   const [userId, setUserId] = useLocalStorage('user_id', null);
 
   const navigate = useNavigate();
 
   const login = async (username: string, password: string) => {
     await api
-      .post('/login', {
+      .post('/login/', {
         username: username,
         password: password,
       })
