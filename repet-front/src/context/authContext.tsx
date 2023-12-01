@@ -26,8 +26,7 @@ export const AuthProvider = ({ children }: any) => {
       .catch(error => {
         setToken(null);
         setUserId(null);
-
-        console.error(error);
+        throw new Error(error);
       });
 
     navigate('/');
