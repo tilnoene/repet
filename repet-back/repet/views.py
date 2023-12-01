@@ -38,22 +38,28 @@ class UserView(APIView):
         return Response(serializer.data)
     
     # update
-    def put(self, request, pk):
-        user_update = self.query_user(pk)
-        serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
+    def put(self, request, pk=None):
+        if pk:
+            user_update = self.query_user(pk)
+            serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Usuário atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Usuário atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
-    
-    # delete
-    def delete(self, request, pk):
-        user_delete = self.query_user(pk)
-        user_delete.delete()
+            return Response("Usuário não especificado", status=status.HTTP_400_BAD_REQUEST)
 
-        return Response("Usuário deletado com sucesso.")
+    # delete
+    def delete(self, request, pk=None):
+        if pk:
+            user_delete = self.query_user(pk)
+            user_delete.delete()
+
+            return Response("Usuário deletado com sucesso.")
+        else:
+            return Response("Usuário não especificado", status=status.HTTP_400_BAD_REQUEST)            
 
 class PetView(APIView):
 
@@ -83,23 +89,30 @@ class PetView(APIView):
 
         return response
     
-    def put(self, request, pk):
-        pet_update = self.query_pet(pk)
-        serializer = PetSerializer(instance=pet_update, data=request.data, partial=True)
+    def put(self, request, pk=None):
+        if pk:
+            pet_update = self.query_pet(pk)
+            serializer = PetSerializer(instance=pet_update, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Pet atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Pet atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Erro ao atualizar o Pet.", status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response("Erro ao atualizar o Pet.", status=status.HTTP_400_BAD_REQUEST)
+            return Response("Pet não especificado", status=status.HTTP_400_BAD_REQUEST)
             
-    def delete(self, request, pk):
-        pet_delete = self.query_pet(pk)
-        pet_delete.delete()
+    def delete(self, request, pk=None):
+        if pk:
+            pet_delete = self.query_pet(pk)
+            pet_delete.delete()
 
-        return Response("Pet deletado com sucesso.")  
+            return Response("Pet deletado com sucesso.")  
+        else:
+            return Response("Pet não especificado", status=status.HTTP_400_BAD_REQUEST)
 
 class RecordView(APIView):
+
     def post(self, request):
         serializer = RecordSerializer(data=request.data)
 
@@ -131,21 +144,29 @@ class RecordView(APIView):
             serializer = RecordSerializerGET(data, many=True)
         return Response(serializer.data)
     
-    def put(self, request, pk):
-        record_update = self.query_record(pk)
-        serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
+    def put(self, request, pk=None):
+        if pk:
+            record_update = self.query_record(pk)
+            serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Registro atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Registro atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Erro ao atualizar o Registro.", status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response("Erro ao atualizar o Registro.", status=status.HTTP_400_BAD_REQUEST)
-            
-    def delete(self, request, pk):
-        record_delete = self.query_record(pk)
-        record_delete.delete()
+            return Response("Registro não especificado", status=status.HTTP_400_BAD_REQUEST)
 
-        return Response("Registro deletado com sucesso.")
+            
+    def delete(self, request, pk=None):
+        if pk:
+            record_delete = self.query_record(pk)
+            record_delete.delete()
+
+            return Response("Registro deletado com sucesso.")
+        else:
+            return Response("Registro não especificado", status=status.HTTP_400_BAD_REQUEST)
+
 
 class MyPetView(APIView):
     
@@ -197,31 +218,34 @@ class VaccineView(APIView):
             serializer = VaccineSerializerGET(data, many=True)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        vacc_query = self.query_vaccine(pk)
-        record_update = self.query_records(vacc_query.record.id)
-        serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
+    def put(self, request, pk=None):
+        if pk:
+            vacc_query = self.query_vaccine(pk)
+            record_update = self.query_records(vacc_query.record.id)
+            serializer = RecordSerializer(instance=record_update, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            rec = serializer.save()
-            inst_vac = self.query_vaccine(pk)
-            request.data["record"] = rec.id
-            vaccine_serializer = VaccineSerializer(instance=inst_vac, data=request.data, partial=True)
-            if vaccine_serializer.is_valid():
-                vaccine_serializer.save()
-                return Response("Vacina atualizada com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            if serializer.is_valid():
+                rec = serializer.save()
+                inst_vac = self.query_vaccine(pk)
+                request.data["record"] = rec.id
+                vaccine_serializer = VaccineSerializer(instance=inst_vac, data=request.data, partial=True)
+                if vaccine_serializer.is_valid():
+                    vaccine_serializer.save()
+                    return Response("Vacina atualizada com sucesso.", status=status.HTTP_204_NO_CONTENT)
+                else:
+                    return Response("Erro ao atualizar a vacina.")
             else:
                 return Response("Erro ao atualizar a vacina.")
         else:
-            return Response("Erro ao atualizar a vacina.")
-            
+            return Response("Vacina não especificada", status=status.HTTP_400_BAD_REQUEST)
+    
     def delete(self, request, pk=None):
         if pk:
             vaccine_delete = self.query_vaccine(pk)
             vaccine_delete.delete()
             return Response("Vacina deletada com sucesso.")
         else: 
-            return Response("Erro ao deletar vacinas.", status=status.HTTP_400_BAD_REQUEST)
+            return Response("Vacina não especificada.", status=status.HTTP_400_BAD_REQUEST)
 
 class RemindersView(APIView):
 
@@ -251,21 +275,28 @@ class RemindersView(APIView):
             serializer = RemindersSerializerGET(data, many=True)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        reminders_update = self.query_reminders(pk)
-        serializer = RemindersSerializer(instance=reminders_update, data=request.data, partial=True)
+    def put(self, request, pk=None):
+        if pk:
+            reminders_update = self.query_reminders(pk)
+            serializer = RemindersSerializer(instance=reminders_update, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response("Lembrete atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            if serializer.is_valid():
+                serializer.save()
+                return Response("Lembrete atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response("Erro ao atualizar o lembrete.", status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response("Erro ao atualizar o lembrete.", status=status.HTTP_400_BAD_REQUEST)
+            return Response("Lembrete não especificado", status=status.HTTP_400_BAD_REQUEST)
             
-    def delete(self, request, pk):
-        reminders_delete = self.query_reminders(pk)
-        reminders_delete.delete()
+    def delete(self, request, pk=None):
+        if pk:
+            reminders_delete = self.query_reminders(pk)
+            reminders_delete.delete()
 
-        return Response("Lembrete deletado com sucesso.")
+            return Response("Lembrete deletado com sucesso.")
+        else:
+            return Response("Lembrete não especificado", status=status.HTTP_400_BAD_REQUEST)
+
 
 def index(request):
     return HttpResponse("Teste.")
