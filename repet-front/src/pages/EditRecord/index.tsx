@@ -69,7 +69,7 @@ const EditRecord = () => {
     setLoadingCreate(true);
 
     api
-      .put(`/records/${id}`, {
+      .put(`/records/${id}/`, {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
@@ -126,7 +126,7 @@ const EditRecord = () => {
     setLoadingCreate(true);
 
     api
-      .put('/vaccines/', {
+      .put(`/vaccines/${id}/`, {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
@@ -215,7 +215,7 @@ const EditRecord = () => {
   }, []);
 
   return (
-    <Page loading={loading && loadingPets}>
+    <Page loading={loading || loadingPets}>
       <PrimaryText>Editar {isVaccine ? 'Vacina' : 'Registro'}</PrimaryText>
       <br />
 

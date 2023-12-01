@@ -63,14 +63,13 @@ const EditReminder = () => {
     setLoadingEdit(true);
 
     api
-      .put('/reminders/', {
+      .put(`/reminders/${id}/`, {
         title: title,
         description: description,
         date: formattedDate.format('YYYY-MM-DD'),
         time: formattedTime.format('HH:mm:ss'),
         pet: pets.find(pet => pet.name === petName)?.id,
         color: color,
-        user: 1,
       })
       .then(() => {
         toast.success('Lembrete editado com sucesso.');
@@ -129,7 +128,7 @@ const EditReminder = () => {
   }, []);
 
   return (
-    <Page loading={loading && loadingPets}>
+    <Page loading={loading || loadingPets}>
       <PrimaryText>Editar Lembrete</PrimaryText>
       <br />
 

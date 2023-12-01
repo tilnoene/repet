@@ -19,6 +19,7 @@ import {
 
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
+import InputImage from '../../components/InputImage';
 
 const CreatePet = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const CreatePet = () => {
   const [gender, setGender] = useState<string>('');
   const [birthdate, setBirthdate] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
+  const [petImage, setPetImage] = useState<any | undefined>();
 
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
@@ -95,6 +97,8 @@ const CreatePet = () => {
         />
 
         <Input label="Raça" value={breed} setValue={setBreed} />
+
+        <InputImage label="Foto" value={petImage} setValue={setPetImage} />
 
         <Select
           label="Gênero"
