@@ -1,22 +1,23 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerFooterText, ContainerInput, ContainerPage } from './styles';
 
 import { useAuth } from '../../context/authContext';
 
 import { toast } from 'react-toastify';
-import SecondaryText from '../../components/SecondaryText';
-import { Link } from 'react-router-dom';
 
 const SignIn = () => {
   const { login } = useAuth() || {};
   const navigate = useNavigate();
+  let { state } = useLocation();
 
-  const [username, setUsername] = useState<string>('');
+  const [username, setUsername] = useState<string>(state?.email || '');
   const [password, setPassword] = useState<string>('');
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -70,11 +71,18 @@ const SignIn = () => {
 
       <ContainerFooterText>
         <SecondaryText>
-          Ainda não tem uma conta? <Link to="/sign-up">Cadastre-se</Link>.
+          Ainda não tem uma conta?{' '}
+          <Link to="/sign-up" state={{ email: username }}>
+            Cadastre-se
+          </Link>
+          .
         </SecondaryText>
 
         <SecondaryText>
-          <Link to="/recover-password">Esqueci minha senha</Link>.
+          <Link to="/recover-password" state={{ email: username }}>
+            Esqueci minha senha
+          </Link>
+          .
         </SecondaryText>
       </ContainerFooterText>
     </ContainerPage>

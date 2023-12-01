@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -9,16 +9,15 @@ import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerInput, ContainerPage, ContainerFooterText } from './styles';
 
-import { useAuth } from '../../context/authContext';
-
 import { toast } from 'react-toastify';
+import api from '../../services/api';
 
 const SignUp = () => {
-  const { login } = useAuth() || {};
   const navigate = useNavigate();
+  let { state } = useLocation();
 
   const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>(state?.email || '');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -53,19 +52,23 @@ const SignUp = () => {
 
     setLoading(true);
 
-    if (login) {
-      login(username, password)
-        .then(() => {
-          toast.success('Cadastro realizado com sucesso.');
-          setLoading(false);
-          navigate('/sign-in');
-        })
-        .catch(error => {
-          toast.error('Não foi possível cadastrar o usuário, tente novamente.');
-          console.error(error);
-          setLoading(false);
-        });
-    }
+    api
+      .post('/register/', {
+        name: name,
+        username: username,
+        password: password,
+        email: email,
+      })
+      .then(() => {
+        toast.success('Cadastro realizado com sucesso.');
+        setLoading(false);
+        navigate('/sign-in', { state: { email: email } });
+      })
+      .catch(error => {
+        toast.error('Não foi possível cadastrar o usuário, tente novamente.');
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -113,7 +116,11 @@ const SignUp = () => {
 
       <ContainerFooterText>
         <SecondaryText>
-          Já tem uma conta? <Link to="/sign-in">Faça login</Link>.
+          Já tem uma conta?{' '}
+          <Link to="/sign-in" state={{ email: email }}>
+            Faça login
+          </Link>
+          .
         </SecondaryText>
       </ContainerFooterText>
     </ContainerPage>
