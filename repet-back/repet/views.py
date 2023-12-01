@@ -36,6 +36,7 @@ def can_acess(user_pk, pk):
     return get_my_id(user_pk).pk == pk
 
 class RegisterView(APIView):
+    permission_classes = []
     # create
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -44,7 +45,7 @@ class RegisterView(APIView):
             serializer.save()
             return Response("Usuário cadastrado com sucesso.", status=status.HTTP_201_CREATED)
         else:
-            print(serializer.error_messages)
+            # print(serializer.error_messages)
             return Response("Erro ao cadastrar o usuário.", status=status.HTTP_400_BAD_REQUEST)
 
 class UserView(APIView):
