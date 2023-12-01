@@ -176,6 +176,7 @@ class RecordView(APIView):
         # list just the records, without vaccines
         # get id records of all vaccines
         list_ids = [x.record.id for x in Vaccine.objects.all()]
+        list_pets = [x.id for x in Pet.objects.filter(user=id)]
 
         if pk:
             data = self.query_record(pk)
@@ -185,7 +186,7 @@ class RecordView(APIView):
             serializer = RecordSerializerGET(data)
         else:
             data = Record.objects.all()
-            data = data.filter(user=id)
+            data = data.filter(pet__in=list_pets)
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             data = data.exclude(id__in=list_ids)
