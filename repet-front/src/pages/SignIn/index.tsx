@@ -17,13 +17,13 @@ const SignIn = () => {
   const navigate = useNavigate();
   let { state } = useLocation();
 
-  const [username, setUsername] = useState<string>(state?.email || '');
+  const [email, setEmail] = useState<string>(state?.email || '');
   const [password, setPassword] = useState<string>('');
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSignIn = () => {
-    if (username === '') {
+    if (email === '') {
       toast.error('O nome de usuário está vazio.');
       return;
     }
@@ -36,7 +36,7 @@ const SignIn = () => {
     setLoading(true);
 
     if (login) {
-      login(username, password)
+      login(email, password)
         .then(() => {
           toast.success('Login realizado com sucesso.');
           setLoading(false);
@@ -55,8 +55,8 @@ const SignIn = () => {
       <ContainerInput>
         <Input
           label="Email ou nome de usuário"
-          value={username}
-          setValue={setUsername}
+          value={email}
+          setValue={setEmail}
         />
 
         <Input
@@ -72,14 +72,14 @@ const SignIn = () => {
       <ContainerFooterText>
         <SecondaryText>
           Ainda não tem uma conta?{' '}
-          <Link to="/sign-up" state={{ email: username }}>
+          <Link to="/sign-up" state={{ email: email }}>
             Cadastre-se
           </Link>
           .
         </SecondaryText>
 
         <SecondaryText>
-          <Link to="/recover-password" state={{ email: username }}>
+          <Link to="/recover-password" state={{ email: email }}>
             Esqueci minha senha
           </Link>
           .
