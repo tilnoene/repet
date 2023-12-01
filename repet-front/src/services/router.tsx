@@ -1,4 +1,10 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  RouteObject,
+  Routes,
+} from 'react-router-dom';
 
 import NotFound from '../pages/NotFound';
 import Reminders from '../pages/Reminders';
@@ -9,19 +15,87 @@ import Settings from '../pages/Settings';
 import PetProfile from '../pages/PetProfile';
 import CreatePet from '../pages/CreatePet';
 
+import { AuthProvider, useAuth } from '../context/authContext';
+import SignIn from '../pages/SignIn';
+
+export const ProtectedRoute = ({ children }: any) => {
+  const { isAuthenticated } = useAuth() || {};
+
+  if (!isAuthenticated || !isAuthenticated()) {
+    return <Navigate to="/sign-in" />;
+  }
+
+  return children;
+};
+
 const Router = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Reminders />} />
-      <Route path="/pets" element={<Pets />} />
-      <Route path="/records" element={<Records />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/pets/:id" element={<PetProfile />} />
-      <Route path="/create-pet" element={<CreatePet />} />
-
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Reminders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pets"
+          element={
+            <ProtectedRoute>
+              <Pets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/records"
+          element={
+            <ProtectedRoute>
+              <Records />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pets/:id"
+          element={
+            <ProtectedRoute>
+              <PetProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-pet"
+          element={
+            <ProtectedRoute>
+              <CreatePet />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<NotFound />} />{' '}
+        {/* TODO: criar tela */}
+        <Route path="*" element={<NotFound />} />
+        {/* TODO: refazer not found */}
+        {/* TODO: refazer header com logout */}
+      </Routes>
+    </AuthProvider>
   </BrowserRouter>
 );
 
