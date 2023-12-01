@@ -1,14 +1,10 @@
-import datetime
-from django.utils.timezone import utc
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import exceptions
 
 from django.conf import settings
 from datetime import timedelta
 
 from django.conf import settings
 from django.utils import timezone
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed
 
@@ -22,21 +18,18 @@ def is_token_expired(token):
 def handle_token_expired(token):
     Token.objects.filter(key=token).delete()
 
-class ExpiringTokenAuthentication(TokenAuthentication):
+def authenticate_credentials(key):
+    is_valid = True
+    try:
+        token = Token.objects.get(key=key)
+    except Token.DoesNotExist:
+        is_valid = False
 
-    def authenticate_credentials(self, key):
-        try:
-            token = Token.objects.get(key=key)
-        except Token.DoesNotExist:
-            raise AuthenticationFailed("Token DoesNotExist, user have to login again.")
+    if not token.user.is_active:
+        is_valid = False
 
-        if not token.user.is_active:
-            raise AuthenticationFailed("User inactive or deleted")
+    if is_token_expired(token):
+        handle_token_expired(token)
+        is_valid = False
 
-        if is_token_expired(token):
-            handle_token_expired(token)
-            msg = "The token is expired!, user have to login again." 
-            response = {"msg": msg}
-            raise AuthenticationFailed(response)
-
-        return token.user, token
+    return is_valid

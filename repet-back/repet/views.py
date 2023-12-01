@@ -9,7 +9,6 @@ from .models import User, Pet, Vaccine, Record, Reminder
 from django.contrib.auth.models import User as USER
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .authentication import ExpiringTokenAuthentication
 
 # Create your views here.
 
@@ -18,6 +17,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 import datetime
 from django.utils.timezone import utc
+
+from .authentication import authenticate_credentials
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -32,12 +33,20 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': User.objects.get(user_login=user.pk).pk,
             'email': user.email
         })
+    
+
 
 def get_my_id(user_pk):
     return User.objects.get(user_login=user_pk)
 
 def can_acess(user_pk, pk):
     return get_my_id(user_pk).pk == pk
+
+class CheckTokenView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        dict = {"is_valid": authenticate_credentials(request.auth)}
+        return Response(dict)
 
 class RegisterView(APIView):
     permission_classes = []
@@ -54,7 +63,6 @@ class RegisterView(APIView):
 
 class UserView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [ExpiringTokenAuthentication]
         
     def query_user(self, pk):
         try:
@@ -99,7 +107,6 @@ class UserView(APIView):
 
 class PetView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [ExpiringTokenAuthentication]
 
     def post(self, request):
         serializer = PetSerializer(data=request.data)
@@ -154,7 +161,6 @@ class PetView(APIView):
 
 class RecordView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [ExpiringTokenAuthentication]
     def post(self, request):
         serializer = RecordSerializer(data=request.data)
 
@@ -215,7 +221,6 @@ class RecordView(APIView):
 
 class VaccineView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [ExpiringTokenAuthentication]
 
     def post(self, request):
         records_serializes = RecordSerializer(data=request.data)
@@ -296,7 +301,6 @@ class VaccineView(APIView):
 
 class RemindersView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [ExpiringTokenAuthentication]
 
     def post(self, request):
         serializer = RemindersSerializer(data=request.data)

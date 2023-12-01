@@ -1,13 +1,15 @@
 from django.urls import path
 
 from . import views
-from .views import UserView, PetView, VaccineView, RecordView, RemindersView, RegisterView, CustomAuthToken
+from .views import UserView, PetView, VaccineView, RecordView, RemindersView, RegisterView, CustomAuthToken, CheckTokenView
 
 urlpatterns = [
     path("", views.index, name="index"),
 
     path('register/', RegisterView.as_view()),
     path('login/', CustomAuthToken.as_view()),
+
+    path('check-token/', CheckTokenView.as_view()),
 
     path('users/', UserView.as_view()),
     path('users/<int:pk>/', UserView.as_view()),
