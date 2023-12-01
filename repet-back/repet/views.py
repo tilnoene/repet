@@ -175,6 +175,8 @@ class RecordView(APIView):
     def get(self, request, pk=None):
         # list just the records, without vaccines
         # get id records of all vaccines
+        id = get_my_id(request.user.id)
+        
         list_ids = [x.record.id for x in Vaccine.objects.all()]
         list_pets = [x.id for x in Pet.objects.filter(user=id)]
 
