@@ -7,10 +7,16 @@ import { BackroundColor, Content, Footer, Header, PetName } from './styles';
 
 import pawIcon from '../../assets/icons/paw.svg';
 
+import config from '../../config.json';
+
+import dayjs from 'dayjs';
+
 const CardReminder = ({ reminder, ...props }: { reminder: Reminder }) => {
   return (
     <Card {...props}>
-      <BackroundColor color={reminder.color} />
+      <BackroundColor
+        color={reminder?.color ? reminder.color : config.colors.primaryBlue}
+      />
 
       <Content>
         <Header>
@@ -22,14 +28,13 @@ const CardReminder = ({ reminder, ...props }: { reminder: Reminder }) => {
           </PetName>
         </Header>
 
-        <SecondaryText>
-          {reminder.description}
-        </SecondaryText>
+        <SecondaryText>{reminder.description}</SecondaryText>
 
         <Footer>
-          <SecondaryText>
-            {reminder.date} - {reminder.time}
-          </SecondaryText>
+          <SecondaryText>{`${dayjs(reminder.date).format('DD/MM/YYYY')} ${
+            reminder?.time &&
+            `- ${dayjs(reminder.time, 'HH:mm:ss').format('HH:mm')}`
+          }`}</SecondaryText>
         </Footer>
       </Content>
     </Card>

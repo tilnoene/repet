@@ -50,19 +50,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-
-''' TODO: adicionar por segurança
-CORS_ALLOWED_ORIGINS = [
-    'https://repete.vercel.app',
-]
-'''
 
 ROOT_URLCONF = 'repet_back.urls'
 
@@ -150,11 +144,22 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'https://repete.vercel.app',
-    'https://azulniano.vercel.app'
-]
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',
+#     'https://repete.vercel.app',
+#     'https://azulniano.vercel.app'
+# ]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "POST",
+    "PUT",
+)
+
+# CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app','https://*.127.0.0.1', 'http://localhost:3000', 'https://*', '*']
+# CSRF_COOKIE_SECURE = False
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')

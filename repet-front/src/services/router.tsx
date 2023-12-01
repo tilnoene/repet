@@ -7,13 +7,19 @@ import {
 } from 'react-router-dom';
 
 import NotFound from '../pages/NotFound';
+import Settings from '../pages/Settings';
 import Reminders from '../pages/Reminders';
 import Pets from '../pages/Pets';
 import Records from '../pages/Records';
 import Profile from '../pages/Profile';
-import Settings from '../pages/Settings';
 import PetProfile from '../pages/PetProfile';
+
+import CreateReminder from '../pages/CreateReminder';
 import CreatePet from '../pages/CreatePet';
+import CreateRecord from '../pages/CreateRecord';
+
+import EditReminder from '../pages/EditReminder';
+import EditRecord from '../pages/EditRecord';
 
 import { AuthProvider, useAuth } from '../context/authContext';
 import SignIn from '../pages/SignIn';
@@ -91,6 +97,11 @@ const Router = () => (
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<NotFound />} />{' '}
         {/* TODO: criar tela */}
+        <Route path="/pets/:id" element={<PetProfile />} />
+        <Route path="/create-reminder" element={<CreateReminder />} />
+        <Route path="/create-record" element={<CreateRecord />} />
+        <Route path="/edit-reminder/:id" element={<EditReminder />} />
+        <Route path="/edit-record/:id" element={<EditRecord />} />
         <Route path="*" element={<NotFound />} />
         {/* TODO: refazer not found */}
         {/* TODO: refazer header com logout */}

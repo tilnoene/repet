@@ -6,23 +6,30 @@ const Select = ({
   placeholder = '',
   setValue,
   options = [],
+  required = false,
+  defaultValue = '',
 }: {
   label?: string;
   placeholder?: string;
-  setValue: any; // TODO: tipar
+  setValue: any;
   options?: any[];
+  required?: boolean;
+  defaultValue?: string;
 }) => {
   return (
     <ContainerSelect>
-      <label htmlFor="select">
-        <PrimaryText fontSize="16px">{label}</PrimaryText>
+      <label htmlFor={`select-${label}`}>
+        <PrimaryText fontSize="16px">
+          {label}
+          {required && ' *'}
+        </PrimaryText>
       </label>
 
       <SelectStyle
-        id="select"
+        id={`select-${label}`}
         onChange={e => setValue(e.target.value)}
         placeholder={placeholder}
-        defaultValue=""
+        defaultValue={defaultValue}
       >
         <option value="" disabled>
           Selecione uma opção

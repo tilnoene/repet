@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
 import SecondaryText from '../../components/SecondaryText';
 import Icon from '../../components/Icon';
+import LoadingPoints from '../../components/LoadingPoints';
+import CardRecord from '../../components/CardRecord';
 
 import {
   ContainerPage,
@@ -18,24 +20,30 @@ import {
   CardTopic,
   PetInfo,
   ContainerCards,
+  ContainerTitle,
 } from './styles';
 
+import plusIcon from '../../assets/icons/plus.svg';
 import penIcon from '../../assets/icons/pencil.svg';
 import shareIcon from '../../assets/icons/share.svg';
 
 import api from '../../services/api';
+import { getAge } from '../../services/utils';
 import { toast } from 'react-toastify';
 
-import angora from '../../assets/images/angora.png';
-import CardRecord from '../../components/CardRecord';
+import angora from '../../assets/images/angora.png'; // TODO: trocar para default pet image
 
 const PetProfile = () => {
   const { id } = useParams();
 
   const [pet, setPet] = useState<Pet | undefined>();
   const [loading, setLoading] = useState<boolean>(true);
+
   const [vaccines, setVaccines] = useState<Vaccine[]>([]);
+  const [loadingVaccines, setLoadingVaccines] = useState<boolean>(true);
+
   const [records, setRecords] = useState<PetRecord[]>([]);
+  const [loadingRecords, setLoadingRecords] = useState<boolean>(true);
 
   const getPet = () => {
     setLoading(true);
@@ -45,6 +53,9 @@ const PetProfile = () => {
       .then((response: any) => {
         setPet(response.data);
         setLoading(false);
+
+        getPetVaccines();
+        getPetRecords();
       })
       .catch((error: any) => {
         toast.error('Erro ao carregar o pet');
@@ -54,9 +65,10 @@ const PetProfile = () => {
 
   const getPetVaccines = () => {
     api
-      .get(`/vaccines/`) // TODO: como?
+      .get(`/vaccines/?pet_id=${id}`)
       .then((response: any) => {
         setVaccines(response.data);
+        setLoadingVaccines(false);
       })
       .catch((error: any) => {
         toast.error('Erro ao carregar as vacinas');
@@ -66,9 +78,10 @@ const PetProfile = () => {
 
   const getPetRecords = () => {
     api
-      .get(`/records/`)
+      .get(`/records/?pet_id=${id}`)
       .then((response: any) => {
         setRecords(response.data);
+        setLoadingRecords(false);
       })
       .catch((error: any) => {
         toast.error('Erro ao carregar os registros');
@@ -78,8 +91,6 @@ const PetProfile = () => {
 
   useEffect(() => {
     getPet();
-    getPetVaccines();
-    getPetRecords();
   }, []);
 
   return (
@@ -110,7 +121,9 @@ const PetProfile = () => {
 
                 <CardTopic>
                   <SecondaryText>Data de Nascimento</SecondaryText>
-                  <PrimaryText fontSize="18px">{pet.birthdate}</PrimaryText>
+                  <PrimaryText fontSize="18px">
+                    {dayjs(pet.birthdate).format('DD/MM/YYYY')}
+                  </PrimaryText>
                 </CardTopic>
 
                 <CardTopic>
@@ -128,26 +141,50 @@ const PetProfile = () => {
                 <CardTopic>
                   <SecondaryText>Idade</SecondaryText>
                   <PrimaryText fontSize="18px">
-                    {dayjs().diff(dayjs(new Date(2018, 8, 18)), 'year')} anos
+                    {getAge(pet.birthdate)}
                   </PrimaryText>
                 </CardTopic>
               </CardColumn>
             </PetInfo>
 
             <ContainerCards>
-              <PrimaryText>Vacinas</PrimaryText>
+              <ContainerTitle>
+                <PrimaryText>Vacinas</PrimaryText>
 
-              {/* TODO: card de vacina */}
+                <Link to={`/create-record?is_vaccine=true&pet_id=${pet.id}`}>
+                  <Icon src={plusIcon} color="blue" size="20px" clickable />
+                </Link>
+              </ContainerTitle>
+
+              {loadingVaccines ? (
+                <LoadingPoints />
+              ) : vaccines.length > 0 ? (
+                vaccines.map((vaccine: any) => (
+                  <CardRecord key={vaccine.id} record={vaccine} />
+                ))
+              ) : (
+                <SecondaryText>Não há vacinas.</SecondaryText>
+              )}
             </ContainerCards>
 
             <ContainerCards>
-              <PrimaryText>Registros</PrimaryText>
+              <ContainerTitle>
+                <PrimaryText>Registros</PrimaryText>
 
-              <br />
+                <Link to={`/create-record?pet_id=${pet.id}`}>
+                  <Icon src={plusIcon} color="blue" size="20px" clickable />
+                </Link>
+              </ContainerTitle>
 
-              {records.map((record: any) => (
-                <CardRecord key={record.id} record={record} />
-              ))}
+              {loadingRecords ? (
+                <LoadingPoints />
+              ) : records.length > 0 ? (
+                records.map((record: any) => (
+                  <CardRecord key={record.id} record={record} />
+                ))
+              ) : (
+                <SecondaryText>Não há registros.</SecondaryText>
+              )}
             </ContainerCards>
           </ProfileCard>
         </ContainerPage>

@@ -173,7 +173,10 @@ class RecordView(APIView):
             raise Http404
 
     def get(self, request, pk=None):
-        id = get_my_id(request.user.id)
+        # list just the records, without vaccines
+        # get id records of all vaccines
+        list_ids = [x.record.id for x in Vaccine.objects.all()]
+
         if pk:
             data = self.query_record(pk)
             if not can_acess(request.user.id, data.pet.user.pk):
@@ -185,6 +188,7 @@ class RecordView(APIView):
             data = data.filter(user=id)
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
+            data = data.exclude(id__in=list_ids)
             serializer = RecordSerializerGET(data, many=True)
         return Response(serializer.data)
     

@@ -23,4 +23,5 @@ export const Footer = styled.div`
 export const PetName = styled.div`
   display: flex;
   gap: 4px;
+  margin-left: 12px;
 `;
