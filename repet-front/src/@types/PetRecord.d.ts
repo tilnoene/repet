@@ -4,7 +4,5 @@ interface PetRecord {
   description: string;
   date: string; // YYYY-MM-DD
   time?: string; // HH:mm:ss
-  pet: {
-    name: string;
-  };
+  pet: Pet;
 }

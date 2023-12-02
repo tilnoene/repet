@@ -42,13 +42,13 @@ const CardPet = ({
     api
       .delete(`/pets/${pet.id}/`)
       .then(() => {
-        toast.success(`Pet deletado com sucesso.`);
+        toast.success(`Pet apagado com sucesso.`);
         removePetFromList(pet.id);
         setLoadingDelete(false);
         handleCloseModalDelete();
       })
       .catch((error: any) => {
-        toast.error(`Erro ao deletar o pet ${pet.name}.`);
+        toast.error(`Erro ao apagar o pet ${pet.name}.`);
         console.error(error);
         setLoadingDelete(false);
       });

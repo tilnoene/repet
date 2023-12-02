@@ -5,13 +5,13 @@ import Page from '../../components/Page';
 import CardPet from '../../components/CardPet';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
 import plusIcon from '../../assets/icons/plus.svg';
 
 import api from '../../services/api';
-import SecondaryText from '../../components/SecondaryText';
 
 const Pets = () => {
   const [pets, setPets] = useState<any>([]);

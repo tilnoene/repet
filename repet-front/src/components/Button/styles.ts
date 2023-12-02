@@ -10,7 +10,11 @@ export const ContainerButton = styled.button<ContainerButtonProps>`
   appearance: none;
   outline: none;
   background: ${props =>
-    props.color === 'blue' ? config.colors.primaryBlue : config.colors.red};
+    props.color === 'blue'
+      ? config.colors.primaryBlue
+      : props.color === 'green'
+      ? config.colors.green
+      : config.colors.red};
   box-sizing: border-box;
   border-style: none;
   border-radius: 10px;
