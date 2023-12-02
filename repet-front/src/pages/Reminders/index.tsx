@@ -34,6 +34,10 @@ const Reminders = () => {
       });
   };
 
+  const removeReminderFromList = (id: number) => {
+    setReminders(reminders.filter((reminder: Reminder) => reminder.id !== id));
+  };
+
   useEffect(() => {
     getReminders();
   }, []);
@@ -53,7 +57,11 @@ const Reminders = () => {
       <ContainerCards>
         {reminders.length > 0 ? (
           reminders.map(reminder => (
-            <CardReminder reminder={reminder} key={reminder.id} />
+            <CardReminder
+              reminder={reminder}
+              key={reminder.id}
+              removeReminderFromList={removeReminderFromList}
+            />
           ))
         ) : (
           <SecondaryText>Não há lembretes.</SecondaryText>

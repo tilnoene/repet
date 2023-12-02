@@ -8,6 +8,7 @@ import SecondaryText from '../../components/SecondaryText';
 import Icon from '../../components/Icon';
 import LoadingPoints from '../../components/LoadingPoints';
 import CardRecord from '../../components/CardRecord';
+import CardVaccine from '../../components/CardVaccine';
 
 import {
   ContainerPage,
@@ -89,6 +90,14 @@ const PetProfile = () => {
       });
   };
 
+  const removeRecordFromList = (id: number) => {
+    setRecords(records.filter((record: PetRecord) => record.id !== id));
+  };
+
+  const removeVaccineFromList = (id: number) => {
+    setVaccines(vaccines.filter((vaccine: Vaccine) => vaccine.id !== id));
+  };
+
   useEffect(() => {
     getPet();
   }, []);
@@ -160,7 +169,11 @@ const PetProfile = () => {
                 <LoadingPoints />
               ) : vaccines.length > 0 ? (
                 vaccines.map((vaccine: any) => (
-                  <CardRecord key={vaccine.id} record={vaccine} />
+                  <CardVaccine
+                    key={vaccine.id}
+                    vaccine={vaccine}
+                    removeVaccineFromList={removeVaccineFromList}
+                  />
                 ))
               ) : (
                 <SecondaryText>Não há vacinas.</SecondaryText>
@@ -180,7 +193,11 @@ const PetProfile = () => {
                 <LoadingPoints />
               ) : records.length > 0 ? (
                 records.map((record: any) => (
-                  <CardRecord key={record.id} record={record} />
+                  <CardRecord
+                    key={record.id}
+                    record={record}
+                    removeRecordFromList={removeRecordFromList}
+                  />
                 ))
               ) : (
                 <SecondaryText>Não há registros.</SecondaryText>

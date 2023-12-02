@@ -35,7 +35,7 @@ export const formatWeight = (weight: string) => {
 };
 
 export const formatTime = (time: string) => {
-  return time; // TODO: implementar
+  return time.replace(/\D/g, '').replace(/(\d{2})(\d)/, '$1:$2');
 };
 
 export const getAge = (date: string) => {

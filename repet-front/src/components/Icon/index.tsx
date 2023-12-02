@@ -19,7 +19,7 @@ const Icon = ({
   onClick?: any;
 }) => {
   let filter =
-    'invert(97%) sepia(2%) saturate(1355%) hue-rotate(175deg) brightness(94%) contrast(88%)';
+    'invert(97%) sepia(2%) saturate(1355%) hue-rotate(175deg) brightness(94%) contrast(88%)'; // default gray
 
   if (color === 'blue') {
     filter =
@@ -29,9 +29,12 @@ const Icon = ({
       'invert(100%) sepia(100%) saturate(0%) hue-rotate(39deg) brightness(109%) contrast(101%)';
   } else if (color === 'black') {
     filter = 'none';
+  } else if (color === 'primaryText') {
+    filter =
+      'invert(14%) sepia(11%) saturate(676%) hue-rotate(77deg) brightness(90%) contrast(89%)';
   } else if (color === 'secondaryText') {
     filter =
-      'filter: invert(13%) sepia(21%) saturate(354%) hue-rotate(77deg) brightness(96%) contrast(88%)';
+      'invert(13%) sepia(21%) saturate(354%) hue-rotate(77deg) brightness(96%) contrast(88%)';
   }
 
   if (disabled) {
