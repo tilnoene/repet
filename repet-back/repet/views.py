@@ -95,7 +95,7 @@ class UserView(APIView):
         user_update = self.query_user(pk)
         serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
 
-        print(serializer.initial_data['email'])
+        #print(serializer.initial_data['email'])
         if serializer.is_valid():
             if serializer.initial_data.get('email') or serializer.initial_data.get('username'):
                 us1 = USER.objects.filter(username = serializer.initial_data.get('username'))
@@ -106,7 +106,7 @@ class UserView(APIView):
             serializer.save()
             us = USER.objects.filter(pk=user_update.user_login.pk)
 
-            print(us)
+            #print(us)
             if serializer.initial_data.get('email'):
                 us.update(email=serializer.initial_data.get('email'))
             
