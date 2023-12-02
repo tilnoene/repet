@@ -67,7 +67,6 @@ const CreatePet = () => {
         gender: gender,
         birthdate: date.format('YYYY-MM-DD'),
         weight: weight,
-        user: 1,
       })
       .then(() => {
         toast.success('Pet adicionado com sucesso.');

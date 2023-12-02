@@ -14,26 +14,30 @@ const Button = ({
   loading = false,
   color = 'blue',
   variant = 'normal',
+  type = 'button',
 }: {
   name?: string;
   onClick?: any;
   loading?: boolean;
   color?: string;
   variant?: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }) => {
   return loading ? (
     <ContainerButtonLoading>
       <BeatLoader
         color={config.colors.secondaryText}
         speedMultiplier={0.8}
-        size={12}
-        margin={4}
+        size={10}
+        margin={5}
       />
     </ContainerButtonLoading>
   ) : variant === 'outlined' ? (
-    <ContainerButtonOutlined onClick={onClick}>{name}</ContainerButtonOutlined>
+    <ContainerButtonOutlined type={type} onClick={onClick}>
+      {name}
+    </ContainerButtonOutlined>
   ) : (
-    <ContainerButton onClick={onClick} color={color}>
+    <ContainerButton type={type} onClick={onClick} color={color}>
       {name}
     </ContainerButton>
   );

@@ -71,7 +71,6 @@ const CreateRecord = () => {
         date: formattedDate.format('YYYY-MM-DD'),
         time: formattedTime.format('HH:mm:ss'),
         pet: pets.find(pet => pet.name === petName)?.id,
-        user: 1,
       })
       .then(() => {
         toast.success('Registro adicionado com sucesso.');
@@ -130,7 +129,6 @@ const CreateRecord = () => {
         pet: pets.find(pet => pet.name === petName)?.id,
         veterinarian: veterinarian,
         place: place,
-        user: 1,
       })
       .then(() => {
         toast.success('Vacina adicionada com sucesso.');

@@ -66,7 +66,6 @@ const CreateReminder = () => {
         time: formattedTime.format('HH:mm:ss'),
         pet: pets.find(pet => pet.name === petName)?.id,
         color: color,
-        user: 1,
       })
       .then(() => {
         toast.success('Lembrete adicionado com sucesso.');

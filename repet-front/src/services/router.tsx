@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import NotFound from '../pages/NotFound';
 import Settings from '../pages/Settings';
@@ -14,27 +15,37 @@ import CreateRecord from '../pages/CreateRecord';
 
 import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
+
+import { AuthProvider } from '../context/authContext';
 
 const Router = () => (
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Reminders />} />
-      <Route path="/pets" element={<Pets />} />
-      <Route path="/records" element={<Records />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/settings" element={<Settings />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
 
-      <Route path="/pets/:id" element={<PetProfile />} />
+        <Route path="/" element={<Reminders />} />
+        <Route path="/pets" element={<Pets />} />
+        <Route path="/records" element={<Records />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/pets/:id" element={<PetProfile />} />
+        <Route path="/create-pet" element={<CreatePet />} />
 
-      <Route path="/create-reminder" element={<CreateReminder />} />
-      <Route path="/create-pet" element={<CreatePet />} />
-      <Route path="/create-record" element={<CreateRecord />} />
+        <Route path="/pets/:id" element={<PetProfile />} />
+        <Route path="/create-reminder" element={<CreateReminder />} />
+        <Route path="/create-record" element={<CreateRecord />} />
+        <Route path="/edit-reminder/:id" element={<EditReminder />} />
+        <Route path="/edit-record/:id" element={<EditRecord />} />
+        <Route path="*" element={<NotFound />} />
 
-      <Route path="/edit-reminder/:id" element={<EditReminder />} />
-      <Route path="/edit-record/:id" element={<EditRecord />} />
-
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        {/* TODO: refazer not found */}
+        {/* TODO: refazer header com logout */}
+      </Routes>
+    </AuthProvider>
   </BrowserRouter>
 );
 
