@@ -35,6 +35,6 @@ export const ContainerIcons = styled.div`
 export const ContentIcons = styled.div`
   display: flex;
   align-self: start;
-  gap: 12px;
+  gap: 10px;
   margin-left: auto;
 `;
