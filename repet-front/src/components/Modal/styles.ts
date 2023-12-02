@@ -40,4 +40,5 @@ export const HeaderModal = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   padding-bottom: 16px;
+  gap: 12px;
 `;
