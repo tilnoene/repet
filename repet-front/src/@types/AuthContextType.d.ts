@@ -4,5 +4,5 @@ type AuthContextType = {
   // email: string;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
-  isAuthenticated: () => boolean;
+  isAuthenticated: () => Promise<boolean>;
 };

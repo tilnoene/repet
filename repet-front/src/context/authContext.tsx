@@ -28,8 +28,6 @@ export const AuthProvider = ({ children }: any) => {
         setUserId(null);
         throw new Error(error);
       });
-
-    navigate('/');
   };
 
   const logout = () => {
@@ -38,14 +36,18 @@ export const AuthProvider = ({ children }: any) => {
     navigate('/sign-in', { replace: true });
   };
 
-  const isAuthenticated = () => {
+  const isAuthenticated = async () => {
     if (!token) {
       return false;
     }
 
-    // TODO: api request
+    let isAuth = false;
 
-    return true;
+    await api.get('/check-token/').then(response => {
+      isAuth = response.data.detail && response.data?.detail === true;
+    });
+
+    return isAuth;
   };
 
   const value = useMemo(

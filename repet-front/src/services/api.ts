@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
   baseURL: 'https://repet-back-login.vercel.app', // http://localhost:4000 // TODO: env to api
@@ -22,5 +23,18 @@ api.interceptors.request.use((config: any) => {
 
   return config;
 });
+
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      const win: Window = window;
+
+      if (win.location.pathname !== 'sign-in') {
+        win.location = '/sign-in';
+      }
+    }
+  },
+);
 
 export default api;

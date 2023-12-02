@@ -1,10 +1,5 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  RouteObject,
-  Routes,
-} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import NotFound from '../pages/NotFound';
 import Settings from '../pages/Settings';
@@ -20,20 +15,10 @@ import CreateRecord from '../pages/CreateRecord';
 
 import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
-
-import { AuthProvider, useAuth } from '../context/authContext';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
-export const ProtectedRoute = ({ children }: any) => {
-  const { isAuthenticated } = useAuth() || {};
-
-  if (!isAuthenticated || !isAuthenticated()) {
-    return <Navigate to="/sign-in" />;
-  }
-
-  return children;
-};
+import { AuthProvider } from '../context/authContext';
 
 const Router = () => (
   <BrowserRouter>
@@ -42,62 +27,13 @@ const Router = () => (
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Reminders />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/pets"
-          element={
-            <ProtectedRoute>
-              <Pets />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/records"
-          element={
-            <ProtectedRoute>
-              <Records />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/pets/:id"
-          element={
-            <ProtectedRoute>
-              <PetProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/create-pet"
-          element={
-            <ProtectedRoute>
-              <CreatePet />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Reminders />} />
+        <Route path="/pets" element={<Pets />} />
+        <Route path="/records" element={<Records />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/pets/:id" element={<PetProfile />} />
+        <Route path="/create-pet" element={<CreatePet />} />
 
         <Route path="/pets/:id" element={<PetProfile />} />
         <Route path="/create-reminder" element={<CreateReminder />} />
@@ -105,6 +41,7 @@ const Router = () => (
         <Route path="/edit-reminder/:id" element={<EditReminder />} />
         <Route path="/edit-record/:id" element={<EditRecord />} />
         <Route path="*" element={<NotFound />} />
+
         {/* TODO: refazer not found */}
         {/* TODO: refazer header com logout */}
       </Routes>
