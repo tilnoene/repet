@@ -77,6 +77,7 @@ const CardRecord = ({
               color="primaryText"
               size="32px"
               onClick={() => handleOpenModalOptions()}
+              clickable
             />
 
             {openModalOptions && (
