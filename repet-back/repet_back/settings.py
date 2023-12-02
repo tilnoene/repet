@@ -121,7 +121,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-TOKEN_EXPIRED_AFTER_MINUTES = 2
+TOKEN_EXPIRED_AFTER_MINUTES = 720
 
 
 # Internationalization

@@ -95,8 +95,23 @@ class UserView(APIView):
         user_update = self.query_user(pk)
         serializer = UserSerializer(instance=user_update, data=request.data, partial=True)
 
+        print(serializer.initial_data['email'])
         if serializer.is_valid():
+            if serializer.initial_data.get('email') or serializer.initial_data.get('username'):
+                us1 = USER.objects.filter(username = serializer.initial_data.get('username'))
+                us2 = USER.objects.filter(email = serializer.initial_data.get('email'))
+
+                if us1.exists() or us2.exists():
+                    Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
+            us = USER.objects.filter(pk=user_update.user_login.pk)
+
+            print(us)
+            if serializer.initial_data.get('email'):
+                us.update(email=serializer.initial_data.get('email'))
+            
+            if serializer.initial_data.get('username'):
+                us.update(username=serializer.initial_data.get('username'))
             return Response("Usuário atualizado com sucesso.", status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("Erro ao atualizar o usuário.", status=status.HTTP_400_BAD_REQUEST)
@@ -106,7 +121,10 @@ class UserView(APIView):
         if not can_acess(request.user.id, pk):
             return Response("Não autorizado", status=status.HTTP_401_UNAUTHORIZED)
         user_delete = self.query_user(pk)
-        user_delete.delete()
+
+        user = user_delete.user_login
+        user.delete()
+        # user_delete.delete()
 
         return Response("Usuário deletado com sucesso.")
 
