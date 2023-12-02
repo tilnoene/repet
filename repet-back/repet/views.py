@@ -43,10 +43,11 @@ def can_acess(user_pk, pk):
     return get_my_id(user_pk).pk == pk
 
 class CheckTokenView(APIView):
-    permission_classes = [IsAuthenticated]
     def get(self, request):
-        dict = {"is_valid": authenticate_credentials(request.auth)}
-        return Response(dict)
+        try:
+            return Response({"detail": authenticate_credentials(request.auth)})
+        except:
+            return Response({"detail": False})
 
 class RegisterView(APIView):
     permission_classes = []
