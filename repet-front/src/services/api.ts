@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
-  baseURL: 'https://repet-back-login.vercel.app', // http://localhost:4000 // TODO: env to api
+  baseURL: 'https://repet-back.vercel.app', // http://localhost:4000 // TODO: env to api
   headers: {
     'Content-Type': 'application/json',
   },
