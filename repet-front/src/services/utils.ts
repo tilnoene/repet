@@ -77,7 +77,7 @@ export const getAge = (date: string) => {
 export const parseVaccines = (vaccines: any) => {
   return vaccines.map((vaccine: any) => {
     return {
-      id: vaccine.record.id,
+      id: vaccine.id,
       title: vaccine.record.title,
       description: vaccine.record.description,
       pet: { name: vaccine.pet.name },

@@ -7,7 +7,7 @@ import {
   ProfileDescription,
 } from './styles';
 
-import defaultImage from '../../assets/images/user.png';
+import defaultImage from '../../assets/images/default-user-image.png';
 
 const CardUser = ({ user }: { user: User }) => {
   const [description, setDescription] = useState<string>(user.description);
@@ -23,10 +23,8 @@ const CardUser = ({ user }: { user: User }) => {
 
   return (
     <ProfileCard>
-      <ProfileImage
-        src={user.image ? user.image : defaultImage}
-        alt={user.name}
-      />
+      <ProfileImage src={user.image ? user.image : defaultImage} />
+
       <ProfileInfo>
         <ProfileName>{user.name}</ProfileName>
         <ProfileDescription>

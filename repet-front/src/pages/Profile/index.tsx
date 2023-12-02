@@ -5,7 +5,6 @@ import SecondaryText from '../../components/SecondaryText';
 import PrimaryText from '../../components/PrimaryText';
 import CardUser from '../../components/CardUser';
 import Button from '../../components/Button';
-import Br from '../../components/Br';
 
 import { ContainerCard, ContainerPage, InfoGroup } from './styles';
 

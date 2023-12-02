@@ -9,6 +9,7 @@ export const ContainerCard = styled.div`
   gap: 16px;
   padding: 16px;
   background-color: ${config.colors.primaryBlue};
+  cursor: pointer;
 `;
 
 type ImageProps = {
@@ -28,6 +29,10 @@ export const Image = styled.div<ImageProps>`
 `;
 
 export const ContainerIcons = styled.div`
+  margin-left: auto;
+`;
+
+export const ContentIcons = styled.div`
   display: flex;
   align-self: start;
   gap: 12px;
