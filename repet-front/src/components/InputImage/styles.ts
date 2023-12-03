@@ -6,6 +6,7 @@ export const ContainerInputImage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  cursor: pointer;
 `;
 
 export const ContainerIcon = styled.label`
