@@ -24,6 +24,8 @@
 
 <h2>💬 Sobre o projeto</h2>
 
+O rePET é um assistente digital para a saúde e o bem-estar do seu animal de estimação. Nosso aplicativo facilita o monitoramento de registros da vacinação e dos cuidados diários dos pets, incluindo lembretes para alimentação, banho e mais. Com perfis personalizados para cada pet, garantimos um cuidado atento e adaptado às necessidades de cada um. Junte-se a nós e torne o cuidado com o seu pet mais simples e eficaz!
+
 Este aplicativo foi desenvolvido na disciplina Sistemas de Informação por 5 integrantes, consistindo de diversas etapas: pesquisa de artigo relacionado, elaboração das personas, prototipação das telas no Figma, obtenção de feedback de pessoas utilizando a interface, gerenciamento utilizando Scrum e o desenvolvimento do projeto em si.
 
 Após a pesquisa através de questionários, percebemos que a maior parte do público alvo utiliza dispositivos móveis, então o foco é para dispositivos móveis, existindo a versão para Android, IOS e uma versão web responsiva.
