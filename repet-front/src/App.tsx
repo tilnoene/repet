@@ -7,11 +7,10 @@ import Router from './services/router';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-dayjs.extend(customParseFormat)
+dayjs.extend(customParseFormat);
 dayjs.locale('pt-br');
 
 const App = () => {
-
   return (
     <>
       <Router />
