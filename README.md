@@ -1,8 +1,8 @@
 <h1 align="center">
-  <img alt="rePET" src="./repet_banner.png" />
+  <img alt="rePET" src="./assets/banner-readme.jpg" />
 </h1>
 
-<p align="center">Gerenciador de Pets</p>
+<p align="center">Tornando o cuidado com o seu pet mais simples e eficaz</p>
 
 <div align="center">
   <img alt="Licença" src="https://img.shields.io/github/license/tilnoene/repet-front" />
