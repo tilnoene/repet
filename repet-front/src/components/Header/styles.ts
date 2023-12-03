@@ -7,7 +7,6 @@ export const Container = styled.div`
   height: 60px;
   position: absolute;
   top: 0;
-  padding: 0 20px;
   background-color: ${config.colors.primaryBlue};
   display: flex;
   justify-content: center;
