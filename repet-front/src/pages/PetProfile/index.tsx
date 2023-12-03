@@ -85,8 +85,8 @@ const PetProfile = () => {
               </CardHeaderTitle>
 
               <CardHeaderIcons>
-                <Icon src={penIcon} color='blue' size={'32px'} />
-                <Icon src={shareIcon} color='blue' size={'32px'} />
+                <Icon src={penIcon} color="blue" size={'32px'} />
+                <Icon src={shareIcon} color="blue" size={'32px'} />
               </CardHeaderIcons>
             </CardHeader>
 
