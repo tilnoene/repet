@@ -39,7 +39,10 @@ const Footer: React.FC = () => (
     </SocialLink>
     <FaInstagram size={24} style={{ cursor: 'default' }} />{' '}
     <div>
-      <StoreBadge src={downloadImg} alt="Disponível no Google Play" />
+      <StoreBadge
+        src={downloadImg}
+        alt="Disponível no Google Play e na Apple Store"
+      />
     </div>
   </AppFooter>
 );
