@@ -1,91 +1,149 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Page from '../../components/Page';
 import PrimaryText from '../../components/PrimaryText';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { ContainerPage } from './styles';
 import Select from '../../components/Select';
+import InputImage from '../../components/InputImage';
+
+import { ContainerPage } from './styles';
 
 import api from '../../services/api';
-import { petGenderOptions, petTypeOptions } from '../../services/utils';
+import {
+  formatDate,
+  formatWeight,
+  petGenderOptions,
+  petTypeOptions,
+} from '../../services/utils';
+
 import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
+import { useAuth } from '../../context/authContext';
 
 const CreatePet = () => {
+  const navigate = useNavigate();
+
+  const { userId } = useAuth() || {};
+
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<any>('');
   const [breed, setBreed] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [birthdate, setBirthdate] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
+  const [petImage, setPetImage] = useState<any | undefined>();
 
   const [loadingCreate, setLoadingCreate] = useState<boolean>(false);
 
   const handleCreatePet = () => {
     if (name === '') {
-      toast.error('O nome é obrigatório!');
+      toast.error('O nome é obrigatório.');
       return;
     }
 
     if (type === '') {
-      toast.error('O tipo é obrigatório!');
+      toast.error('O tipo é obrigatório.');
       return;
     }
 
     if (gender === '') {
-      toast.error('O gênero é obrigatório!');
+      toast.error('O gênero é obrigatório.');
       return;
     }
 
-    // TODO: validar data pra ver se é antes de hoje
+    const date = dayjs(birthdate, 'DD/MM/YYYY');
+
+    if (!date.isValid()) {
+      toast.error('A data de nascimento informada é inválida.');
+      return;
+    }
 
     setLoadingCreate(true);
 
-    api.post('/pets/', {
-      name: name,
-      type: type,
-      breed: breed,
-      gender: gender,
-      birthdate: birthdate, // TODO: tratar para data em ingles com dayjs
-      weight: weight,
-    });
-
-    setLoadingCreate(false);
-  }
+    api
+      .post('/pets/', {
+        name: name,
+        type: type,
+        breed: breed,
+        gender: gender,
+        birthdate: date.format('YYYY-MM-DD'),
+        weight: weight,
+        user: userId
+      })
+      .then(() => {
+        toast.success('Pet adicionado com sucesso.');
+        navigate('/pets');
+        setLoadingCreate(false);
+      })
+      .catch((error: any) => {
+        toast.error('Erro ao adicionar pet.');
+        console.error(error);
+        setLoadingCreate(false);
+      });
+  };
 
   return (
-    <Page menuOption={2} loading={false}>
-      <PrimaryText>Cadastrar Pet</PrimaryText>
+    <Page loading={false}>
+      <PrimaryText>Adicionar Pet</PrimaryText>
       <br />
 
       <ContainerPage>
-        <Input label="Nome" value={name} setValue={setName} />
+        <Input label="Nome" value={name} setValue={setName} required />
 
         <Select
-          label='Tipo'
+          label="Tipo"
           setValue={setType}
           options={petTypeOptions}
+          required
         />
 
         <Input label="Raça" value={breed} setValue={setBreed} />
 
+        <InputImage label="Foto" value={petImage} setValue={setPetImage} />
+
         <Select
-          label='Gênero' // TODO: conferir nomenclatura
+          label="Gênero"
           setValue={setGender}
           options={petGenderOptions}
+          required
         />
 
-        {/* TODO: colocar opcional */}
-        {/* TODO: regex */}
-        <Input label="Data de Nascimento" value={birthdate} setValue={setBirthdate} placeholder='DD/MM/AAAA' />
+        <Input
+          label="Data de Nascimento"
+          value={birthdate}
+          setValue={(value: string) => {
+            setBirthdate(formatDate(value));
+          }}
+          placeholder="DD/MM/AAAA"
+          required
+        />
 
-        {/* TODO: colocar opcional */}
-        {/* TODO: only number, colocando kg na frente */}
-        <Input label="Peso" value={weight} setValue={setWeight} placeholder='3 kg' />
+        <Input
+          label="Peso"
+          value={weight}
+          setValue={(value: string) => {
+            setWeight(formatWeight(value));
+          }}
+          type="number"
+          placeholder="3 kg"
+        />
 
         <br />
 
-        <Button name="CADASTRAR PET" onClick={() => handleCreatePet()} loading={loadingCreate} />
+        <Button
+          name="ADICIONAR"
+          onClick={() => handleCreatePet()}
+          loading={loadingCreate}
+        />
+
+        <Button
+          name="VOLTAR"
+          onClick={() => navigate(-1)}
+          loading={loadingCreate}
+          variant="outlined"
+        />
       </ContainerPage>
     </Page>
   );

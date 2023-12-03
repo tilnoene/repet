@@ -14,4 +14,8 @@ export const Text = styled.h2<TextProps>`
   margin: 0;
   padding: 0;
   text-align: justify;
+
+  a {
+    color: ${ config.colors.primaryBlue };
+  }
 `;

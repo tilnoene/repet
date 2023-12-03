@@ -12,15 +12,15 @@ venv.bak/
 
 
 # dependencies
-/repet-front/node_modules
+/repet-front/node_modules/
 /repet-front/.pnp
 .pnp.js
 
 # testing
-/repet-front/coverage
+/repet-front/coverage/
 
 # production
-/repet-front/build
+/repet-front/build/
 
 # misc
 .DS_Store
@@ -34,8 +34,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # capacitor
-/repet-front/android
-/repet-front/ios
+/repet-front/android/
+/repet-front/ios/
+/repet-front/icons/
 
 # backend
 *.log

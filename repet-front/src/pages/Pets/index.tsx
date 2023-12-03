@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import CardPet from '../../components/CardPet';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -25,6 +26,10 @@ const Pets = () => {
     });
   };
 
+  const removePetFromList = (id: number) => {
+    setPets(pets.filter((pet: Pet) => pet.id !== id));
+  };
+
   useEffect(() => {
     getPets();
   }, []);
@@ -35,16 +40,20 @@ const Pets = () => {
         <PrimaryText>Meus Pets</PrimaryText>
 
         <Link to="/create-pet">
-          <Icon src={plusIcon} color='blue' size="20px" clickable />
+          <Icon src={plusIcon} color="blue" size="20px" clickable />
         </Link>
       </ContainerTitle>
 
       <br />
 
       <ContainerCards>
-        {pets.map((pet: any) => (
-          <CardPet pet={pet} key={pet.id} />
-        ))}
+        {pets.length > 0 ? pets.map((pet: Pet) => (
+          <CardPet
+            pet={pet}
+            key={pet.id}
+            removePetFromList={removePetFromList}
+          />
+        )) : <SecondaryText>Não há pets.</SecondaryText>}
       </ContainerCards>
     </Page>
   );
