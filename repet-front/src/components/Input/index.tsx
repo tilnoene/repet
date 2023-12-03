@@ -7,12 +7,15 @@ const Input = ({
   placeholder = '',
   value,
   setValue,
+  type = 'text',
   required = false,
+  ...props
 }: {
   label?: string;
   placeholder?: string;
   value: string;
-  setValue: any;
+  setValue: any; // TODO: tipar
+  type?: string;
   required?: boolean;
 }) => {
   return (
@@ -25,10 +28,12 @@ const Input = ({
       </label>
 
       <InputStyle
+        type={type}
         id={`input-${label}`}
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder={placeholder}
+        {...props}
       />
     </ContainerInput>
   );

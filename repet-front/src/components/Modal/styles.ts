@@ -26,7 +26,7 @@ export const ContainerModal = styled.div`
 
   width: 80%;
   height: min-content;
-  z-index: 2;
+  z-index: 8;
   border-radius: 8px;
   padding: 16px;
 
@@ -37,7 +37,8 @@ export const ContainerModal = styled.div`
 
 export const HeaderModal = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding-bottom: 16px;
+  gap: 12px;
 `;

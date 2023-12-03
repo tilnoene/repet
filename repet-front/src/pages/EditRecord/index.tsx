@@ -75,7 +75,6 @@ const EditRecord = () => {
         date: formattedDate.format('YYYY-MM-DD'),
         time: formattedTime.format('HH:mm:ss'),
         pet: pets.find(pet => pet.name === petName)?.id,
-        user: 1,
       })
       .then(() => {
         toast.success('Registro editado com sucesso.');
@@ -134,7 +133,6 @@ const EditRecord = () => {
         pet: pets.find(pet => pet.name === petName)?.id,
         veterinarian: veterinarian,
         place: place,
-        user: 1,
       })
       .then(() => {
         toast.success('Vacina editada com sucesso.');

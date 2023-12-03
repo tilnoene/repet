@@ -39,13 +39,13 @@ const InputImage = ({
 
           <EditIcon htmlFor={`input-${label}`}>
             <BackgroundSquare>
-              <Icon src={penIcon} color="blue" size="42px" />
+              <Icon src={penIcon} color="blue" size="42px" clickable />
             </BackgroundSquare>
           </EditIcon>
         </ContainerImage>
       ) : (
         <ContainerIcon htmlFor={`input-${label}`}>
-          <Icon src={cameraIcon} color="blue" size="48px" />
+          <Icon src={cameraIcon} color="blue" size="48px" clickable />
           <SecondaryText>Nenhuma imagem selecionada</SecondaryText>
         </ContainerIcon>
       )}

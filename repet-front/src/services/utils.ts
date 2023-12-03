@@ -35,7 +35,10 @@ export const formatWeight = (weight: string) => {
 };
 
 export const formatTime = (time: string) => {
-  return time; // TODO: implementar
+  return time
+    .replace(/\D/g, '')
+    .replace(/(\d{2})(\d)/, '$1:$2')
+    .substring(0, 5);
 };
 
 export const getAge = (date: string) => {
@@ -74,7 +77,7 @@ export const getAge = (date: string) => {
 export const parseVaccines = (vaccines: any) => {
   return vaccines.map((vaccine: any) => {
     return {
-      id: vaccine.record.id,
+      id: vaccine.id,
       title: vaccine.record.title,
       description: vaccine.record.description,
       pet: { name: vaccine.pet.name },

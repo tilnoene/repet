@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Card from '../Card';
 import PrimaryText from '../PrimaryText';
 import SecondaryText from '../SecondaryText';
 import Icon from '../Icon';
 import Modal from '../Modal';
+import Button from '../Button';
 
-import { ContainerCard, ContainerIcons, Image } from './styles';
+import { ContainerCard, ContainerIcons, ContentIcons, Image } from './styles';
 
 import deleteIcon from '../../assets/icons/trash.svg';
 import editIcon from '../../assets/icons/pencil.svg';
+import defaultPetImage from '../../assets/images/default-pet-image.jpg';
 
-import angora from '../../assets/images/angora.png';
-import Button from '../Button';
 import api from '../../services/api';
 import { toast } from 'react-toastify';
 
@@ -25,10 +25,13 @@ const CardPet = ({
   pet: Pet;
   removePetFromList?: any;
 }) => {
+  const navigate = useNavigate();
+
   const [openModalDelete, setOpenModalDelete] = useState<boolean>(false);
   const [loadingDelete, setLoadingDelete] = useState<boolean>(false);
 
-  const handleOpenModalDelete = () => {
+  const handleOpenModalDelete = (e: any) => {
+    e.stopPropagation();
     setOpenModalDelete(true);
   };
 
@@ -42,23 +45,28 @@ const CardPet = ({
     api
       .delete(`/pets/${pet.id}/`)
       .then(() => {
-        toast.success(`Pet deletado com sucesso.`);
+        toast.success(`Pet apagado com sucesso.`);
         removePetFromList(pet.id);
         setLoadingDelete(false);
         handleCloseModalDelete();
       })
       .catch((error: any) => {
-        toast.error(`Erro ao deletar o pet ${pet.name}.`);
+        toast.error(`Erro ao apagar o pet ${pet.name}.`);
         console.error(error);
         setLoadingDelete(false);
       });
   };
 
+  const handleRedirectEditPage = (e: any) => {
+    e.stopPropagation();
+    navigate(`/edit-pet/${pet.id}`);
+  };
+
   return (
     <Card {...props}>
-      <ContainerCard>
+      <ContainerCard onClick={() => navigate(`/pets/${pet.id}`)}>
         <Link to={`/pets/${pet.id}`}>
-          <Image src={angora} />
+          <Image src={defaultPetImage} />
         </Link>
 
         <div>
@@ -71,17 +79,23 @@ const CardPet = ({
         </div>
 
         <ContainerIcons>
-          <Link to={`/edit-pet/${pet.id}`}>
-            <Icon src={editIcon} color="white" size="24px" clickable />
-          </Link>
+          <ContentIcons>
+            <Icon
+              src={editIcon}
+              color="white"
+              size="24px"
+              clickable
+              onClick={(e: any) => handleRedirectEditPage(e)}
+            />
 
-          <Icon
-            src={deleteIcon}
-            color="white"
-            size="24px"
-            clickable
-            onClick={() => handleOpenModalDelete()}
-          />
+            <Icon
+              src={deleteIcon}
+              color="white"
+              size="24px"
+              clickable
+              onClick={(e: any) => handleOpenModalDelete(e)}
+            />
+          </ContentIcons>
         </ContainerIcons>
       </ContainerCard>
 

@@ -6,6 +6,7 @@ import CardRecord from '../../components/CardRecord';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
 import CardVaccine from '../../components/CardVaccine';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -45,6 +46,14 @@ const Records = () => {
     getVaccines();
   }, []);
 
+  const removeRecordFromList = (id: number) => {
+    setRecords(records.filter((record: PetRecord) => record.id !== id));
+  };
+
+  const removeVaccineFromList = (id: number) => {
+    setVaccines(vaccines.filter((vaccine: Vaccine) => vaccine.id !== id));
+  };
+
   return (
     <Page menuOption={3} loading={loadingRecords || loadingVaccines}>
       <ContainerTitle>
@@ -59,12 +68,24 @@ const Records = () => {
 
       <ContainerCards>
         {vaccines.map(vaccine => (
-          <CardVaccine vaccine={vaccine} key={vaccine.id} />
+          <CardVaccine
+            vaccine={vaccine}
+            key={vaccine.id}
+            removeVaccineFromList={removeVaccineFromList}
+          />
         ))}
 
         {records.map(record => (
-          <CardRecord record={record} key={record.id} />
+          <CardRecord
+            record={record}
+            key={record.id}
+            removeRecordFromList={removeRecordFromList}
+          />
         ))}
+
+        {records.length + vaccines.length === 0 && (
+          <SecondaryText>Não há registros.</SecondaryText>
+        )}
       </ContainerCards>
     </Page>
   );

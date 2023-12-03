@@ -6,6 +6,7 @@ import PrimaryText from '../../components/PrimaryText';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Select from '../../components/Select';
+import InputImage from '../../components/InputImage';
 
 import { ContainerPage } from './styles';
 
@@ -19,10 +20,12 @@ import {
 
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
-import InputImage from '../../components/InputImage';
+import { useAuth } from '../../context/authContext';
 
 const CreatePet = () => {
   const navigate = useNavigate();
+
+  const { userId } = useAuth() || {};
 
   const [name, setName] = useState<string>('');
   const [type, setType] = useState<any>('');
@@ -67,7 +70,7 @@ const CreatePet = () => {
         gender: gender,
         birthdate: date.format('YYYY-MM-DD'),
         weight: weight,
-        user: 1,
+        user: userId
       })
       .then(() => {
         toast.success('Pet adicionado com sucesso.');
@@ -123,6 +126,7 @@ const CreatePet = () => {
           setValue={(value: string) => {
             setWeight(formatWeight(value));
           }}
+          type="number"
           placeholder="3 kg"
         />
 

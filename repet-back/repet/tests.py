@@ -1,21 +1,32 @@
 from django.test import TestCase
 
+from django.contrib.auth.models import User as USER
+from rest_framework.authtoken.models import Token
 from repet.models import User, Pet, Vaccine, Record, Reminder
 import datetime
 from repet.serializers import UserSerializer
 
 class UserViewTest(TestCase):
 
+    def get_auth_header(self):
+        token, created = Token.objects.get_or_create(user='user')
+        return { "HTTP_AUTHORIZATION": f"Token {token}" }
+
     def setUp(self):
+        username = 'user'
+        password = 'password'
+        email = 'user@gmail.com'
+        id = USER.objects.create_user(username=username, password=password, email=email)
         User.objects.create(
-            name='user',
-            email='user@gmail.com',
-            username='user'
+            user_login=id,
+            name='name',
+            email=email,
+            username=username
         )
     
     # get all
     def test_url_exists(self):
-        response = self.client.get('/users/')
+        response = self.client.get('/users/', **self.get_auth_header())
         self.assertEqual(response.status_code, 200)
 
     # get existing user

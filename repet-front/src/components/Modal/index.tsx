@@ -22,8 +22,8 @@ const Modal = ({
           <PrimaryText>{title}</PrimaryText>
           <Icon
             src={closeIcon}
-            color="blue"
-            size="48px"
+            color="primaryText"
+            size="32px"
             clickable
             onClick={handleClose}
           />

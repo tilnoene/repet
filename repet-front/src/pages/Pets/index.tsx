@@ -5,6 +5,7 @@ import Page from '../../components/Page';
 import CardPet from '../../components/CardPet';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
+import SecondaryText from '../../components/SecondaryText';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -46,13 +47,13 @@ const Pets = () => {
       <br />
 
       <ContainerCards>
-        {pets.map((pet: Pet) => (
+        {pets.length > 0 ? pets.map((pet: Pet) => (
           <CardPet
             pet={pet}
             key={pet.id}
             removePetFromList={removePetFromList}
           />
-        ))}
+        )) : <SecondaryText>Não há pets.</SecondaryText>}
       </ContainerCards>
     </Page>
   );

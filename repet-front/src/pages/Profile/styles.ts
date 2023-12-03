@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 
+import config from '../../config.json';
+
 export const ContainerPage = styled.div`
-  width: 100vw;
-  min-height: 100vh;
-`;
-
-export const ContainerTitle = styled.div`
   width: 100%;
-  background: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Sombra para o cartão
-  border-radius: 10px; // Borda arredondada
-  margin-bottom: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 `;
 
-export const InfoGroup = styled.div`
-  margin-bottom: 20px;
+export const ContainerCard = styled.div`
+  width: 100%;
+  background: ${ config.colors.white };
+  padding: 18px;
+  border-radius: 50px; // Borda arredondada
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
+
+export const InfoGroup = styled.div``;
