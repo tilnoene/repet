@@ -6,8 +6,11 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import SecondaryText from '../../components/SecondaryText';
 import ForceMobile from '../../components/ForceMobile';
+import Br from '../../components/Br';
 
 import { ContainerFooterText, ContainerInput, ContainerPage } from './styles';
+
+import repetLogoBlue from '../../assets/images/repet-logo-blue.png';
 
 import { useAuth } from '../../context/authContext';
 
@@ -57,6 +60,14 @@ const SignIn = () => {
     <ForceMobile>
       <form onSubmit={handleSignIn}>
         <ContainerPage>
+          <img
+            src={repetLogoBlue}
+            height="72px"
+            alt="rePET: Gerenciador de pets"
+          />
+
+          <Br />
+
           <ContainerInput>
             <Input
               label="Email ou nome de usuário"
