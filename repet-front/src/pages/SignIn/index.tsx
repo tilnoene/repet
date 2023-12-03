@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import SecondaryText from '../../components/SecondaryText';
+import ForceMobile from '../../components/ForceMobile';
 
 import { ContainerFooterText, ContainerInput, ContainerPage } from './styles';
 
@@ -53,48 +54,50 @@ const SignIn = () => {
   };
 
   return (
-    <form onSubmit={handleSignIn}>
-      <ContainerPage>
-        <ContainerInput>
-          <Input
-            label="Email ou nome de usuário"
-            value={email}
-            setValue={setEmail}
+    <ForceMobile>
+      <form onSubmit={handleSignIn}>
+        <ContainerPage>
+          <ContainerInput>
+            <Input
+              label="Email ou nome de usuário"
+              value={email}
+              setValue={setEmail}
+            />
+
+            <Input
+              label="Senha"
+              value={password}
+              setValue={setPassword}
+              type="password"
+            />
+          </ContainerInput>
+
+          <Button
+            type="submit"
+            name="ENTRAR"
+            // onClick={() => handleSignIn()}
+            loading={loading}
           />
 
-          <Input
-            label="Senha"
-            value={password}
-            setValue={setPassword}
-            type="password"
-          />
-        </ContainerInput>
+          <ContainerFooterText>
+            <SecondaryText>
+              Ainda não tem uma conta?{' '}
+              <Link to="/sign-up" state={{ email: email }}>
+                Cadastre-se
+              </Link>
+              .
+            </SecondaryText>
 
-        <Button
-          type="submit"
-          name="ENTRAR"
-          // onClick={() => handleSignIn()}
-          loading={loading}
-        />
-
-        <ContainerFooterText>
-          <SecondaryText>
-            Ainda não tem uma conta?{' '}
-            <Link to="/sign-up" state={{ email: email }}>
-              Cadastre-se
-            </Link>
-            .
-          </SecondaryText>
-
-          <SecondaryText>
-            <Link to="/recover-password" state={{ email: email }}>
-              Esqueci minha senha
-            </Link>
-            .
-          </SecondaryText>
-        </ContainerFooterText>
-      </ContainerPage>
-    </form>
+            <SecondaryText>
+              <Link to="/recover-password" state={{ email: email }}>
+                Esqueci minha senha
+              </Link>
+              .
+            </SecondaryText>
+          </ContainerFooterText>
+        </ContainerPage>
+      </form>
+    </ForceMobile>
   );
 };
 
