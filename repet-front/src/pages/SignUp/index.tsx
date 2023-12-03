@@ -6,6 +6,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import PrimaryText from '../../components/PrimaryText';
 import SecondaryText from '../../components/SecondaryText';
+import ForceMobile from '../../components/ForceMobile';
 
 import { ContainerInput, ContainerPage, ContainerFooterText } from './styles';
 
@@ -74,60 +75,62 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSignUp}>
-      <ContainerPage>
-        <PrimaryText>Criar uma conta</PrimaryText>
+    <ForceMobile>
+      <form onSubmit={handleSignUp}>
+        <ContainerPage>
+          <PrimaryText>Criar uma conta</PrimaryText>
 
-        <ContainerInput>
-          <Input label="Nome" value={name} setValue={setName} />
+          <ContainerInput>
+            <Input label="Nome" value={name} setValue={setName} />
 
-          <Input
-            label="Email"
-            value={email}
-            setValue={setEmail}
-            type="email"
-            placeholder="exemplo@email.com"
+            <Input
+              label="Email"
+              value={email}
+              setValue={setEmail}
+              type="email"
+              placeholder="exemplo@email.com"
+            />
+
+            <Input
+              label="Nome de usuário"
+              value={username}
+              setValue={setUsername}
+            />
+
+            <Input
+              label="Senha"
+              value={password}
+              setValue={setPassword}
+              type="password"
+            />
+
+            <Input
+              label="Confirme a senha"
+              value={confirmPassword}
+              setValue={setConfirmPassword}
+              type="password"
+            />
+          </ContainerInput>
+
+          <Button
+            name="CADASTRAR"
+            type="submit"
+            // onClick={() => handleSignUp()}
+            loading={loading}
           />
 
-          <Input
-            label="Nome de usuário"
-            value={username}
-            setValue={setUsername}
-          />
-
-          <Input
-            label="Senha"
-            value={password}
-            setValue={setPassword}
-            type="password"
-          />
-
-          <Input
-            label="Confirme a senha"
-            value={confirmPassword}
-            setValue={setConfirmPassword}
-            type="password"
-          />
-        </ContainerInput>
-
-        <Button
-          name="CADASTRAR"
-          type="submit"
-          // onClick={() => handleSignUp()}
-          loading={loading}
-        />
-
-        <ContainerFooterText>
-          <SecondaryText>
-            Já tem uma conta?{' '}
-            <Link to="/sign-in" state={{ email: email }}>
-              Faça login
-            </Link>
-            .
-          </SecondaryText>
-        </ContainerFooterText>
-      </ContainerPage>
-    </form>
+          <ContainerFooterText>
+            <SecondaryText>
+              Já tem uma conta?{' '}
+              <Link to="/sign-in" state={{ email: email }}>
+                Faça login
+              </Link>
+              .
+            </SecondaryText>
+          </ContainerFooterText>
+        </ContainerPage>
+      </form>
+    </ForceMobile>
   );
 };
 
