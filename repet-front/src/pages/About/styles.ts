@@ -11,16 +11,16 @@ export const AppContainer = styled.div`
 export const AppHeader = styled.header`
   display: flex;
   align-items: center;
-  justify-content: center; // Centraliza o conteúdo horizontalmente
+  justify-content: center;
   padding: 20px;
   background-color: #fff;
 `;
 
 export const BackButton = styled.img`
   position: absolute;
-  left: 40%; // Posiciona a seta a 35% da largura do AppHeader
-  width: 24px; // Tamanho da imagem
-  height: 24px; // Tamanho da imagem
+  left: 40%;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 `;
 
