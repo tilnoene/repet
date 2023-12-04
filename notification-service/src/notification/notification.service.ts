@@ -47,7 +47,9 @@ export class NotificationService {
     const time = dayjs(createNotificationDto.time, 'HH:mm:ss');
 
     const myCron = createNotificationDto.time
-      ? `${time.minute()} ${(time.hour() + 3) % 24} ${date.date()} ${date.month() + 1} *`
+      ? `${time.minute()} ${(time.hour() + 3) % 24} ${date.date()} ${
+          date.month() + 1
+        } *`
       : `0 0 ${date.date()} ${date.month() + 1} *`;
 
     console.log(`Adicionando notificação no cron ${myCron}`);
@@ -64,17 +66,21 @@ export class NotificationService {
           });
 
           subscriptions.forEach((subscription) => {
-            this.sendNotification(
-              {
-                endpoint: subscription.endpoint,
-                expirationTime: null,
-                keys: {
-                  p256dh: subscription.p256dh,
-                  auth: subscription.auth,
+            try {
+              this.sendNotification(
+                {
+                  endpoint: subscription.endpoint,
+                  expirationTime: null,
+                  keys: {
+                    p256dh: subscription.p256dh,
+                    auth: subscription.auth,
+                  },
                 },
-              },
-              createNotificationDto.message,
-            );
+                createNotificationDto.message,
+              );
+            } catch {
+              console.log('Error when sending message');
+            }
           });
         } catch {
           throw new ForbiddenException("Can't get messages");
