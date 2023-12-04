@@ -330,6 +330,7 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            # talvez fazer um post pro runapscheduler.py de alguma forma
             return Response("Lembrete cadastrado com sucesso.", status=status.HTTP_201_CREATED)
         else:
             return Response("Erro ao cadastrar lemebrete.", status=status.HTTP_400_BAD_REQUEST)
