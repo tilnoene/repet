@@ -19,8 +19,6 @@ const saveSubscription = async subscription => {
 
   const SERVER_URL = `${apiUrl}/subscription`;
 
-  console.log(subscription);
-
   const body = JSON.stringify({
     endpoint: subscription.endpoint,
     // expirationTime: null,
