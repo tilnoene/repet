@@ -1,19 +1,22 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 
 import * as webpush from 'web-push';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 @Injectable()
 export class NotificationService {
   constructor(
     private schedulerRegistry: SchedulerRegistry,
     private prisma: PrismaService,
-  ) {}
+  ) {
+    dayjs.extend(customParseFormat);
+  }
 
   addCronJob(
     name: string,
@@ -29,6 +32,7 @@ export class NotificationService {
   }
 
   sendNotification(subscription, dataToSend = '') {
+    console.log('Enviando notificação');
     webpush.sendNotification(subscription, dataToSend);
   }
 
@@ -43,7 +47,7 @@ export class NotificationService {
     const time = dayjs(createNotificationDto.time, 'HH:mm:ss');
 
     const myCron = createNotificationDto.time
-      ? `${time.minute()} ${time.hour()} ${date.date()} ${date.month() + 1} *`
+      ? `${time.minute()} ${(time.hour() + 3) % 24} ${date.date()} ${date.month() + 1} *`
       : `0 0 ${date.date()} ${date.month() + 1} *`;
 
     console.log(`Adicionando notificação no cron ${myCron}`);
@@ -80,20 +84,4 @@ export class NotificationService {
 
     return 'This action adds a new notification';
   }
-
-  // findAll() {
-  //   return `This action returns all notification`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} notification`;
-  // }
-
-  // update(id: number, updateNotificationDto: UpdateNotificationDto) {
-  //   return `This action updates a #${id} notification`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} notification`;
-  // }
 }

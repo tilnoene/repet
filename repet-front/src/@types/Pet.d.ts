@@ -6,4 +6,5 @@ type Pet = {
   birthdate: string;
   breed: string;
   weight: number;
+  image: string;
 };

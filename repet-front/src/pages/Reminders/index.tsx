@@ -38,10 +38,11 @@ const Reminders = () => {
     setReminders(reminders.filter((reminder: Reminder) => reminder.id !== id));
   };
 
-  const check = () => {
+  const checkServiceWorkerAvailability = () => {
     if (!('serviceWorker' in navigator)) {
       throw new Error('No Service Worker support!');
     }
+
     if (!('PushManager' in window)) {
       throw new Error('No Push API Support!');
     }
@@ -56,44 +57,21 @@ const Reminders = () => {
 
   const requestNotificationPermission = async () => {
     const permission = await window.Notification.requestPermission();
-    // value of permission can be 'granted', 'default', 'denied'
-    // granted: user has accepted the request
-    // default: user has dismissed the notification permission popup by clicking on x
-    // denied: user has denied the request.
+
     if (permission !== 'granted') {
       throw new Error('Permission not granted for Notification');
     }
   };
 
-  const showLocalNotification = (
-    title: any,
-    body: any,
-    swRegistration: any,
-  ) => {
-    const options = {
-      body,
-      // TODO: here you can add more properties like icon, image, vibrate, etc.
-    };
-    swRegistration.showNotification(title, options);
-  };
-
   // TODO: ativar notificações só na tela de configurações
   const testNotification = async () => {
-    check();
-    const swRegistration = await registerServiceWorker();
-    const permission = await requestNotificationPermission();
-
-    // try {
-    //   console.log('tentando enviar notificação');
-
-    //   showLocalNotification(
-    //     'This is title',
-    //     'this is the message',
-    //     swRegistration,
-    //   );
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      checkServiceWorkerAvailability();
+      await requestNotificationPermission();
+      await registerServiceWorker();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

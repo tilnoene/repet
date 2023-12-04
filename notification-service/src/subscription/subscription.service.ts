@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SubscriptionService {
@@ -24,20 +24,4 @@ export class SubscriptionService {
       throw new ForbiddenException(error);
     }
   }
-
-  // findAll() {
-  //   return `This action returns all subscription`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} subscription`;
-  // }
-
-  // update(id: number, updateSubscriptionDto: UpdateSubscriptionDto) {
-  //   return `This action updates a #${id} subscription`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} subscription`;
-  // }
 }
