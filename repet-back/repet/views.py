@@ -102,8 +102,12 @@ class UserView(APIView):
                 us1 = USER.objects.filter(username = serializer.initial_data.get('username'))
                 us2 = USER.objects.filter(email = serializer.initial_data.get('email'))
 
-                if us1.exists() or us2.exists():
-                    Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us1.count() >= 2) or (us2.count() >= 2):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us1.count() == 1) and (us1[0].id != pk):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us2.count() == 1) and (us2[0].id != pk):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             us = USER.objects.filter(pk=user_update.user_login.pk)
 

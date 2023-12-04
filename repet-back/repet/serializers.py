@@ -7,7 +7,7 @@ from base64 import b64encode
 
 class BinaryField(serializers.Field):
     def to_representation(self, value):
-        return b64encode(value).decode('utf-8')
+        return bytes(value).decode('utf-8')
 
     def to_internal_value(self, value):
         return value.encode('utf-8')
