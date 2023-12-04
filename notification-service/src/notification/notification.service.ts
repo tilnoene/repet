@@ -32,7 +32,7 @@ export class NotificationService {
   }
 
   sendNotification(subscription, dataToSend = '') {
-    console.log('Enviando notificação para ', subscription);
+    console.log('Enviando notificação');
     webpush.sendNotification(subscription, dataToSend);
   }
 
@@ -47,7 +47,7 @@ export class NotificationService {
     const time = dayjs(createNotificationDto.time, 'HH:mm:ss');
 
     const myCron = createNotificationDto.time
-      ? `${time.minute()} ${time.hour()} ${date.date()} ${date.month() + 1} *`
+      ? `${time.minute()} ${(time.hour() + 3) % 24} ${date.date()} ${date.month() + 1} *`
       : `0 0 ${date.date()} ${date.month() + 1} *`;
 
     console.log(`Adicionando notificação no cron ${myCron}`);
