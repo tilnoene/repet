@@ -12,8 +12,7 @@ export class NotificationController {
 
   @Post()
   create(@Body() createNotificationDto: CreateNotificationDto) {
-    return "Oi";
-    // return this.notificationService.create(createNotificationDto);
+    return this.notificationService.create(createNotificationDto);
   }
 
   //   @Get()
