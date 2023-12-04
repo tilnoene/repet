@@ -57,8 +57,8 @@ self.addEventListener('activate', async () => {
 
 self.addEventListener('push', function (event) {
   if (event.data) {
-    console.log('Push event!! ', event.data.text());
-    showLocalNotification('Yolo', event.data.text(), self.registration);
+    console.log('Notificação recebida: ', event.data.text());
+    showLocalNotification('rePET', event.data.text(), self.registration);
   } else {
     console.log('Push event but no data');
   }
@@ -67,7 +67,7 @@ self.addEventListener('push', function (event) {
 const showLocalNotification = (title, body, swRegistration) => {
   const options = {
     body,
-    // here you can add more properties like icon, image, vibrate, etc.
+    icon: 'https://i.imgur.com/Sghb873.png',
   };
   swRegistration.showNotification(title, options);
 };
