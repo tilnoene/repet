@@ -32,7 +32,6 @@ export class NotificationService {
   }
 
   sendNotification(subscription, dataToSend = '') {
-    console.log('Enviando notificação para', subscription);
     webpush.sendNotification(subscription, dataToSend);
   }
 
@@ -54,7 +53,7 @@ export class NotificationService {
 
     this.addCronJob(
       `${createNotificationDto.user_id}-${myCron}`,
-      `* * * * *`,
+      myCron,
       async () => {
         try {
           const subscriptions = await this.prisma.subscription.findMany({
