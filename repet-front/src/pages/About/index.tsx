@@ -34,7 +34,11 @@ const MainContentComponent: React.FC = () => (
 const Footer: React.FC = () => (
   <AppFooter>
     <SocialMediaText>Nos acompanhe nas redes sociais:</SocialMediaText>
-    <SocialLink href="https://github.com/tilnoene/repet">
+    <SocialLink
+      href="https://github.com/tilnoene/repet"
+      target="_blank"
+      rel="noreferrer"
+    >
       <FaGithub size={24} />
     </SocialLink>
     <FaInstagram size={24} style={{ cursor: 'default' }} />{' '}
