@@ -9,6 +9,7 @@ from .models import User, Pet, Vaccine, Record, Reminder
 from django.contrib.auth.models import User as USER
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+import requests
 
 # Create your views here.
 
@@ -154,8 +155,7 @@ class PetView(APIView):
             # data = data.filter(user=id)
             serializer = PetSerializerGET(data)
         else:
-            data = Pet.objects.all()
-            data = data.filter(user=id)
+            data = Pet.objects.filter(user=id)
             serializer = PetSerializerGET(data, many=True)
 
         response = Response(serializer.data)
@@ -214,8 +214,7 @@ class RecordView(APIView):
             # data = data.filter(user=id)
             serializer = RecordSerializerGET(data)
         else:
-            data = Record.objects.all()
-            data = data.filter(pet__in=list_pets)
+            data = Record.objects.filter(pet__in=list_pets).order_by('-date', '-time')
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             data = data.exclude(id__in=list_ids)
@@ -284,8 +283,7 @@ class VaccineView(APIView):
             # data = data.filter(pet__in=list_pets)
             serializer = VaccineSerializerGET(data)
         else:
-            data = Vaccine.objects.all()
-            data = data.filter(pet__in=list_pets)
+            data = Vaccine.objects.filter(pet__in=list_pets).order_by('-record__date', '-record__time')
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = VaccineSerializerGET(data, many=True)
@@ -327,9 +325,17 @@ class RemindersView(APIView):
 
     def post(self, request):
         serializer = RemindersSerializer(data=request.data)
-
+        id = get_my_id(request.user.id)
         if serializer.is_valid():
-            serializer.save()
+            auto = serializer.save()
+            data={
+                "message": serializer.initial_data.get('title'),
+                "date": serializer.initial_data.get('date'),
+                "time": serializer.initial_data.get('time'),
+                "user_id": id.pk,
+                "reminder_id": auto.id
+            }
+            requests.post("https://repet-notification-service.onrender.com/notification/", json = data)
             return Response({"detail": "Lembrete cadastrado com sucesso."}, status=status.HTTP_201_CREATED)
         else:
             return Response({"detail": "Erro ao cadastrar lemebrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -351,14 +357,14 @@ class RemindersView(APIView):
             # data = data.filter(pet__in=list_pets)
             serializer = RemindersSerializerGET(data)
         else:
-            data = Reminder.objects.all()
-            data = data.filter(pet__in=list_pets)
+            data = Reminder.objects.filter(pet__in=list_pets).order_by('-date', '-time')
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RemindersSerializerGET(data, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk):
+        id = get_my_id(request.user.id)
         reminders_update = self.query_reminders(pk)
         if not can_acess(request.user.id, reminders_update.pet.user.pk):
             return Response({"detail": "Não autorizado"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -366,6 +372,15 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+
+            data={
+                "message": serializer.initial_data.get('title'),
+                "date": serializer.initial_data.get('date'),
+                "time": serializer.initial_data.get('time'),
+                "user_id": id.pk,
+                "reminder_id": pk
+            }
+            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data)
             return Response({"detail": "Lembrete atualizado com sucesso."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"detail": "Erro ao atualizar o lembrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -375,6 +390,8 @@ class RemindersView(APIView):
         if not can_acess(request.user.id, reminders_delete.pet.user.pk):
             return Response({"detail": "Não autorizado"}, status=status.HTTP_401_UNAUTHORIZED)
         reminders_delete.delete()
+
+        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}")
 
         return Response({"detail": "Lembrete deletado com sucesso."})
 
