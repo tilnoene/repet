@@ -1,17 +1,7 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { SchedulerRegistry } from '@nestjs/schedule';
-import { CronJob } from 'cron';
 
 @Controller('notification')
 export class NotificationController {
@@ -22,7 +12,8 @@ export class NotificationController {
 
   @Post()
   create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.notificationService.create(createNotificationDto);
+    return "Oi";
+    // return this.notificationService.create(createNotificationDto);
   }
 
   //   @Get()
