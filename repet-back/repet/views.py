@@ -339,7 +339,10 @@ class RemindersView(APIView):
                 "user_id": id.pk,
                 "reminder_id": auto.id
             }
-            requests.post("https://repet-notification-service.onrender.com/notification/", json = data)
+            header = {
+                "Access-Control-Allow-Origin": "*"
+            }
+            requests.post("https://repet-notification-service.onrender.com/notification/", json = data, headers=header)
             return Response({"detail": "Lembrete cadastrado com sucesso."}, status=status.HTTP_201_CREATED)
         else:
             return Response({"detail": "Erro ao cadastrar lemebrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -376,7 +379,6 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-
             data={
                 "message": serializer.initial_data.get('title'),
                 "date": serializer.initial_data.get('date'),
@@ -384,7 +386,10 @@ class RemindersView(APIView):
                 "user_id": id.pk,
                 "reminder_id": pk
             }
-            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data)
+            header = {
+                "Access-Control-Allow-Origin": "*"
+            }
+            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data, headers=header)
             return Response({"detail": "Lembrete atualizado com sucesso."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"detail": "Erro ao atualizar o lembrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -394,8 +399,10 @@ class RemindersView(APIView):
         if not can_acess(request.user.id, reminders_delete.pet.user.pk):
             return Response({"detail": "Não autorizado"}, status=status.HTTP_401_UNAUTHORIZED)
         reminders_delete.delete()
-
-        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}")
+        header = {
+            "Access-Control-Allow-Origin": "*"
+        }
+        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}", headers=header)
 
         return Response({"detail": "Lembrete deletado com sucesso."})
 
