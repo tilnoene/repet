@@ -83,21 +83,22 @@ const Reminders = () => {
     const swRegistration = await registerServiceWorker();
     const permission = await requestNotificationPermission();
 
-    try {
-      console.log('tentando enviar notificação');
+    // try {
+    //   console.log('tentando enviar notificação');
 
-      showLocalNotification(
-        'This is title',
-        'this is the message',
-        swRegistration,
-      );
-    } catch (error) {
-      console.error(error);
-    }
+    //   showLocalNotification(
+    //     'This is title',
+    //     'this is the message',
+    //     swRegistration,
+    //   );
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   useEffect(() => {
     getReminders();
+
     try {
       testNotification();
     } catch (error) {
