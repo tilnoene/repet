@@ -72,7 +72,7 @@ const Reminders = () => {
   ) => {
     const options = {
       body,
-      // here you can add more properties like icon, image, vibrate, etc.
+      // TODO: here you can add more properties like icon, image, vibrate, etc.
     };
     swRegistration.showNotification(title, options);
   };

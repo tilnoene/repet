@@ -14,7 +14,9 @@ const urlB64ToUint8Array = base64String => {
 };
 
 const saveSubscription = async subscription => {
-  const apiUrl = 'http://localhost:4001';
+  // const apiUrl = 'http://localhost:4001';
+  const apiUrl = 'https://repet-notification.vercel.app';
+
   const SERVER_URL = `${apiUrl}/subscription`;
 
   console.log(subscription);
