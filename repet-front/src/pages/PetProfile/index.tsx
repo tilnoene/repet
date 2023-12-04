@@ -32,7 +32,7 @@ import api from '../../services/api';
 import { getAge } from '../../services/utils';
 import { toast } from 'react-toastify';
 
-import angora from '../../assets/images/angora.png'; // TODO: trocar para default pet image
+import defaultPetImage from '../../assets/images/default-pet-image.jpg';
 
 const PetProfile = () => {
   const { id } = useParams();
@@ -106,7 +106,7 @@ const PetProfile = () => {
     <Page menuOption={2} loading={loading} padding={false}>
       {pet && (
         <ContainerPage>
-          <Image src={angora} />
+          <Image src={pet?.image || defaultPetImage} />
 
           <ProfileCard>
             <CardHeader>
