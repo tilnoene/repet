@@ -7,13 +7,16 @@ import { CronJob } from 'cron';
 
 import * as webpush from 'web-push';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 @Injectable()
 export class NotificationService {
   constructor(
     private schedulerRegistry: SchedulerRegistry,
     private prisma: PrismaService,
-  ) {}
+  ) {
+    dayjs.extend(customParseFormat);
+  }
 
   addCronJob(
     name: string,
