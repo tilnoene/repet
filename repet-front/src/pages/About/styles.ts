@@ -24,13 +24,13 @@ export const BackButton = styled.img`
   width: 24px;
   height: 24px;
   cursor: pointer;
-  margin-right: 10px; /* Ajuste este valor conforme necessário */
+  margin-right: 10px;
 `;
 
 export const HeaderTitle = styled.h1`
   font-size: 1.5em;
   margin: 0;
-  margin-left: 16px; /* Isso adiciona espaço entre o botão de voltar e o título */
+  margin-left: 16px;
   font-family: 'Lexend', sans-serif;
 `;
 
