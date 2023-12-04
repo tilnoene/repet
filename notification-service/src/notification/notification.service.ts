@@ -32,6 +32,7 @@ export class NotificationService {
   }
 
   sendNotification(subscription, dataToSend = '') {
+    console.log('Enviando notificação para ', subscription);
     webpush.sendNotification(subscription, dataToSend);
   }
 
