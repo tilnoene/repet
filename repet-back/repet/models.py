@@ -13,7 +13,7 @@ class User(models.Model):
     gender = models.CharField(max_length=9, choices=genders, verbose_name='Gênero', blank=True, null=True)
     birthdate = models.DateField(verbose_name='Aniversário', blank=True, null=True)
     name = models.CharField(max_length=200, verbose_name='Nome')
-    image = models.BinaryField(verbose_name='Imagem do Usuário', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateField(auto_now_add=True, blank=True, verbose_name='Criado em')
 
     def __str__(self):
@@ -25,7 +25,8 @@ class Pet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='ID do usuário')
     name = models.CharField(max_length=200, verbose_name='Nome')
 
-    image = models.BinaryField(verbose_name='Imagem do PET', blank=True, null=True)
+    # image = models.BinaryField(verbose_name='Imagem do PET', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     genders = [('Macho', 'Macho'), ('Fêmea', 'Fêmea')]
     gender = models.CharField(max_length=5, choices=genders, verbose_name='Gênero', blank=True, null=True)
@@ -38,7 +39,6 @@ class Pet(models.Model):
               ('Peixe', 'Peixe'),
               ('Outros', 'Outros')]
     type = models.CharField(max_length=8, choices=typers, verbose_name='Tipo', default="")
-
     birthdate = models.DateField(verbose_name='Aniversário', blank=True, null=True)
     breed = models.CharField(max_length=100, verbose_name='Raça', blank=True, null=True)
     weight = models.IntegerField(verbose_name='Peso', blank=True, null=True)
@@ -65,7 +65,7 @@ class Vaccine(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE, verbose_name='ID do PET')
     veterinarian = models.CharField(max_length=100, verbose_name='Veterinário(a)', blank=True, null=True)
     place = models.CharField(max_length=100, verbose_name='Local', blank=True, null=True)
-    vaccine_card = models.BinaryField(verbose_name='Cartão de Vacina', blank=True, null=True)
+    vaccine_card = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.id}-{self.pet_id}:{self.record_id}"

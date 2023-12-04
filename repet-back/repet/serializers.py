@@ -13,7 +13,7 @@ class BinaryField(serializers.Field):
         return value.encode('utf-8')
 
 class RegisterSerializer(serializers.ModelSerializer):
-    image = BinaryField(allow_null=True)
+    # image = BinaryField(allow_null=True)
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=USER.objects.all())]
@@ -44,21 +44,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
-    image = BinaryField(allow_null=True)
+    # image = BinaryField(allow_null=True)
     class Meta:
         model = User
         fields = '__all__'
 
 class PetSerializerGET(serializers.ModelSerializer):
     user = UserSerializer()
-    image = BinaryField(allow_null=True)
+    # image = BinaryField(allow_null=True)
 
     class Meta:
         model = Pet
         fields = '__all__'
 
 class PetSerializer(serializers.ModelSerializer):
-    image = BinaryField(allow_null=True)
+    # image = BinaryField(allow_null=True)
     class Meta:
         model = Pet
         fields = '__all__'
@@ -75,7 +75,7 @@ class RecordSerializerGET(serializers.ModelSerializer):
         fields = '__all__'
 
 class VaccineSerializer(serializers.ModelSerializer):
-    vaccine_card = BinaryField(allow_null=True)
+    # vaccine_card = BinaryField(allow_null=True)
     class Meta:
         model = Vaccine
         fields = '__all__'
@@ -83,7 +83,7 @@ class VaccineSerializer(serializers.ModelSerializer):
 class VaccineSerializerGET(serializers.ModelSerializer):
     pet = PetSerializerGET()
     record = RecordSerializer()
-    vaccine_card = BinaryField(allow_null=True)
+    # vaccine_card = BinaryField(allow_null=True)
     class Meta:
         model = Vaccine
         fields = '__all__'
