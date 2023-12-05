@@ -16,6 +16,7 @@ import api from '../../services/api';
 
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
+import { checkServiceWorkerAvailability } from '../../services/utils';
 
 const Reminders = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
@@ -38,16 +39,6 @@ const Reminders = () => {
 
   const removeReminderFromList = (id: number) => {
     setReminders(reminders.filter((reminder: Reminder) => reminder.id !== id));
-  };
-
-  const checkServiceWorkerAvailability = () => {
-    if (!('serviceWorker' in navigator)) {
-      throw new Error('No Service Worker support!');
-    }
-
-    if (!('PushManager' in window)) {
-      throw new Error('No Push API Support!');
-    }
   };
 
   const registerServiceWorker = async () => {

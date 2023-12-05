@@ -203,6 +203,9 @@ const PetProfile = () => {
                 <SecondaryText>Não há registros.</SecondaryText>
               )}
             </ContainerCards>
+
+            <br />
+            <br />
           </ProfileCard>
         </ContainerPage>
       )}

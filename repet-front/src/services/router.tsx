@@ -27,14 +27,12 @@ const Router = () => (
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/about" element={<About />} />
-
-        {/* <Route path="/about" element={<About />} /> */}
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="/" element={<Reminders />} />
         <Route path="/pets" element={<Pets />} />
         <Route path="/records" element={<Records />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/pets/:id" element={<PetProfile />} />
 
         <Route path="/pets/:id" element={<PetProfile />} />

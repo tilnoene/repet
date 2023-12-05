@@ -47,7 +47,7 @@ self.addEventListener('activate', async () => {
     const options = { applicationServerKey, userVisibleOnly: true };
     const subscription = await self.registration.pushManager.subscribe(options);
 
-    await saveSubscription(JSON.parse(JSON.stringify(subscription)));
+    // await saveSubscription(JSON.parse(JSON.stringify(subscription)));
 
     console.log('Notifications enabled.');
   } catch (err) {

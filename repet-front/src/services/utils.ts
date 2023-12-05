@@ -12,6 +12,46 @@ export const petTypeOptions = [
 
 export const petGenderOptions = ['Macho', 'Fêmea'];
 
+export const checkServiceWorkerAvailability = () => {
+  if (!('serviceWorker' in navigator)) {
+    throw new Error('No Service Worker support!');
+  }
+
+  if (!('PushManager' in window)) {
+    throw new Error('No Push API Support!');
+  }
+};
+
+export const registerServiceWorker = async () => {
+  const swRegistration = await navigator.serviceWorker.register('./service.js'); //notice the file name
+  return swRegistration;
+};
+
+export const saveSubscription = async (subscription: any, userId: number) => {
+  // const apiUrl = 'http://localhost:4001';
+  const apiUrl = 'https://repet-notification.vercel.app';
+
+  const SERVER_URL = `${apiUrl}/subscription`;
+
+  const body = JSON.stringify({
+    endpoint: subscription.endpoint,
+    // expirationTime: null,
+    p256dh: subscription.keys.p256dh,
+    auth: subscription.keys.auth,
+    user_id: userId,
+  });
+
+  const response = await fetch(SERVER_URL, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  });
+
+  return response.json();
+};
+
 export const toastOptions: ToastOptions = {
   position: 'top-right',
   autoClose: 3000,
