@@ -99,7 +99,6 @@ const Reminders = () => {
       <br />
 
       <ContainerCards>
-<<<<<<< HEAD
         {
           <>
             <SecondaryText>Lembretes Passados</SecondaryText>
@@ -169,48 +168,6 @@ const Reminders = () => {
             )}
           </>
         }
-=======
-        {reminders.length > 0 ? (
-          <>
-            {reminders
-              .filter(reminder => {
-                const date = reminder.date;
-                const time = reminder.time ? reminder.time : '00:00:00';
-
-                return (
-                  dayjs(`${date} ${time}`, 'DD/MM/YYYY HH:mm:ss') >= dayjs()
-                );
-              })
-              .map(reminder => (
-                <CardReminder
-                  reminder={reminder}
-                  key={reminder.id}
-                  removeReminderFromList={removeReminderFromList}
-                />
-              ))}
-
-            <p>separador</p>
-            {reminders
-              .filter(reminder => {
-                const date = reminder.date;
-                const time = reminder.time ? reminder.time : '00:00:00';
-
-                return (
-                  dayjs(`${date} ${time}`, 'DD/MM/YYYY HH:mm:ss') < dayjs()
-                );
-              })
-              .map(reminder => (
-                <CardReminder
-                  reminder={reminder}
-                  key={reminder.id}
-                  removeReminderFromList={removeReminderFromList}
-                />
-              ))}
-          </>
-        ) : (
-          <SecondaryText>Não há lembretes.</SecondaryText>
-        )}
->>>>>>> main
       </ContainerCards>
     </Page>
   );
