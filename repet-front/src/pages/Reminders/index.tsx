@@ -14,6 +14,7 @@ import plusIcon from '../../assets/icons/plus.svg';
 import api from '../../services/api';
 
 import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 
 const Reminders = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
@@ -98,13 +99,42 @@ const Reminders = () => {
 
       <ContainerCards>
         {reminders.length > 0 ? (
-          reminders.map(reminder => (
-            <CardReminder
-              reminder={reminder}
-              key={reminder.id}
-              removeReminderFromList={removeReminderFromList}
-            />
-          ))
+          <>
+            {reminders
+              .filter(reminder => {
+                const date = reminder.date;
+                const time = reminder.time ? reminder.time : '00:00:00';
+
+                return (
+                  dayjs(`${date} ${time}`, 'DD/MM/YYYY HH:mm:ss') >= dayjs()
+                );
+              })
+              .map(reminder => (
+                <CardReminder
+                  reminder={reminder}
+                  key={reminder.id}
+                  removeReminderFromList={removeReminderFromList}
+                />
+              ))}
+
+            <p>separador</p>
+            {reminders
+              .filter(reminder => {
+                const date = reminder.date;
+                const time = reminder.time ? reminder.time : '00:00:00';
+
+                return (
+                  dayjs(`${date} ${time}`, 'DD/MM/YYYY HH:mm:ss') < dayjs()
+                );
+              })
+              .map(reminder => (
+                <CardReminder
+                  reminder={reminder}
+                  key={reminder.id}
+                  removeReminderFromList={removeReminderFromList}
+                />
+              ))}
+          </>
         ) : (
           <SecondaryText>Não há lembretes.</SecondaryText>
         )}

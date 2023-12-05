@@ -27,4 +27,5 @@ export const Color = styled.div<ColorProps>`
   background: ${props => (props.selected ? props.color : 'transparent')};
   box-shadow: 0 0 0 4px ${config.colors.background} inset;
   box-sizing: border-box;
+  cursor: pointer;
 `;
