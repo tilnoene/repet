@@ -66,7 +66,7 @@ const CardPet = ({
     <Card {...props}>
       <ContainerCard onClick={() => navigate(`/pets/${pet.id}`)}>
         <Link to={`/pets/${pet.id}`}>
-          <Image src={defaultPetImage} />
+          <Image src={pet?.image || defaultPetImage} />
         </Link>
 
         <div>

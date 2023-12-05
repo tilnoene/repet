@@ -3,8 +3,17 @@ from .models import User, Pet, Vaccine, Record, Reminder
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User as USER
 from rest_framework.authtoken.models import Token
+from base64 import b64encode
+
+class BinaryField(serializers.Field):
+    def to_representation(self, value):
+        return b64encode(value).decode('utf-8')
+
+    def to_internal_value(self, value):
+        return value.encode('utf-8')
 
 class RegisterSerializer(serializers.ModelSerializer):
+    image = BinaryField(allow_null=True)
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=USER.objects.all())]
@@ -35,18 +44,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
+    image = BinaryField(allow_null=True)
     class Meta:
         model = User
         fields = '__all__'
 
 class PetSerializerGET(serializers.ModelSerializer):
     user = UserSerializer()
+    image = BinaryField(allow_null=True)
 
     class Meta:
         model = Pet
         fields = '__all__'
 
 class PetSerializer(serializers.ModelSerializer):
+    image = BinaryField(allow_null=True)
     class Meta:
         model = Pet
         fields = '__all__'
@@ -63,6 +75,7 @@ class RecordSerializerGET(serializers.ModelSerializer):
         fields = '__all__'
 
 class VaccineSerializer(serializers.ModelSerializer):
+    vaccine_card = BinaryField(allow_null=True)
     class Meta:
         model = Vaccine
         fields = '__all__'
@@ -70,6 +83,7 @@ class VaccineSerializer(serializers.ModelSerializer):
 class VaccineSerializerGET(serializers.ModelSerializer):
     pet = PetSerializerGET()
     record = RecordSerializer()
+    vaccine_card = BinaryField(allow_null=True)
     class Meta:
         model = Vaccine
         fields = '__all__'
