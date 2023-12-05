@@ -9,7 +9,7 @@ from .models import User, Pet, Vaccine, Record, Reminder
 from django.contrib.auth.models import User as USER
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-import requests
+#import requests
 
 # Create your views here.
 
@@ -332,14 +332,14 @@ class RemindersView(APIView):
         id = get_my_id(request.user.id)
         if serializer.is_valid():
             auto = serializer.save()
-            data={
+            """ data={
                 "message": serializer.initial_data.get('title'),
                 "date": serializer.initial_data.get('date'),
                 "time": serializer.initial_data.get('time'),
                 "user_id": id.pk,
                 "reminder_id": auto.id
             }
-            requests.post("https://repet-notification-service.onrender.com/notification/", json = data)
+            requests.post("https://repet-notification-service.onrender.com/notification/", json = data) """
             return Response({"detail": "Lembrete cadastrado com sucesso."}, status=status.HTTP_201_CREATED)
         else:
             return Response({"detail": "Erro ao cadastrar lemebrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -376,14 +376,14 @@ class RemindersView(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            data={
+            """ data={
                 "message": serializer.initial_data.get('title'),
                 "date": serializer.initial_data.get('date'),
                 "time": serializer.initial_data.get('time'),
                 "user_id": id.pk,
                 "reminder_id": pk
             }
-            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data)
+            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data) """
             return Response({"detail": "Lembrete atualizado com sucesso."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"detail": "Erro ao atualizar o lembrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -394,7 +394,7 @@ class RemindersView(APIView):
             return Response({"detail": "Não autorizado"}, status=status.HTTP_401_UNAUTHORIZED)
         reminders_delete.delete()
 
-        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}")
+        """ requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}") """
 
         return Response({"detail": "Lembrete deletado com sucesso."})
 
