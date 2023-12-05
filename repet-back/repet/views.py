@@ -335,7 +335,14 @@ class RemindersView(APIView):
                 "user_id": id.pk,
                 "reminder_id": auto.id
             }
-            requests.post("https://repet-notification-service.onrender.com/notification/", json = data)
+            header = {
+                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Methods": "GET, POST",
+                "Access-Control-Request-Headers": "content-type",
+                "Content-Type":"application/json"
+            }
+            response = requests.post("https://repet-notification-service.onrender.com/notification/", headers=header, json = data)
+            print(response.text)
             return Response({"detail": "Lembrete cadastrado com sucesso."}, status=status.HTTP_201_CREATED)
         else:
             return Response({"detail": "Erro ao cadastrar lemebrete."}, status=status.HTTP_400_BAD_REQUEST)
