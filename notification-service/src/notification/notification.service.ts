@@ -33,7 +33,13 @@ export class NotificationService {
 
   sendNotification(subscription, dataToSend = '') {
     console.log('Enviando notificação');
-    webpush.sendNotification(subscription, dataToSend);
+
+    try {
+      webpush.sendNotification(subscription, dataToSend);
+    } catch (error) {
+      console.log('Error when sending notification on function webpush');
+      console.error(error);
+    }
   }
 
   create(createNotificationDto: CreateNotificationDto) {
@@ -82,8 +88,9 @@ export class NotificationService {
                 },
                 createNotificationDto.message,
               );
-            } catch {
+            } catch (error) {
               console.log('Error when sending message');
+              console.error(error);
             }
           });
         } catch {
