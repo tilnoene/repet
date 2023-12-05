@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 import textImg from '../../assets/images/about_us_text.png';
@@ -18,12 +19,20 @@ import {
   StoreBadge,
 } from './styles';
 
-const Header: React.FC = () => (
-  <AppHeader>
-    <BackButton src={backArrowImg} alt="Voltar" />
-    <HeaderTitle>Sobre Nós</HeaderTitle>
-  </AppHeader>
-);
+const Header: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <AppHeader>
+      <BackButton
+        src={backArrowImg}
+        alt="Voltar"
+        onClick={() => navigate(-1)}
+      />
+      <HeaderTitle>Sobre Nós</HeaderTitle>
+    </AppHeader>
+  );
+};
 
 const MainContentComponent: React.FC = () => (
   <MainContent>

@@ -5,12 +5,22 @@ import config from '../../config.json';
 export const Container = styled.div`
   width: 100%;
   height: 60px;
-  background-color: ${ config.colors.primaryBlue };
+  position: absolute;
+  top: 0;
+  background-color: ${config.colors.primaryBlue};
   display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+`;
+
+export const ForceMobile = styled.div`
+  width: 100%;
+  max-width: 1024px;
   padding: 0 20px;
+  background-color: ${config.colors.primaryBlue};
+  display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
-  position: absolute;
-  top: 0;
 `;

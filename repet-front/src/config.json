@@ -5,10 +5,50 @@
     "primaryText": "#272E28",
     "secondaryText": "#666666",
     "gray": "#D8DEE3",
+    "gray300": "#979B9E",
+    "gray500": "#787C7E",
     "background": "#F5F7FA",
     "red": "#EF233C",
+    "secondaryRed": "#D71F36",
     "green": "#48B755",
     "yellow": "#FFD60A",
-    "white": "#FFFFFF"
+    "white": "#FFFFFF",
+    "black": "#3B3B3B"
+  },
+  "routes": {
+    "en-us": {
+      "sign-in": "sign-in",
+      "sign-up": "sign-up",
+      "recover-password": "recover-password",
+      "home": "",
+      "reminders": "reminders",
+      "create-reminder": "create-reminder",
+      "edit-reminder": "edit-reminder",
+      "pets": "pets",
+      "create-pet": "create-pet",
+      "edit-pet": "edit-pet",
+      "records": "records",
+      "create-record": "create-record",
+      "edit-record": "edit-record",
+      "profile": "profile",
+      "settings": "settings"
+    },
+    "pt-br": {
+      "sign-in": "entrar",
+      "sign-up": "cadastrar",
+      "recover-password": "recuperar-senha",
+      "home": "",
+      "reminders": "lembretes",
+      "create-reminder": "criar-lembrete",
+      "edit-reminder": "editar-lembrete",
+      "pets": "pets",
+      "create-pet": "criar-pet",
+      "edit-pet": "editar-pet",
+      "records": "registros",
+      "create-record": "criar-registro",
+      "edit-record": "editar-registro",
+      "profile": "perfil",
+      "settings": "configuracoes"
+    }
   }
 }
