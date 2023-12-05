@@ -34,12 +34,9 @@ export class NotificationService {
   sendNotification(subscription, dataToSend = '') {
     console.log('Enviando notificação');
 
-    try {
-      webpush.sendNotification(subscription, dataToSend);
-    } catch (error) {
-      console.log('Error when sending notification on function webpush');
+    webpush.sendNotification(subscription, dataToSend).catch((error) => {
       console.error(error);
-    }
+    });
   }
 
   create(createNotificationDto: CreateNotificationDto) {
@@ -76,22 +73,17 @@ export class NotificationService {
           });
 
           subscriptions.forEach((subscription) => {
-            try {
-              this.sendNotification(
-                {
-                  endpoint: subscription.endpoint,
-                  expirationTime: null,
-                  keys: {
-                    p256dh: subscription.p256dh,
-                    auth: subscription.auth,
-                  },
+            this.sendNotification(
+              {
+                endpoint: subscription.endpoint,
+                expirationTime: null,
+                keys: {
+                  p256dh: subscription.p256dh,
+                  auth: subscription.auth,
                 },
-                createNotificationDto.message,
-              );
-            } catch (error) {
-              console.log('Error when sending message');
-              console.error(error);
-            }
+              },
+              createNotificationDto.message,
+            );
           });
         } catch {
           throw new ForbiddenException("Can't get messages");
