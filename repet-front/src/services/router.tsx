@@ -16,7 +16,11 @@ import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+<<<<<<< HEAD
+import About from '../pages/About';
+=======
 // import About from '../pages/About';
+>>>>>>> main
 
 import { AuthProvider } from '../context/authContext';
 
@@ -26,6 +30,7 @@ const Router = () => (
       <Routes>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/about" element={<About />} />
 
         {/* <Route path="/about" element={<About />} /> */}
 
