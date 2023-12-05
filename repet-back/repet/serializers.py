@@ -51,7 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PetSerializerGET(serializers.ModelSerializer):
     user = UserSerializer()
-    image = BinaryField(allow_null=True)
+    image = BinaryField(allow_null=True, required=False)
 
     class Meta:
         model = Pet
