@@ -13,7 +13,7 @@ class BinaryField(serializers.Field):
         return value.encode('utf-8')
 
 class RegisterSerializer(serializers.ModelSerializer):
-    image = BinaryField(allow_null=True)
+    image = BinaryField(allow_null=True, required=False)
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=USER.objects.all())]
@@ -31,7 +31,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             user_login = user,
             name = validated_data.get('name'),
             email = validated_data.get('email'),
-            image = validated_data.get('image'),
+            # image = validated_data.get('image'),
             username = validated_data.get('username'),
         )
         # cria um token para o usuário

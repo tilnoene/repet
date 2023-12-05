@@ -10,7 +10,7 @@ class User(models.Model):
     email = models.EmailField()
     description = models.TextField(verbose_name='Biografia', blank=True, null=True)
     genders = [('Masculino', 'Masculino'), ('Feminino', 'Feminino'), ('Outro', 'Outro')]
-    gender = models.CharField(max_length=9, choices=genders, verbose_name='Gênero', blank=True, null=True)
+    gender = models.CharField(max_length=20, choices=genders, verbose_name='Gênero', blank=True, null=True)
     birthdate = models.DateField(verbose_name='Aniversário', blank=True, null=True)
     name = models.CharField(max_length=200, verbose_name='Nome')
     image = models.BinaryField(verbose_name='Imagem do Usuário', blank=True, null=True)
