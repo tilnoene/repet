@@ -33,7 +33,10 @@ export class NotificationService {
 
   sendNotification(subscription, dataToSend = '') {
     console.log('Enviando notificação');
-    webpush.sendNotification(subscription, dataToSend);
+
+    webpush.sendNotification(subscription, dataToSend).catch((error) => {
+      console.error(error);
+    });
   }
 
   create(createNotificationDto: CreateNotificationDto) {
@@ -70,21 +73,17 @@ export class NotificationService {
           });
 
           subscriptions.forEach((subscription) => {
-            try {
-              this.sendNotification(
-                {
-                  endpoint: subscription.endpoint,
-                  expirationTime: null,
-                  keys: {
-                    p256dh: subscription.p256dh,
-                    auth: subscription.auth,
-                  },
+            this.sendNotification(
+              {
+                endpoint: subscription.endpoint,
+                expirationTime: null,
+                keys: {
+                  p256dh: subscription.p256dh,
+                  auth: subscription.auth,
                 },
-                createNotificationDto.message,
-              );
-            } catch {
-              console.log('Error when sending message');
-            }
+              },
+              createNotificationDto.message,
+            );
           });
         } catch {
           throw new ForbiddenException("Can't get messages");
