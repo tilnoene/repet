@@ -102,8 +102,13 @@ class UserView(APIView):
                 us1 = USER.objects.filter(username = serializer.initial_data.get('username'))
                 us2 = USER.objects.filter(email = serializer.initial_data.get('email'))
 
-                if us1.exists() or us2.exists():
-                    Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us1.count() >= 2) or (us2.count() >= 2):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us1.count() == 1) and (us1[0].id != pk):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                if (us2.count() == 1) and (us2[0].id != pk):
+                    return Response({"detail": "Erro ao atualizar o usuário."}, status=status.HTTP_400_BAD_REQUEST)
+                
             serializer.save()
             us = USER.objects.filter(pk=user_update.user_login.pk)
 
@@ -337,7 +342,7 @@ class RemindersView(APIView):
             }
             header = {
                 "Access-Control-Allow-Origin":"*",
-                "Access-Control-Allow-Methods": "GET, POST",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
                 "Access-Control-Request-Headers": "content-type",
                 "Content-Type":"application/json"
             }
@@ -387,7 +392,13 @@ class RemindersView(APIView):
                 "user_id": id.pk,
                 "reminder_id": pk
             }
-            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", json = data)
+            header = {
+                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+                "Access-Control-Request-Headers": "content-type",
+                "Content-Type":"application/json"
+            }
+            requests.put(f"https://repet-notification-service.onrender.com/notification/{pk}", headers=header, json = data)
             return Response({"detail": "Lembrete atualizado com sucesso."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"detail": "Erro ao atualizar o lembrete."}, status=status.HTTP_400_BAD_REQUEST)
@@ -397,8 +408,13 @@ class RemindersView(APIView):
         if not can_acess(request.user.id, reminders_delete.pet.user.pk):
             return Response({"detail": "Não autorizado"}, status=status.HTTP_401_UNAUTHORIZED)
         reminders_delete.delete()
-
-        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}")
+        header = {
+            "Access-Control-Allow-Origin":"*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+            "Access-Control-Request-Headers": "content-type",
+            "Content-Type":"application/json"
+        }
+        requests.delete(f"https://repet-notification-service.onrender.com/notification/{pk}", headers=header)
 
         return Response({"detail": "Lembrete deletado com sucesso."})
 

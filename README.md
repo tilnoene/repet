@@ -93,7 +93,7 @@ pip install -r requirements.txt
 
 Crie um arquivo chamado `.env` na pasta repet-back
 
-E preencha os respectivos campos com as informações do banco de dados:
+E preencha os respectivos campos com as informações do banco de dados, e variaveis de ambiente:
 
 ```sh
 DB_NAME=
@@ -101,6 +101,7 @@ DB_USER=
 DB_PASSWORD=
 DB_HOST=
 DB_PORT=
+SECRET_KEY=
 ```
 
 Execute o Backend:
