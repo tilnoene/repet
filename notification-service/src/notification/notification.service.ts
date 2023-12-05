@@ -20,7 +20,6 @@ export class NotificationService {
     dayjs.extend(customParseFormat);
     dayjs.extend(utc);
     dayjs.extend(timezone);
-    dayjs.tz.setDefault('Atlantic/St_Helena');
   }
 
   addCronJob(
@@ -56,6 +55,9 @@ export class NotificationService {
         'YYYY-MM-DD HH:mm:ss',
       );
     }
+
+    date = date.tz('Europe/Istanbul');
+    date = date.utc();
 
     const myCron = createNotificationDto.time
       ? `${date.minute()} ${date.hour()} ${date.date()} ${date.month() + 1} *`
