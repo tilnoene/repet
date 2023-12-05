@@ -37,6 +37,8 @@ Após a pesquisa através de questionários, percebemos que a maior parte do pú
 
 <img src="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white">
 
+<img src="https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white">
+
 <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white">
 
 E [CapacitorJS](https://capacitorjs.com/), para a versão mobile.
@@ -93,7 +95,7 @@ pip install -r requirements.txt
 
 Crie um arquivo chamado `.env` na pasta repet-back
 
-E preencha os respectivos campos com as informações do banco de dados, e variaveis de ambiente:
+E preencha os respectivos campos com as informações do banco de dados:
 
 ```sh
 DB_NAME=
@@ -108,6 +110,32 @@ Execute o Backend:
 
 ```sh 
 python3 repet-back/manage.py runserver
+```
+
+<h4> Serviço de Notificações </h4>
+
+Tudo será realizado na pasta `notification-service`
+
+Crie um `.env` e preencha os dados:
+
+```
+PUBLIC_KEY=
+PRIVATE_KEY=
+EMAIL=
+ENDPOINT=
+DATABASE_URL=
+```
+
+Instale as dependências do projeto
+
+```
+yarn install
+```
+
+E rode o projeto
+
+```
+yarn start:dev
 ```
 
 <h4> Frontend </h4>
