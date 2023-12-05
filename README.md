@@ -128,13 +128,13 @@ ENDPOINT=
 DATABASE_URL=
 ```
 
-Instale as dependências do projeto
+Instale as dependências do projeto:
 
 ```
 yarn install
 ```
 
-E rode o projeto
+E rode o projeto:
 
 ```
 yarn start:dev
