@@ -369,7 +369,7 @@ class RemindersView(APIView):
             # data = data.filter(pet__in=list_pets)
             serializer = RemindersSerializerGET(data)
         else:
-            data = Reminder.objects.filter(pet__in=list_pets).order_by('-date', '-time')
+            data = Reminder.objects.filter(pet__in=list_pets).order_by('date', 'time')
             if request.GET.get("pet_id"):
                 data = data.filter(pet=request.GET.get("pet_id"))
             serializer = RemindersSerializerGET(data, many=True)
