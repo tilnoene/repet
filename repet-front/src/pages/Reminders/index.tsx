@@ -6,6 +6,7 @@ import CardReminder from '../../components/CardReminder';
 import PrimaryText from '../../components/PrimaryText';
 import Icon from '../../components/Icon';
 import SecondaryText from '../../components/SecondaryText';
+import Br from '../../components/Br';
 
 import { ContainerCards, ContainerTitle } from './styles';
 
@@ -98,6 +99,77 @@ const Reminders = () => {
       <br />
 
       <ContainerCards>
+<<<<<<< HEAD
+        {
+          <>
+            <SecondaryText>Lembretes Passados</SecondaryText>
+
+            {reminders.filter(reminder => {
+              const time = reminder.time ? reminder.time : '00:00:00';
+              const date = dayjs(
+                `${reminder.date} ${time}`,
+                'YYYY-MM-DD HH:mm:ss',
+              );
+
+              return date <= dayjs();
+            }).length > 0 ? (
+              reminders
+                .filter(reminder => {
+                  const time = reminder.time ? reminder.time : '00:00:00';
+                  const date = dayjs(
+                    `${reminder.date} ${time}`,
+                    'YYYY-MM-DD HH:mm:ss',
+                  );
+
+                  return date <= dayjs();
+                })
+                .map(reminder => (
+                  <CardReminder
+                    reminder={reminder}
+                    key={reminder.id}
+                    removeReminderFromList={removeReminderFromList}
+                  />
+                ))
+            ) : (
+              <SecondaryText italic>Não há lembretes passados.</SecondaryText>
+            )}
+
+            <Br />
+
+            <SecondaryText>Lembretes Futuros</SecondaryText>
+
+            {reminders.filter(reminder => {
+              const time = reminder.time ? reminder.time : '00:00:00';
+              const date = dayjs(
+                `${reminder.date} ${time}`,
+                'YYYY-MM-DD HH:mm:ss',
+              );
+
+              return date > dayjs();
+            }).length > 0 ? (
+              reminders
+                .filter(reminder => {
+                  const time = reminder.time ? reminder.time : '00:00:00';
+                  const date = dayjs(
+                    `${reminder.date} ${time}`,
+                    'YYYY-MM-DD HH:mm:ss',
+                  );
+
+                  return date > dayjs();
+                })
+                .map(reminder => (
+                  <CardReminder
+                    reminder={reminder}
+                    key={reminder.id}
+                    removeReminderFromList={removeReminderFromList}
+                  />
+                ))
+            ) : (
+              <SecondaryText italic>Não há lembretes futuros.</SecondaryText>
+            )}
+          </>
+        }
+=======
         {reminders.length > 0 ? (
           <>
             {reminders
@@ -138,6 +210,7 @@ const Reminders = () => {
         ) : (
           <SecondaryText>Não há lembretes.</SecondaryText>
         )}
+>>>>>>> main
       </ContainerCards>
     </Page>
   );
