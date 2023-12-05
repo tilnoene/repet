@@ -19,6 +19,7 @@ export class NotificationService {
   ) {
     dayjs.extend(customParseFormat);
     dayjs.extend(utc);
+    dayjs.extend(timezone);
   }
 
   addCronJob(
