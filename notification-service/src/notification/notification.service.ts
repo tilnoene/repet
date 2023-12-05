@@ -20,6 +20,7 @@ export class NotificationService {
     dayjs.extend(customParseFormat);
     dayjs.extend(utc);
     dayjs.extend(timezone);
+    dayjs.tz.setDefault('America/Sao_Paulo');
   }
 
   addCronJob(
@@ -47,17 +48,12 @@ export class NotificationService {
       process.env.PRIVATE_KEY,
     );
 
-    let date = dayjs
-      .tz(dayjs(createNotificationDto.date, 'YYYY-MM-DD'), 'America/Sao_Paulo')
-      .utc();
+    let date = dayjs(createNotificationDto.date, 'YYYY-MM-DD').utc();
 
     if (createNotificationDto.time) {
       date = dayjs(
-        dayjs(
-          `${createNotificationDto.date} ${createNotificationDto.time}`,
-          'YYYY-MM-DD HH:mm:ss',
-        ),
-        'America/Sao_Paulo',
+        `${createNotificationDto.date} ${createNotificationDto.time}`,
+        'YYYY-MM-DD HH:mm:ss',
       ).utc();
     }
 
