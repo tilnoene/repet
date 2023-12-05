@@ -75,7 +75,12 @@ const Reminders = () => {
   };
 
   useEffect(() => {
-    getReminders();
+    // getReminders();
+
+    api
+    .get('/')
+    .then(response => console.log('resposta: ',response))
+    .catch(error => console.error(error));
 
     try {
       testNotification();

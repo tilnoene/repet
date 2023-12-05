@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://repet-back-rose.vercel.app/', // http://localhost:4000 // TODO: env to api
+  baseURL: 'https://repet-notification-service.onrender.com', // http://localhost:4000 // TODO: env to api
   headers: {
     'Content-Type': 'application/json',
   },
