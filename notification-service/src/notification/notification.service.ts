@@ -47,15 +47,18 @@ export class NotificationService {
       process.env.PRIVATE_KEY,
     );
 
-    let date = dayjs(createNotificationDto.date, 'YYYY-MM-DD').tz(
-      'America/Sao_Paulo',
-    );
+    let date = dayjs
+      .tz(dayjs(createNotificationDto.date, 'YYYY-MM-DD'), 'America/Sao_Paulo')
+      .utc();
 
     if (createNotificationDto.time) {
       date = dayjs(
-        `${createNotificationDto.date} ${createNotificationDto.time}`,
-        'YYYY-MM-DD HH:mm:ss',
-      ).tz('America/Sao_Paulo');
+        dayjs(
+          `${createNotificationDto.date} ${createNotificationDto.time}`,
+          'YYYY-MM-DD HH:mm:ss',
+        ),
+        'America/Sao_Paulo',
+      ).utc();
     }
 
     const myCron = createNotificationDto.time
