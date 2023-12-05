@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
   background-color: #fff;
   color: #333;
@@ -11,22 +15,22 @@ export const AppContainer = styled.div`
 export const AppHeader = styled.header`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 20px;
   background-color: #fff;
 `;
 
 export const BackButton = styled.img`
-  position: absolute;
-  left: 40%;
   width: 24px;
   height: 24px;
   cursor: pointer;
+  margin-right: 10px;
 `;
 
 export const HeaderTitle = styled.h1`
   font-size: 1.5em;
   margin: 0;
+  margin-left: 16px;
   font-family: 'Lexend', sans-serif;
 `;
 
