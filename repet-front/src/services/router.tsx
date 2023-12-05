@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import NotFound from '../pages/NotFound';
-import Settings from '../pages/Settings';
 import Reminders from '../pages/Reminders';
 import Pets from '../pages/Pets';
 import Records from '../pages/Records';
@@ -16,11 +15,8 @@ import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-<<<<<<< HEAD
+import Settings from '../pages/Settings';
 import About from '../pages/About';
-=======
-// import About from '../pages/About';
->>>>>>> main
 
 import { AuthProvider } from '../context/authContext';
 

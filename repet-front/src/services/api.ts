@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-<<<<<<< HEAD
   baseURL: 'https://repet-back-rose.vercel.app/', // http://localhost:4000 // TODO: env to api
-=======
-  baseURL: 'http://localhost:4000', // TODO: env to api
->>>>>>> main
   headers: {
     'Content-Type': 'application/json',
   },
