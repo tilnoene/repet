@@ -8,8 +8,6 @@ import { CronJob } from 'cron';
 import * as webpush from 'web-push';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 
 @Injectable()
 export class NotificationService {
@@ -18,8 +16,6 @@ export class NotificationService {
     private prisma: PrismaService,
   ) {
     dayjs.extend(customParseFormat);
-    dayjs.extend(utc);
-    dayjs.extend(timezone);
   }
 
   addCronJob(
@@ -53,11 +49,8 @@ export class NotificationService {
       date = dayjs(
         `${createNotificationDto.date} ${createNotificationDto.time}`,
         'YYYY-MM-DD HH:mm:ss',
-      );
+      ).add(3, 'hour'); // only work on deployment
     }
-
-    date = date.tz('Europe/Istanbul');
-    date = date.utc();
 
     const myCron = createNotificationDto.time
       ? `${date.minute()} ${date.hour()} ${date.date()} ${date.month() + 1} *`
