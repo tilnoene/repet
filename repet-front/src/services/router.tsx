@@ -16,11 +16,7 @@ import EditReminder from '../pages/EditReminder';
 import EditRecord from '../pages/EditRecord';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
-<<<<<<< HEAD
 import About from '../pages/About';
-=======
-// import About from '../pages/About';
->>>>>>> main
 
 import { AuthProvider } from '../context/authContext';
 
