@@ -342,7 +342,7 @@ class RemindersView(APIView):
             }
             header = {
                 "Access-Control-Allow-Origin":"*",
-                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+                "Access-Control-Allow-Methods": "GET, POST",
                 "Access-Control-Request-Headers": "content-type",
                 "Content-Type":"application/json"
             }
