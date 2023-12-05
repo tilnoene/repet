@@ -8,6 +8,7 @@ import { CronJob } from 'cron';
 import * as webpush from 'web-push';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
 
 @Injectable()
 export class NotificationService {
@@ -16,6 +17,7 @@ export class NotificationService {
     private prisma: PrismaService,
   ) {
     dayjs.extend(customParseFormat);
+    dayjs.extend(utc);
   }
 
   addCronJob(
@@ -43,13 +45,19 @@ export class NotificationService {
       process.env.PRIVATE_KEY,
     );
 
-    const date = dayjs(createNotificationDto.date, 'YYYY-MM-DD');
-    const time = dayjs(createNotificationDto.time, 'HH:mm:ss');
+    let date = dayjs(createNotificationDto.date, 'YYYY-MM-DD').utc();
+
+    if (createNotificationDto.time) {
+      date = dayjs(
+        `${createNotificationDto.date} ${createNotificationDto.time}`,
+        'YYYY-MM-DD HH:mm:ss',
+      ).utc();
+    }
+
+    // console.log(date);
 
     const myCron = createNotificationDto.time
-      ? `${time.minute()} ${(time.hour() + 3) % 24} ${date.date()} ${
-          date.month() + 1
-        } *`
+      ? `${date.minute()} ${date.hour()} ${date.date()} ${date.month() + 1} *`
       : `0 0 ${date.date()} ${date.month() + 1} *`;
 
     console.log(`Adicionando notificação no cron ${myCron}`);
