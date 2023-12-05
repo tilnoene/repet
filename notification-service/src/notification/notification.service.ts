@@ -20,7 +20,7 @@ export class NotificationService {
     dayjs.extend(customParseFormat);
     dayjs.extend(utc);
     dayjs.extend(timezone);
-    dayjs.tz.setDefault('America/Sao_Paulo');
+    dayjs.tz.setDefault('Atlantic/St_Helena');
   }
 
   addCronJob(
