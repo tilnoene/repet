@@ -9,6 +9,7 @@ import * as webpush from 'web-push';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 @Injectable()
 export class NotificationService {
@@ -45,16 +46,16 @@ export class NotificationService {
       process.env.PRIVATE_KEY,
     );
 
-    let date = dayjs(createNotificationDto.date, 'YYYY-MM-DD').utc();
+    let date = dayjs(createNotificationDto.date, 'YYYY-MM-DD').tz(
+      'America/Sao_Paulo',
+    );
 
     if (createNotificationDto.time) {
       date = dayjs(
         `${createNotificationDto.date} ${createNotificationDto.time}`,
         'YYYY-MM-DD HH:mm:ss',
-      ).utc();
+      ).tz('America/Sao_Paulo');
     }
-
-    // console.log(date);
 
     const myCron = createNotificationDto.time
       ? `${date.minute()} ${date.hour()} ${date.date()} ${date.month() + 1} *`
