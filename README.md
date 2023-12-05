@@ -114,6 +114,8 @@ python3 repet-back/manage.py runserver
 
 <h4> Serviço de Notificações </h4>
 
+Instale o [NodeJS](https://nodejs.org/en/download).
+
 Tudo será realizado na pasta `notification-service`
 
 Crie um `.env` e preencha os dados:
